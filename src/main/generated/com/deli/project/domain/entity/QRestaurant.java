@@ -22,6 +22,8 @@ public class QRestaurant extends EntityPathBase<Restaurant> {
 
     public static final QRestaurant restaurant = new QRestaurant("restaurant");
 
+    public final QAddress address;
+
     public final QCategory category;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -48,7 +50,8 @@ public class QRestaurant extends EntityPathBase<Restaurant> {
 
     public QRestaurant(Class<? extends Restaurant> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.category = inits.isInitialized("category") ? new QCategory(forProperty("category")) : null;
+        this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
+        this.category = inits.isInitialized("category") ? new QCategory(forProperty("category"), inits.get("category")) : null;
     }
 
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,9 +28,17 @@ public class PickUp {
     @Embedded
     private Address address;
 
+    @OneToMany(mappedBy = "pickUp")
+    private List<Category> category;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+//    private double distance;
+//
+//    public void setDistance(double distance) {
+//        this.distance = distance;
+//    }
 
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
@@ -45,6 +54,8 @@ public class PickUp {
 
     public void setMember(Member member) {
         this.member = member;
+        member.getPickUpList().add(this);
+
     }
 
 

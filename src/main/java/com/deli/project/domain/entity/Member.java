@@ -17,18 +17,26 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-
     private String loginId;
     private String password;
     private String nickName;
 
+    @OneToMany(mappedBy = "member")
+    private List<PickUp> pickUpList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private MemberSort memberSort;
 
+    private String phoneNumber;
     @Embedded
     private Address address;    //city, state, zipCode
 
+    public void setPickUpList(List<PickUp> pickUpList) {
+        this.pickUpList = pickUpList;
+        for (PickUp pickUp : pickUpList) {
+            pickUp.setMember(this);
+        }
+    }
 
     public void setLoginId(String loginId) {
         this.loginId = loginId;
@@ -50,11 +58,16 @@ public class Member {
         this.address = address;
     }
 
-    public static Member createMember(String loginId, String password, String nickName, MemberSort memberSort, Address address){
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public static Member createMember(String loginId, String password, String nickName, String phoneNumber, MemberSort memberSort, Address address){
         Member member = new Member();
         member.setLoginId(loginId);
         member.setPassword(password);
         member.setNickName(nickName);
+        member.setPhoneNumber(phoneNumber);
         member.setMemberSort(memberSort);
         member.setAddress(address);
         return member;

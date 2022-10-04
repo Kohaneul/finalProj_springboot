@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -18,15 +20,16 @@ public class Order {
     @Column(name="order_id")
     private Long id;
 
+    private String loginId;
     @OneToOne(mappedBy = "order",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Delivery delivery;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pickup_id")
-    private PickUp pickUp;
+
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
+    private LocalDateTime orderDate;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;    // WAITING,START,COMPLETE
 
@@ -38,10 +41,25 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public static Order orderStart(PickUp pickUp,Restaurant restaurant,OrderStatus orderStatus,Delivery delivery){
-        Order order = new Order();
-        order.setOrderStatus(orderStatus);
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
 
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
+    public static Order createOrder(Restaurant restaurant, String loginId, LocalDateTime localDateTime, Delivery delivery){
+        Order order = new Order();
+        order.setLoginId(loginId);
+        order.setRestaurant(restaurant);
+        order.setOrderDate(localDateTime);
+        order.setOrderStatus(OrderStatus.START);
+        order.setDelivery(delivery);
         return order;
     }
 }

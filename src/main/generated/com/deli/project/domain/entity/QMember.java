@@ -34,6 +34,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath password = createString("password");
 
+    public final StringPath phoneNumber = createString("phoneNumber");
+
     public final ListPath<PickUp, QPickUp> pickUpList = this.<PickUp, QPickUp>createList("pickUpList", PickUp.class, QPickUp.class, PathInits.DIRECT2);
 
     public QMember(String variable) {

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,9 +20,15 @@ public class Restaurant {
     @Column(name="restaurant_name")
     private String restaurantName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Embedded
+    private Address address;
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
     private Category category;
+
+//    @OneToOne(mappedBy = "restaurant")
+//    private Order order;
 
     private boolean isShow;
 
@@ -30,17 +38,23 @@ public class Restaurant {
 
     public void setCategory(Category category) {
         this.category = category;
+        category.getRestaurants().add(this);
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public void setShow(boolean show) {
         isShow = show;
     }
 
-    public static Restaurant setRestaurant(String restaurantName, Category category, boolean isShow) {
+    public static Restaurant setRestaurant(String restaurantName, Address address,Category category) {
         Restaurant restaurant = new Restaurant();
+        restaurant.setAddress(address);
         restaurant.setRestaurantName(restaurantName);
         restaurant.setCategory(category);
-        restaurant.setShow(isShow);
+        restaurant.setShow(false);
         return restaurant;
     }
 }

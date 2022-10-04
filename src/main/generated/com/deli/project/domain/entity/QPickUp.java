@@ -22,6 +22,10 @@ public class QPickUp extends EntityPathBase<PickUp> {
 
     public static final QPickUp pickUp = new QPickUp("pickUp");
 
+    public final QAddress address;
+
+    public final ListPath<Category, QCategory> category = this.<Category, QCategory>createList("category", Category.class, QCategory.class, PathInits.DIRECT2);
+
     public final QCoordinate coordinate;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -50,6 +54,7 @@ public class QPickUp extends EntityPathBase<PickUp> {
 
     public QPickUp(Class<? extends PickUp> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
         this.coordinate = inits.isInitialized("coordinate") ? new QCoordinate(forProperty("coordinate")) : null;
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
     }
