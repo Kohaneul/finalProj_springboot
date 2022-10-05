@@ -35,13 +35,13 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
-    public Optional<List<Member>> findLoginId(String loginId){
+    public List<Member> findLoginId(String loginId){
         log.info("loginId={}",loginId);
-        return Optional.of(em.createQuery("select m from Member m where m.loginId = :loginId", Member.class).setParameter("loginId", loginId).getResultList());
+        return em.createQuery("select m from Member m where m.loginId = :loginId", Member.class).setParameter("loginId", loginId).getResultList();
     }
 
-    public Optional<List<Member>> findNickName(String nickName){
-        return Optional.ofNullable(em.createQuery("select m from Member m where m.nickName = :nickName",Member.class).setParameter("nickName",nickName).getResultList());
+    public List<Member> findNickName(String nickName){
+        return em.createQuery("select m from Member m where m.nickName = :nickName",Member.class).setParameter("nickName",nickName).getResultList();
     }
 
     public List<Member> findAll(MemberSearch memberSearch){

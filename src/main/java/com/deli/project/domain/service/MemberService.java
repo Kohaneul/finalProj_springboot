@@ -32,11 +32,11 @@ public class MemberService {
         return repository.findAll(memberSearch);
     }
 
-    public Long loginMember(String loginId,String password){
-        List<Member> members = repository.findLoginId(loginId).orElse(null);
+    public Member loginMember(String loginId,String password){
+        List<Member> members = repository.findLoginId(loginId);
         if(members!=null){
             Member member = members.stream().filter(m -> m.getPassword().equals(password)).findFirst().orElse(null);
-            return member !=null ? member.getId():null;
+            return member;
         }
         return null;
     }

@@ -11,6 +11,10 @@
         <h1>HELLO SHOP</h1>
         <p class="lead">회원 기능</p>
         <p>
+
+            <a href="#" th:if="${session.SESSION_ID!=null}" th:href="@{/logout}" class="btn btn-primary" role="button">Logout</a>
+            <a href="#" th:if="${session.SESSION_ID==null}" th:href="@{/login}" class="btn btn-primary" role="button">로그인</a>
+
             <a class="btn btn-lg btn-secondary" href="/member/new">회원 가입</a>
             <a class="btn btn-lg btn-secondary" href="/member/all">회원 목록</a>
         </p>

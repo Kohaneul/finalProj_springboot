@@ -5,13 +5,14 @@ import com.deli.project.domain.entity.MemberSort;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberForm {
@@ -21,16 +22,18 @@ public class MemberForm {
     private String loginId;
 
     @NotEmpty
-    @Pattern(regexp = "^[A-Za-z0-9]{6,12}$",message = "비밀번호는 6자리 이상이며 한개 이상의 대소문자가 포함되어야 합니다.")
+    @Length(min = 3,max = 10)
+    private String nickName;
+
+    @NotEmpty
+    @Pattern(regexp = "[0-9a-zA-Z]{6,12}",message = "비밀번호는 6자리 이상이며 한개 이상의 대소문자가 포함되어야 합니다.")
     private String password;
 
     @NotEmpty
-    @Pattern(regexp = "^[A-Za-z0-9]{6,12}$",message = "비밀번호는 6자리 이상이며 한개 이상의 대소문자가 포함되어야 합니다.")
+    @Pattern(regexp = "[0-9a-zA-Z]{6,12}",message = "비밀번호는 6자리 이상이며 한개 이상의 대소문자가 포함되어야 합니다.")
     private String passwordCheck;
 
-    @NotEmpty
-    @Length(min = 3,max = 10)
-    private String nickName;
+
 
     @NotNull
     private MemberSort memberSort;
@@ -42,13 +45,6 @@ public class MemberForm {
     @NotEmpty
     private String city,state,zipCode;
 
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
 
 
 }
