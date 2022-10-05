@@ -1,7 +1,6 @@
 package com.deli.project.domain.service;
 
 import com.deli.project.domain.entity.Member;
-import com.deli.project.domain.entity.MemberSort;
 import com.deli.project.domain.repository.MemberRepository;
 import com.deli.project.domain.repository.MemberSearch;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Service
@@ -29,21 +31,14 @@ public class MemberService {
     public List<Member> findAll(MemberSearch memberSearch){
         return repository.findAll(memberSearch);
     }
-//
-//    public List<Member> findAll(){
-//        return repository.findAll();
-//    }
 
-    public List<Member> findLoginId(String loginId){
+    public Long loginMember(String loginId,String password){
         List<Member> members = repository.findLoginId(loginId).orElse(null);
-        log.info("members size={}",members.size());
-        return members;
+        if(members!=null){
+            Member member = members.stream().filter(m -> m.getPassword().equals(password)).findFirst().orElse(null);
+            return member !=null ? member.getId():null;
+        }
+        return null;
     }
-
-    public List<Member> findNickName(String nickName){
-        return repository.findLoginId(nickName).orElse(null);
-    }
-
-
 
 }

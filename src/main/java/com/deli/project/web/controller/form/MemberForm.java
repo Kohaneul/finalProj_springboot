@@ -49,4 +49,6 @@ public class MemberForm {
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
+
+
 }
