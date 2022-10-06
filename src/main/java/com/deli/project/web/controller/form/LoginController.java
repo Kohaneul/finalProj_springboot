@@ -10,11 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.UUID;
 
 @Controller
@@ -26,7 +28,14 @@ public class LoginController {
 
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("loginMember")LoginMember loginMember){
+    public String login(@ModelAttribute("loginMember")LoginMember loginMember, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        if(session.getAttribute(ConstEntity.SESSION)!=null){
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그아웃 되셨습니다.'); location.href='/logout';</script>");
+            out.flush();
+        }
         return "member/Login";
     }
 

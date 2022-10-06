@@ -35,22 +35,11 @@ color: #dc3545;
                    th:class="${#fields.hasErrors('password')}? 'form-control fieldError' : 'form-control'">
             <p class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
         </div>
-        <button type="button" th:onclick="javascript:submitMsg()" class="btn btn-primary">Submit</button>
-        <a th:href="@{/member/new}" class="btn btn-primary" role="button">회원가입</a>
-        <script th:inline="javascript">
-        function submitMsg(){
-         let session = "[[${session.SESSION_ID}]]";
-        console.log(session);
-        let message = "로그인 실패";
-        if(session!= null){
-            message = "로그인 성공!";
-        }
-            alert(message);
-        }
-
-        </script>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="#"  th:href="@{/member/new}" class="btn btn-primary" role="button">회원 가입</a>
 
     </form>
+
     <br/>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->

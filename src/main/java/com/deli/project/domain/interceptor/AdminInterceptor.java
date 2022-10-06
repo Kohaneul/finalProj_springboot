@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 
 @Slf4j
 public class AdminInterceptor implements HandlerInterceptor {
@@ -18,8 +19,10 @@ public class AdminInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         String uuid = session.getAttribute(ConstEntity.SESSION).toString();
         if(!uuid.contains("admin")){
-            response.sendRedirect("/");
-
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('접근 권한이 없습니다.'); location.href='/';</script>");
+            out.flush();
             return false;
         }
         return true;
