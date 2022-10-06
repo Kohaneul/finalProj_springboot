@@ -1,0 +1,115 @@
+#tableInfo {
+	position: absolute;
+	margin-left: 100px;
+	margin-top:500px;
+	width: 25%;
+	border-top: 1px solid #dddddd;
+	border-collapse: collapse;
+	float: left;
+	font-size: 12px;
+	position: absolute;
+	border-radius: 2px;
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	z-index: 1;
+	padding: 5px;
+}
+
+.trstyle {
+	border-bottom: 2px solid #dddddd;
+	  padding: 10px;
+}
+
+#h2style {
+	margin-top: 650px;
+	text-align:center;
+	margin-left:700px;
+	position: absolute;
+}
+
+.label {
+	margin-bottom: 96px;
+}
+
+.label * {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.label .left {
+	background:
+		url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png")
+		no-repeat;
+	display: inline-block;
+	height: 24px;
+	overflow: hidden;
+	vertical-align: top;
+	width: 7px;
+}
+
+.label .center {
+	background:
+		url(https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png)
+		repeat-x;
+	display: inline-block;
+	height: 24px;
+	font-size: 12px;
+	line-height: 24px;
+}
+
+.label .right {
+	background:
+		url("https://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png")
+		-1px 0 no-repeat;
+	display: inline-block;
+	height: 24px;
+	overflow: hidden;
+	width: 6px;
+}
+
+.label2 {
+	margin-bottom: 96px;
+	background-color: #FFB400;
+	color: white;
+	font-weight: bold;
+	border-radius: 5px;
+	font-size: 9px;
+}
+
+.label2 * {
+	display: inline-block;
+	vertical-align: top;
+	background-color: #FFB400;
+}
+
+.label2 .left2 {
+	display: inline-block;
+	height: 24px;
+	overflow: hidden;
+	vertical-align: top;
+	border-radius: 20px;
+	width: 7px;
+}
+
+.label2 .center2 {
+	display: inline-block;
+	height: 24px;
+	font-size: 12px;
+	line-height: 24px;
+	border-radius: 20px;
+}
+
+.label2 .right2 {
+	display: inline-block;
+	height: 24px;
+	overflow: hidden;
+	width: 6px;
+	border-radius: 20px;
+}
+
+#map {
+	width: 1500px;
+	height: 650px;
+	float: left;
+	margin-left: 80px;
+}

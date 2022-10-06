@@ -25,9 +25,8 @@ public class PickUpRepository {
     public PickUp findOne(Long id){
         return em.find(PickUp.class, id);
     }
-
-    public List<PickUp> findAll(boolean isShow){
-        return em.createQuery("select p from PickUp p where p.isShow = :isShow",PickUp.class).setParameter("isShow",isShow).getResultList();
+    public List<PickUp> findAll(){
+        return em.createQuery("select p from PickUp p",PickUp.class).getResultList();
     }
 
 

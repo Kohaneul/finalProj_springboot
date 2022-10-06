@@ -11,44 +11,42 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QBoard is a Querydsl query type for Board
+ * QUploadFile is a Querydsl query type for UploadFile
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QBoard extends EntityPathBase<Board> {
+public class QUploadFile extends EntityPathBase<UploadFile> {
 
-    private static final long serialVersionUID = 1647786541L;
+    private static final long serialVersionUID = 1010645046L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QBoard board = new QBoard("board");
-
-    public final StringPath content = createString("content");
+    public static final QUploadFile uploadFile = new QUploadFile("uploadFile");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final DateTimePath<java.time.LocalDateTime> localDateTime = createDateTime("localDateTime", java.time.LocalDateTime.class);
-
     public final QMember member;
 
-    public final StringPath title = createString("title");
+    public final StringPath originFileName = createString("originFileName");
 
-    public QBoard(String variable) {
-        this(Board.class, forVariable(variable), INITS);
+    public final StringPath serverFileName = createString("serverFileName");
+
+    public QUploadFile(String variable) {
+        this(UploadFile.class, forVariable(variable), INITS);
     }
 
-    public QBoard(Path<? extends Board> path) {
+    public QUploadFile(Path<? extends UploadFile> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QBoard(PathMetadata metadata) {
+    public QUploadFile(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QBoard(PathMetadata metadata, PathInits inits) {
-        this(Board.class, metadata, inits);
+    public QUploadFile(PathMetadata metadata, PathInits inits) {
+        this(UploadFile.class, metadata, inits);
     }
 
-    public QBoard(Class<? extends Board> type, PathMetadata metadata, PathInits inits) {
+    public QUploadFile(Class<? extends UploadFile> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
     }

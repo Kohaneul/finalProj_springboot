@@ -4,10 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -20,12 +18,38 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
-    private String loginId;
-
-    private String password;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id")
+    private Member member;
+    private LocalDateTime localDateTime;
     private String title;
 
     private String content;
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    public static Board createBoard(Member member, String title, String content){
+       Board board = new Board();
+        board.setMember(member);
+        board.setTitle(title);
+        board.setContent(content);
+        board.setLocalDateTime(LocalDateTime.now());
+       return board;
+    }
 
 }

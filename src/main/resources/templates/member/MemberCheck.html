@@ -14,7 +14,7 @@ color: #dc3545;
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <h2>확인 Page</h2>
-    <img th:src="|/image/${member.uploadFile.serverFileName}|" width="300" height="300"/>
+    <img th:src="|/image/${member.getUploadFile().getServerFileName()}|" width="300" height="300"/>
 
     <div th:object = "${member}">
 

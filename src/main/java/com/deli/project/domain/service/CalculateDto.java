@@ -1,15 +1,18 @@
-package com.deli.project.web.controller.form;
+package com.deli.project.domain.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @AllArgsConstructor
-public class calculateForm {
+public class CalculateDto {
     @NotNull
     private Long pickupId;
+    @NotEmpty
+    private String placeName;
     @NotNull
     private double distance;
 }

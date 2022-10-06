@@ -24,6 +24,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final QAddress address;
 
+    public final ListPath<Board, QBoard> board = this.<Board, QBoard>createList("board", Board.class, QBoard.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath loginId = createString("loginId");
@@ -37,6 +39,8 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath phoneNumber = createString("phoneNumber");
 
     public final ListPath<PickUp, QPickUp> pickUpList = this.<PickUp, QPickUp>createList("pickUpList", PickUp.class, QPickUp.class, PathInits.DIRECT2);
+
+    public final QUploadFile uploadFile;
 
     public QMember(String variable) {
         this(Member.class, forVariable(variable), INITS);
@@ -57,6 +61,7 @@ public class QMember extends EntityPathBase<Member> {
     public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
+        this.uploadFile = inits.isInitialized("uploadFile") ? new QUploadFile(forProperty("uploadFile"), inits.get("uploadFile")) : null;
     }
 
 }

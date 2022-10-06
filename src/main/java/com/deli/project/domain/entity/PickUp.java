@@ -1,8 +1,10 @@
 package com.deli.project.domain.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.implementation.bind.annotation.Default;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,8 +27,7 @@ public class PickUp {
 
     private boolean isShow;
 
-    @Embedded
-    private Address address;
+    private String address;
 
     @OneToMany(mappedBy = "pickUp")
     private List<Category> category;
@@ -34,11 +35,6 @@ public class PickUp {
     @JoinColumn(name = "member_id")
     private Member member;
 
-//    private double distance;
-//
-//    public void setDistance(double distance) {
-//        this.distance = distance;
-//    }
 
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
@@ -48,14 +44,18 @@ public class PickUp {
         this.coordinate = coordinate;
     }
 
-    public void setShow(boolean show) {
-        isShow = show;
-    }
+
 
     public void setMember(Member member) {
         this.member = member;
         member.getPickUpList().add(this);
 
+    }
+
+    public PickUp(String placeName,String address, Coordinate coordinate){
+        this.placeName = placeName;
+        this.address = address;
+        this.coordinate = coordinate;
     }
 
 

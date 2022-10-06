@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -17,24 +18,51 @@ import java.util.List;
 public class PickUpService {
     private final PickUpRepository repository;
     @Transactional
-    public Long savePickUp(PickUp PickUp){
-        repository.save(PickUp);
-        return PickUp.getId();
+    public Long savePickUp(PickUp pickUp){
+        repository.save(pickUp);
+        return pickUp.getId();
     }
 
     public PickUp findOne(Long id){
         return repository.findOne(id);
     }
 
-    public List<PickUp> findAll(boolean isShow){
-        return repository.findAll(isShow);
+    public List<PickUp> findAll(){
+        return repository.findAll();
+    }
+//    @Transactional
+//    public List<PickUp> findCloseToDistance(double myLat, double myLon){
+//        List<PickUp> allPickUp = findAll();
+//        List<CalculateDto> calculateDtos = setCalculate(allPickUp, myLat, myLon);
+//        calculateDtos.stream().filter(calculateDto -> allPickUp.add(findOne(calculateDto.getPickupId())));
+//        return allPickUp;
+//    }
+
+
+    public List<CalculateDto> setArray(List<PickUp> place, double lat, double lon) {
+        List<CalculateDto> cal = new ArrayList<>(place.size());
+        for (PickUp pickUp : place) {
+            double distance = disCal(lat, lon,pickUp.getCoordinate().getLatitude(), pickUp.getCoordinate().getLongitude());
+            if (distance < 1000) {
+                CalculateDto calculat = new CalculateDto(pickUp.getId(), pickUp.getPlaceName(), distance);
+                cal.add(calculat);
+            }
+        }
+        sortList(cal);// 가까운 순으로 정렬하는 메소드
+        return cal;
     }
 
+    private void sortList(List<CalculateDto> obj) {
+        Collections.sort(obj, new Comparator<CalculateDto>() {
+            @Override
+            public int compare(CalculateDto o1, CalculateDto o2) {
+                return o1.getDistance() < o2.getDistance()?-1:1;
+            }
+        });
 
+    }
 
-
-
-    public double disCal(double lat1, double lon1, double lat2, double lon2) {
+    private double disCal(double lat1, double lon1, double lat2, double lon2) {
 
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
@@ -49,7 +77,7 @@ public class PickUpService {
         return dist;
     };
 
-    public String cutDecimal(int cutSize, double value) {
+    private String cutDecimal(int cutSize, double value) {
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setMaximumFractionDigits(cutSize);
         nf.setGroupingUsed(false);
@@ -57,11 +85,11 @@ public class PickUpService {
         return nf.format(value);
     }
 
-    public double deg2rad(double deg) {
+    private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     };
 
-    public double rad2deg(double rad) {
+    private double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
     };
 

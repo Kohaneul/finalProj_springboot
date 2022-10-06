@@ -1,10 +1,12 @@
-package com.deli.project.web.controller.form;
+package com.deli.project.web.controller;
 
 import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.Member;
 import com.deli.project.domain.entity.MemberSort;
 import com.deli.project.domain.service.MemberService;
+import com.deli.project.web.controller.form.LoginMember;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class LoginController {
 
 
@@ -28,7 +31,7 @@ public class LoginController {
 
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("loginMember")LoginMember loginMember, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String login(@ModelAttribute("loginMember") LoginMember loginMember, HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         if(session.getAttribute(ConstEntity.SESSION)!=null){
             response.setContentType("text/html; charset=UTF-8");
@@ -36,7 +39,7 @@ public class LoginController {
             out.println("<script>alert('로그아웃 되셨습니다.'); location.href='/logout';</script>");
             out.flush();
         }
-        return "member/Login";
+        return "/member/Login";
     }
 
     @PostMapping("/login")
@@ -46,7 +49,7 @@ public class LoginController {
             bindingResult.reject("globalError","아이디/비밀번호 입력 오류");
         }
         if(bindingResult.hasErrors()){
-            return "member/Login";
+            return "/member/Login";
         }
         setLoginSession(request, member);
         return "redirect:/";
@@ -54,11 +57,15 @@ public class LoginController {
 
     private void setLoginSession(HttpServletRequest request,Member member) {
         HttpSession session = request.getSession();
-        String uuid = UUID.randomUUID().toString();
+        String uuid = UUID.randomUUID().toString()+"/"+member.getId();
         if(member.getMemberSort().equals(MemberSort.ADMIN)){
             uuid ="admin"+uuid;
         }
+        log.info("****** 사용자 uuid={}",uuid);
         session.setAttribute(ConstEntity.SESSION,uuid);
+        Long id = Long.valueOf(uuid.split("/")[1]);
+        session.setAttribute(ConstEntity.USER_SESSION,id);
+
     }
 
     @GetMapping("/logout")

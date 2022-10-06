@@ -14,7 +14,7 @@ import java.util.List;
 public class DeliConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/write","/member/all","/member/{id}","/boards").order(1).excludePathPatterns("/member/new");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/**","/member/all","/member/{id}","/boards").order(1).excludePathPatterns("/member/new");
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/member/all","member/{id}/edit","/member/{id}").order(2).excludePathPatterns("/member/new");
     }
 

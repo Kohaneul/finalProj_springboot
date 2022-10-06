@@ -2,6 +2,7 @@ package com.deli.project.domain.repository;
 
 import com.deli.project.domain.entity.Category;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -29,8 +30,5 @@ public class CategoryRepository {
     public List<Category> findAll(){
         return em.createQuery("select c from Category c",Category.class).getResultList();
     }
-
-
-
 
 }

@@ -49,7 +49,7 @@ public class MemberController {
 
     @GetMapping("/new")
     public String join(@ModelAttribute("memberForm") MemberForm memberForm){
-        return "member/Member";
+        return "/member/Member";
     }
 
     @PostMapping("/new")
@@ -62,7 +62,7 @@ public class MemberController {
                 log.info("rejectValue={}",fieldError.getRejectedValue());
                 log.info("mmmmmmmmessage={}",fieldError.getDefaultMessage());
             }
-            return "member/Member";
+            return "/thymeleaf/member/Member";
         }
         memberSave(memberForm, redirectAttributes, model);
         log.info("================================================");
@@ -82,11 +82,9 @@ public class MemberController {
 
     private void duplicatedCheck(String loginId,String nickName,BindingResult bindingResult){
         if(duplicateService.duplicatedLoginId(loginId)>0){
-            log.info("hhhhhhh={}",duplicateService.duplicatedLoginId(loginId));
             bindingResult.reject("globalError","현재 사용중인 아이디 입니다.");
         }
         if(duplicateService.duplicatedNickName(nickName)>0){
-            log.info("hhhhhhh={}",duplicateService.duplicatedNickName(nickName));
             bindingResult.reject("globalError","현재 사용중인 닉네임 입니다.");
         }
     }
@@ -147,7 +145,7 @@ public class MemberController {
         List<Member> members = memberService.findAll(memberSearch);
         model.addAttribute("members",members);
 
-        return "member/MemberAll";
+        return "/member/MemberAll";
     }
 
 
