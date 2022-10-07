@@ -41,4 +41,13 @@ public class MemberService {
         return null;
     }
 
+    public int duplicatedLoginId(String loginId){
+        return repository.findLoginId(loginId).size();
+    }
+
+
+    public int duplicatedNickName(String nickName){
+        return repository.findNickName(nickName).size();
+    }
+
 }

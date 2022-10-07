@@ -1,15 +1,11 @@
 package com.deli.project.web.controller;
 
-import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.Address;
 import com.deli.project.domain.entity.Member;
-import com.deli.project.domain.entity.MemberSort;
 import com.deli.project.domain.entity.UploadFile;
 import com.deli.project.domain.repository.MemberSearch;
-import com.deli.project.domain.service.DuplicateService;
 import com.deli.project.domain.service.MemberService;
 import com.deli.project.web.controller.form.FileStore;
-import com.deli.project.web.controller.form.LoginMember;
 import com.deli.project.web.controller.form.MemberForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,17 +21,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -43,7 +35,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
-    private final DuplicateService duplicateService;
 
     private final FileStore fileStore;
 
@@ -81,10 +72,10 @@ public class MemberController {
     }
 
     private void duplicatedCheck(String loginId,String nickName,BindingResult bindingResult){
-        if(duplicateService.duplicatedLoginId(loginId)>0){
+        if(memberService.duplicatedLoginId(loginId)>0){
             bindingResult.reject("globalError","현재 사용중인 아이디 입니다.");
         }
-        if(duplicateService.duplicatedNickName(nickName)>0){
+        if(memberService.duplicatedNickName(nickName)>0){
             bindingResult.reject("globalError","현재 사용중인 닉네임 입니다.");
         }
     }

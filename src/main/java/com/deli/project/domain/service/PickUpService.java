@@ -3,6 +3,7 @@ package com.deli.project.domain.service;
 import com.deli.project.domain.entity.PickUp;
 import com.deli.project.domain.repository.PickUpRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class PickUpService {
     private final PickUpRepository repository;
     @Transactional
@@ -38,13 +40,16 @@ public class PickUpService {
 //        return allPickUp;
 //    }
 
-
     public List<CalculateDto> setArray(List<PickUp> place, double lat, double lon) {
-        List<CalculateDto> cal = new ArrayList<>(place.size());
+        List<CalculateDto> cal = new ArrayList<>();
+        log.info("lat={}lon={}",lat,lon);
         for (PickUp pickUp : place) {
-            double distance = disCal(lat, lon,pickUp.getCoordinate().getLatitude(), pickUp.getCoordinate().getLongitude());
+
+            double distance = disCal(pickUp.getCoordinate().getLatitude(),pickUp.getCoordinate().getLongitude(),lon,lat);
             if (distance < 1000) {
-                CalculateDto calculat = new CalculateDto(pickUp.getId(), pickUp.getPlaceName(), distance);
+                log.info("22222distance={}",distance);
+
+                CalculateDto calculat = new CalculateDto(pickUp.getId(), pickUp.getPlaceName(), pickUp.getAddress(), distance);
                 cal.add(calculat);
             }
         }
@@ -53,9 +58,10 @@ public class PickUpService {
     }
 
     private void sortList(List<CalculateDto> obj) {
-        Collections.sort(obj, new Comparator<CalculateDto>() {
+        Collections.sort(obj, new Comparator<CalculateDto>(){
             @Override
             public int compare(CalculateDto o1, CalculateDto o2) {
+                log.info("o1={},o2={}",o1,o2);
                 return o1.getDistance() < o2.getDistance()?-1:1;
             }
         });

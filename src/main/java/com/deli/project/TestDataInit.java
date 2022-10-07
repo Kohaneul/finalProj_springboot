@@ -46,11 +46,12 @@ public class TestDataInit {
        PickUp pickup13 = new PickUp("숙대입구역","서울 용산구 한강대로 지하 306", new Coordinate(37.545499859161,126.97216591319));
        PickUp pickup14 = new PickUp("신길5동우체국","서울 영등포구 신길로 65", new Coordinate(37.498477701477,126.90806625532));
        PickUp pickup15 = new PickUp("신길역","서울 영등포구 영등포로 327", new Coordinate(37.517688232974,126.91427854285));
-       PickUp pickup16 = new PickUp("신풍역","서울 영등포구 신풍로 지하 27", new Coordinate(37.50016518673,126.90903453451));
-       PickUp pickup17 = new PickUp("약수역","서울 중구 다산로 지하 122", new Coordinate(37.554124490755,127.01025330126));
+        PickUp pickup16 = new PickUp("서울지방병무청역","서울 영등포구 여의대방로43길 13", new Coordinate(37.5055066,126.9190053));
+        PickUp pickup17 = new PickUp("약수역","서울 중구 다산로 지하 122", new Coordinate(37.554124490755,127.01025330126));
        PickUp pickup18 = new PickUp("장원중학교","서울 중구 동호로15길 93-34", new Coordinate(37.55365335367,127.00627186623));
        PickUp pickup19 = new PickUp("정부청사","서울 종로구 세종대로 209", new Coordinate(36.4383354,126.9018892));
        PickUp pickup20 = new PickUp("후암초등학교","서울 용산구 두텁바위로 140", new Coordinate(37.551405239218,126.98159679014));
+        PickUp pickup21 = new PickUp("신길3동주민센터","서울 영등포구 신길로41라길 13-8", new Coordinate(37.50744297731903,126.9079549785158));
 
         pickUpService.savePickUp(pickup1);
         pickUpService.savePickUp(pickup2);
@@ -72,6 +73,7 @@ public class TestDataInit {
         pickUpService.savePickUp(pickup18);
         pickUpService.savePickUp(pickup19);
         pickUpService.savePickUp(pickup20);
+        pickUpService.savePickUp(pickup21);
 
 
 

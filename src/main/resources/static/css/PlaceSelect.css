@@ -1,7 +1,11 @@
-#tableInfo {
+.container{
+	margin-left:19%;
+
+}
+.tableInfo {
 	position: absolute;
-	margin-left: 100px;
-	margin-top:500px;
+	margin-left: 20%;
+	margin-top:380px;
 	width: 25%;
 	border-top: 1px solid #dddddd;
 	border-collapse: collapse;
@@ -17,14 +21,16 @@
 
 .trstyle {
 	border-bottom: 2px solid #dddddd;
-	  padding: 10px;
+	padding: 10px;
 }
 
 #h2style {
-	margin-top: 650px;
-	text-align:center;
-	margin-left:700px;
 	position: absolute;
+	margin-left: 25%;
+	margin-top:497px;
+	float:left;
+	font-size:25px;
+	z-index: 1;
 }
 
 .label {
@@ -108,8 +114,8 @@
 }
 
 #map {
-	width: 1500px;
-	height: 650px;
+	width: 1000px;
+	height: 550px;
 	float: left;
-	margin-left: 80px;
+	margin-top:-2%;
 }

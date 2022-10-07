@@ -12,9 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,49 +19,47 @@ import java.util.List;
 @Controller
 @Slf4j
 @RequestMapping("/board/select")
-public class MapController {
+public class PickUpController {
 
     private final MemberService memberService;
     private final PickUpService pickUpService;
 
     @GetMapping("/step_1")
-    public String step1(@SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession,Model model,HttpServletRequest request){
+    public String step1(@SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession,Model model){
+
         Member member = memberService.findOne(memberSession);
-        HttpSession session = request.getSession();
-        session.setAttribute(ConstEntity.USER_SESSION,member.getId());
-        log.info("userSession={}",session.getAttribute(ConstEntity.USER_SESSION));
+        log.info("userSession={}",memberSession);
         model.addAttribute("member",member);
         return "/map/MapSearch";
     }
 
-    @PostMapping("/step_1")
-    public String step1(@RequestParam("lat")double myLat,@RequestParam("lon")double myLon,@SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession,Model model){
-        List<CalculateDto> calculate = pickUpService.setArray(pickUpService.findAll(), myLat, myLon);
+    @GetMapping("/step_2")
+    public String step2(@RequestParam("lat")double myLat, @RequestParam("lon")double myLon, @SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession, Model model){
 
-        PickUp pick = myPlaceAdd(myLat, myLon, memberSession);
-        calculate.add(new CalculateDto(pick.getId(),pick.getPlaceName(),0.0));
-        List<PickUp> place = pickUpAdd(calculate);
+        List<CalculateDto> calculate = pickUpService.setArray(pickUpService.findAll(), myLat, myLon);
+        log.info("calculate={}",calculate);
+        log.info("calSize1={}",calculate.size());
+
+        log.info("calSize222={}",calculate.size());
+
+        List<PickUp> place = pickUpAdd(myLat,myLon,calculate,memberSession);
         model.addAttribute("cal",calculate);
         model.addAttribute("place",place);
-        return "redirect:/board/select/step_2";
-    }
-
-    @GetMapping("/step_2")
-    public String step2(){
+        log.info("placeSize={}",place.size());
         return "/map/PlaceSelect";
     }
 
-    private List<PickUp> pickUpAdd(List<CalculateDto> calculate) {
+    private List<PickUp> pickUpAdd(double myLat, double myLon, List<CalculateDto> calculate,@SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession) {
+        log.info("calculate size={}",calculate.size());
         List<PickUp> list = new ArrayList<>();
-        for (CalculateDto calculateDto : calculate) {
-            list.add(pickUpService.findOne(calculateDto.getPickupId()));
-        }
+        calculate.stream().forEach(c->list.add(pickUpService.findOne(c.getPickupId())));
+        list.add(myPlaceAdd(myLat, myLon, memberSession));
         return list;
     }
 
     private PickUp myPlaceAdd(double myLat, double myLon, Long memberSession) {
         String loginId = memberService.findOne(memberSession).getLoginId();
-        String address = memberService.findOne(memberSession).getAddress().getCity() + memberService.findOne(memberSession).getAddress().getState();
+        String address = memberService.findOne(memberSession).getAddress().getCity() +" " +memberService.findOne(memberSession).getAddress().getState();
         PickUp pick = new PickUp(loginId,address,new Coordinate(myLat, myLon));
         pickUpService.savePickUp(pick);
         return pick;

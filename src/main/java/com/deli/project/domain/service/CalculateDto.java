@@ -13,6 +13,8 @@ public class CalculateDto {
     private Long pickupId;
     @NotEmpty
     private String placeName;
+    @NotEmpty
+    private String address;
     @NotNull
     private double distance;
 }

@@ -1,9 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/PlaceSelect.css}"/>
-<script type="text/javascript" src="@{/js/PlaceSelect.js}"/>
-
+<style>
 .container {
 max-width: 560px;
 }
@@ -15,73 +14,76 @@ color: #dc3545;
 .field-error {
 color: #dc3545;
 }
-
 </style>
 <body>
-
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div id="map"></div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73&libraries=services"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73"></script>
-
-<table id="tableInfo">
-    <tr class="trstyle"/>
-    <tr class="trstyle"/>
-    <th>선택</th>
-    <th>장소</th>
-    <th>거리</th>
-    <th>주소</th>
-    </tr>
+<table class="tableInfo">
+    <thead>
     <tr>
-    <tr th:each="cal : ${cal}">
-            <th><input type="radio" name = "name" value="${cal.placeName}" id = "name" onclick="openChild('${cal.placeName}')"/></th>
-            <th>${cal.id}</th>
-            <th>${cal.placeName}</th>
-            <th style="font-size:12px">${cal.distance}</th>
-    </tr>
-    </c:forEach>
     <tr class="trstyle"/>
-    <input type="hidden" id = "url" value=""/>
-    <h2 id="h2style">픽업 장소
-        <input type="submit" value="선택" name="check" onclick="onClick()"/></h2>
-</table>
-<h2 style="margin-top:380px;position:absolute;left:1070px">픽업 장소
-    <input type="submit" value="선택" name="check" style="margin-top:0px" onclick="onClick()"/></h2>
+    <td>선택</td>
+    <td>장소</td>
+    <td>거리</td>
+    <td>주소</td>
+    </tr>
+    </thead>
+    <tbody>
 
-<script th:inline="javascript">
-                let idx = [[${place.length-1]];
+    <tr th:each="cal : ${cal}">
+            <td><input type="radio" name = "pickupId" th:pickupId="${cal.pickupId}" th:onclick="openChild(this.getAttribute('pickupId'))"></td>
+        <td th:text="${cal.placeName}"></td>
+        <td th:text="${cal.distance}"></td>
+        <td th:text="${cal.address}"></td>
+    </tr>
+
+    </tbody>
+</table>
+    <h2 id="h2style">픽업 장소
+        <input type="hidden" id = "url" value=""/>
+
+        <input type="submit" value="선택" name="check" style="margin-top:0px" th:onclick="onClick()"/></h2>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73"></script>
+
+    </div>
+
+    <script th:inline="javascript">
+
+
+            let myPlace= [[${place}]]
+            let idx = myPlace.length-1;
+            let myLat = myPlace[idx].coordinate.latitude;
+            let address = new Array();
+
+            for(let i = 0; i<myPlace.length;i++){
+                address[i] = myPlace[i].address;
+            }
+
+            let myLon = myPlace[idx].coordinate.longitude;
                let mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
-
-                 center: new kakao.maps.LatLng([[${place[idx].coordinate.latitude}]],[[${place[idx].coordinate.longitude}]]), // 지도의 중심좌표
+                 center: new kakao.maps.LatLng(myLon,myLat), // 지도의 중심좌표
                     level: 4 // 지도의 확대 레벨
                      };
 
                let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
                let geocoder = new daum.maps.services.Geocoder();
 
-             let address = [];
-             let name = [];
-
-                <c:forEach items="${place}" var="place">
-                address.push("${place.address}"); //음식점 주소 관련 위치를 배열에 담기
-                name.push("${place.name}"); //식당이름 관련 위치값을 배열에 담기
-                </c:forEach>
-             	let idx = name.length;
-				let idx2 = idx-1;
-
-
              address.forEach(function(addr,idx){
                 geocoder.addressSearch(addr,function(result,status){
                    if(status===kakao.maps.services.Status.OK){
                       let coords = new kakao.maps.LatLng(result[0].y,result[0].x);
-                      	if(idx==idx2){
+                      	if(idx==myPlace.length-1){
                       	  let marker = new kakao.maps.Marker({
                               map:map,
                               position:coords
                            });
                            let customOverlay = new kakao.maps.CustomOverlay({
             				   		position: coords,
-                                   	content : '<div class ="label2"><span class="left2"></span><span class="center2">'+name[idx]+'</span><span class="right2"></span></div>'
+                                   	content : '<div class ="label2"><span class="left2"></span><span class="center2">'+myPlace[idx].placeName+'</span><span class="right2"></span></div>'
                          	  });
                         	 customOverlay.setMap(map);
 
@@ -94,7 +96,7 @@ color: #dc3545;
 
                        let customOverlay = new kakao.maps.CustomOverlay({
         				   		position: coords,
-                               content : '<div class ="label"><span class="left"></span><span class="center">'+name[idx]+'</span><span class="right"></span></div>'
+                               content : '<div class ="label"><span class="left"></span><span class="center">'+myPlace[idx].placeName+'</span><span class="right"></span></div>'
 
                      	  });
                   	 customOverlay.setMap(map);
@@ -105,6 +107,29 @@ color: #dc3545;
 
               </script>
 
+
+</div>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+  let pickupId;
+     function openChild(val){
+     document.getElementById('url').value = val;
+	let url = document.getElementById('url').value;
+	console.log(url);
+	 pickupId=url;
+	}
+
+  		function onClick(){
+  			let popupWidth = 500;
+  			let popupHeight = 600;
+  			let left = Math.ceil((window.screen.width-popupWidth)/2);
+  			let top = Math.ceil((window.screen.height-popupHeight)/2);;
+
+ 		openWin = window.open("/board/select/step_3/category?pickupId="+pickupId,"childForm","width="+popupWidth+",height="+popupHeight+",left="+left+",top="+top+"resizable=yes")
+ 		}
+ 		/*]]>*/
+</script>
 
 
 </body>
