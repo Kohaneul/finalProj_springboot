@@ -50,15 +50,13 @@ public class MemberController {
         pwEqualCheck(memberForm.getPassword(), memberForm.getPasswordCheck(),bindingResult);
         if(bindingResult.hasErrors()){
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                log.info("rejectValue={}",fieldError.getRejectedValue());
-                log.info("mmmmmmmmessage={}",fieldError.getDefaultMessage());
+                log.info("rejectedValue={}",fieldError.getRejectedValue());
+                log.info("message={}",fieldError.getDefaultMessage());
             }
             return "/thymeleaf/member/Member";
         }
         memberSave(memberForm, redirectAttributes, model);
-        log.info("================================================");
         log.info(memberForm.getAttachFile().getOriginalFilename());
-        log.info("================================================");
 
         alert(response);
         return "redirect:/";

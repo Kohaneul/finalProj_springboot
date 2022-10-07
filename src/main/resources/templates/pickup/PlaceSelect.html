@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/PlaceSelect.css}"/>
 <style>
 .container {
-max-width: 560px;
+max-width: 1000px;
 }
 .fieldError {
 border-color: #dc3545;
@@ -51,8 +51,6 @@ color: #dc3545;
     </div>
 
     <script th:inline="javascript">
-
-
             let myPlace= [[${place}]]
             let idx = myPlace.length-1;
             let myLat = myPlace[idx].coordinate.latitude;

@@ -28,8 +28,6 @@ public class QCategory extends EntityPathBase<Category> {
 
     public final QPickUp pickUp;
 
-    public final ListPath<Restaurant, QRestaurant> restaurants = this.<Restaurant, QRestaurant>createList("restaurants", Restaurant.class, QRestaurant.class, PathInits.DIRECT2);
-
     public QCategory(String variable) {
         this(Category.class, forVariable(variable), INITS);
     }

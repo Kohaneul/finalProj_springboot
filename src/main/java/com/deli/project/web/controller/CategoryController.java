@@ -1,5 +1,7 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
+import com.deli.project.domain.entity.Category;
 import com.deli.project.domain.entity.PickUp;
 import com.deli.project.domain.service.CategoryService;
 import com.deli.project.domain.service.PickUpService;
@@ -12,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -21,15 +27,15 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/step_3/category")
-    private String pickUpCategory(@RequestParam("pickupId")Long pickupId, Model model){
-        PickUp pickUp = pickUpService.findOne(pickupId);
-        model.addAttribute("pickUp",pickUp);
-        return "/map/CategorySelect";
+    private String pickUpCategory(@RequestParam("pickupId")Long pickupId, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.setAttribute(ConstEntity.PICKUP_SESSION,pickupId);
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("placeName",pickUpService.findOne(pickupId).getPlaceName());
+        model.addAttribute("categories",categories);
+        return "/pickup/CategorySelect";
     }
-    @GetMapping("/step_3")
-    private String totalPickUp(@RequestParam("pickupId")Long pickupId, Model model){
-        PickUp pickUp = pickUpService.findOne(pickupId);
-        model.addAttribute("pickUp",pickUp);
-        return "/map/CategorySelect";
-    }
+
+
+
 }

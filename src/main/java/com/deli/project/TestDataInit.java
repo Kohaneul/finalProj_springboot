@@ -1,9 +1,10 @@
 package com.deli.project;
 
 import com.deli.project.domain.entity.*;
+import com.deli.project.domain.service.CategoryService;
 import com.deli.project.domain.service.MemberService;
 import com.deli.project.domain.service.PickUpService;
-import org.hibernate.sql.Insert;
+import com.deli.project.domain.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -17,6 +18,9 @@ public class TestDataInit {
 
     @Autowired  private MemberService memberService;
     @Autowired  private PickUpService pickUpService;
+
+    @Autowired private CategoryService categoryService;
+    @Autowired private RestaurantService restaurantService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void dataInit(){
@@ -76,7 +80,55 @@ public class TestDataInit {
         pickUpService.savePickUp(pickup21);
 
 
+        Category category1 = new Category("돈까스·회·일식");
+        Category category2 = new Category("중식");
+        Category category3 = new Category("치킨");
+        Category category4 = new Category("백반·죽·국수");
+        Category category5 = new Category("카페·디저트");
+        Category category6 = new Category("분식");
+        Category category7 = new Category("찜·탕·찌개");
+        Category category8 = new Category("피자");
+        Category category9 = new Category("'양식'");
+        Category category10 = new Category("고기·구이");
+        Category category11= new Category("족발·보쌈");
+        Category category12= new Category("아시안");
+        Category category13= new Category("패스트푸드");
+        Category category14= new Category("도시락");
 
+        categoryService.saveCategory(category1);
+        categoryService.saveCategory(category2);
+        categoryService.saveCategory(category3);
+        categoryService.saveCategory(category4);
+        categoryService.saveCategory(category5);
+        categoryService.saveCategory(category6);
+        categoryService.saveCategory(category7);
+        categoryService.saveCategory(category8);
+        categoryService.saveCategory(category9);
+        categoryService.saveCategory(category10);
+        categoryService.saveCategory(category11);
+        categoryService.saveCategory(category12);
+        categoryService.saveCategory(category13);
+        categoryService.saveCategory(category14);
+
+
+        Restaurant restaurant1 = Restaurant.setRestaurant("A 돈까스",new Address("서울","영등포구 신길로 10"),category1);
+        Restaurant restaurant2 = Restaurant.setRestaurant("B 돈까스",new Address("서울","영등포구 영등포로 410"),category1);
+        Restaurant restaurant3 = Restaurant.setRestaurant("C 돈까스",new Address("서울","영등포구 신풍로25길 6 1층"),category1);
+        Restaurant restaurant4 = Restaurant.setRestaurant("D 돈까스",new Address("서울","영등포구 신길동 95-254"),category1);
+
+        Restaurant restaurant5 = Restaurant.setRestaurant("A 중식집",new Address("서울","영등포구 여의대방로 137"),category2);
+        Restaurant restaurant6 = Restaurant.setRestaurant("B 중식집",new Address("서울","영등포구 신길로39길 1"),category2);
+        Restaurant restaurant7 = Restaurant.setRestaurant("C 중식집",new Address("서울","영등포구 신풍로25길 6 1층"),category2);
+        Restaurant restaurant8 = Restaurant.setRestaurant("D 중식집",new Address("서울","영등포구 여의대방로 137"),category2);
+
+        restaurantService.saveRestaurant(restaurant1);
+        restaurantService.saveRestaurant(restaurant2);
+        restaurantService.saveRestaurant(restaurant3);
+        restaurantService.saveRestaurant(restaurant4);
+        restaurantService.saveRestaurant(restaurant5);
+        restaurantService.saveRestaurant(restaurant6);
+        restaurantService.saveRestaurant(restaurant7);
+        restaurantService.saveRestaurant(restaurant8);
 
     }
 }

@@ -46,7 +46,7 @@ public class PickUpController {
         model.addAttribute("cal",calculate);
         model.addAttribute("place",place);
         log.info("placeSize={}",place.size());
-        return "/map/PlaceSelect";
+        return "/pickup/PlaceSelect";
     }
 
     private List<PickUp> pickUpAdd(double myLat, double myLon, List<CalculateDto> calculate,@SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession) {

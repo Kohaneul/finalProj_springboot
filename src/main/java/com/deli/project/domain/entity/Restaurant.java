@@ -38,7 +38,7 @@ public class Restaurant {
 
     public void setCategory(Category category) {
         this.category = category;
-        category.getRestaurants().add(this);
+        //category.getRestaurants().add(this);
     }
 
     public void setAddress(Address address) {
