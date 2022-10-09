@@ -30,6 +30,8 @@ public class QRestaurant extends EntityPathBase<Restaurant> {
 
     public final BooleanPath isShow = createBoolean("isShow");
 
+    public final QPickUp pickUp;
+
     public final StringPath restaurantName = createString("restaurantName");
 
     public QRestaurant(String variable) {
@@ -52,6 +54,7 @@ public class QRestaurant extends EntityPathBase<Restaurant> {
         super(type, metadata, inits);
         this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
         this.category = inits.isInitialized("category") ? new QCategory(forProperty("category"), inits.get("category")) : null;
+        this.pickUp = inits.isInitialized("pickUp") ? new QPickUp(forProperty("pickUp"), inits.get("pickUp")) : null;
     }
 
 }

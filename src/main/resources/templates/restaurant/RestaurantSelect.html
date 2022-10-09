@@ -35,17 +35,18 @@ color: #dc3545;
         </tr>
         </thead>
         <tbody>
-             <tr th:each="restaurant : ${restaurants}">
-             <form action="/board/select/step_5">
-                    <td><input type="radio" name = "restaurantId" th:restaurantId="${restaurant.id}" th:onclick="radioClick(this.getAttribute('restaurantId'))"></td>
-                    <td th:text="${restaurant.restaurantName}"></td>
-                    <td th:text="${restaurant.address.city} + ${restaurant.address.state}"></td>
+        <tr th:each="restaurant : ${restaurants}">
+            <form action="/board/select/step_5" >
+<!--            <form action="/board/order/{id} (id=${restaurant.id})">-->
+                <td><input type="radio" name = "restaurantId" th:restaurantId="${restaurant.id}" th:onclick="radioClick(this.getAttribute('restaurantId'))"></td>
+                <td th:text="${restaurant.restaurantName}"></td>
+                <td th:text="${restaurant.address.city} + ${restaurant.address.state}"></td>
 
-             </tr>
-             </form>
+        </tr>
+        </form>
         </tbody>
         <h2 id="h2style">
-        [ <span th:text="${pickUp.placeName}"></span> ] 주변 <span th:text="${category.categoryName}"></span>
+            [ <span th:text="${pickUp.placeName}"></span> ] 주변 <span th:text="${category.categoryName}"></span>
             <input type="hidden" id="restaurantId" name="restaurantId" value="">
             <input type="button" value="확인" th:onclick="setOrder()" />
         </h2>
@@ -56,74 +57,87 @@ color: #dc3545;
     <script type="text/javascript"  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73"></script>
     <script th:inline="javascript">
             let myPlace= [[${pickUp}]]
-            let myLat = myPlace.coordinate.latitude;
-            let myLon = myPlace.coordinate.longitude;
 
-			let mapContainer = document.getElementById('map'), // 지도를 표시할 div
-			mapOption = {
-				center : new kakao.maps.LatLng(myLat,myLon), // 지도의 중심좌표
-				level : 4
-			// 지도의 확대 레벨
-			};
+         let mapContainer = document.getElementById('map'), // 지도를 표시할 div
+         mapOption = {
+            center : new kakao.maps.LatLng(myPlace.coordinate.latitude,myPlace.coordinate.longitude), // 지도의 중심좌표
+            level : 3
+         // 지도의 확대 레벨
+         };
 
-			let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-			var geocoder = new daum.maps.services.Geocoder();
+         let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+         var geocoder = new daum.maps.services.Geocoder();
 
 
             let restaurant = [[${restaurants}]];
-			let address = new Array();
-			 for(let i = 0; i<restaurant.length;i++){
+
+            let addRestaurant={
+                "id" : myPlace.id,
+                "restaurantName" : myPlace.placeName,
+                "address" : {
+                    "city" : myPlace.address.substr(0,myPlace.address.indexOf(" ",0)),
+                    "state" : myPlace.address.substr(myPlace.address.indexOf(" ",0))
+                },
+
+                "show" : false
+            }
+            console.log(addRestaurant);
+
+            restaurant.push(addRestaurant);
+
+         let address = new Array();
+          for(let i = 0; i<restaurant.length;i++){
                 address[i] = restaurant[i].address.city + ' '+ restaurant[i].address.state;
             }
 
 
-			let idx = restaurant.length;
+         let idx = restaurant.length;
 
-			address.forEach(function(addr, idx) {
-						geocoder.addressSearch(addr,function(result, status) {
-											if (status === kakao.maps.services.Status.OK) {
-												let coords = new kakao.maps.LatLng(result[0].y,result[0].x);
-												if (idx == restaurant.length-1) {
-													let marker = new kakao.maps.Marker(
-															{
-																map : map,
-																position : coords
-															});
-													let customOverlay = new kakao.maps.CustomOverlay(
-															{
-																position : coords,
-																content : '<div class ="label2"><span class="left2"></span><span class="center2">'
-																		+ restaurant[idx].restaurantName
-																		+ '</span><span class="right2"></span></div>'
-															});
-													customOverlay.setMap(map);
+         address.forEach(function(addr, idx) {
+                  geocoder.addressSearch(addr,function(result, status) {
+                                 if (status === kakao.maps.services.Status.OK) {
+                                    let coords = new kakao.maps.LatLng(result[0].y,result[0].x);
+                                    if (idx == restaurant.length-1) {
+                                       let marker = new kakao.maps.Marker(
+                                             {
+                                                map : map,
+                                                position : coords
+                                             });
+                                       let customOverlay = new kakao.maps.CustomOverlay(
+                                             {
+                                                position : coords,
+                                                content : '<div class ="label2"><span class="left2"></span><span class="center2">'
+                                                      + restaurant[idx].restaurantName
+                                                      + '</span><span class="right2"></span></div>'
+                                             });
+                                       customOverlay.setMap(map);
 
-												} else {
-													let marker = new kakao.maps.Marker(
-															{
-																map : map,
-																position : coords
-															});
+                                    } else {
+                                       let marker = new kakao.maps.Marker(
+                                             {
+                                                map : map,
+                                                position : coords
+                                             });
 
-													let customOverlay = new kakao.maps.CustomOverlay(
-															{
-																position : coords,
-																content : '<div class ="label"><span class="left"></span><span class="center">'
-																		+ restaurant[idx].restaurantName
-																		+ '</span><span class="right"></span></div>'});
-													customOverlay.setMap(map);
+                                       let customOverlay = new kakao.maps.CustomOverlay(
+                                             {
+                                                position : coords,
+                                                content : '<div class ="label"><span class="left"></span><span class="center">'
+                                                      + restaurant[idx].restaurantName
+                                                      + '</span><span class="right"></span></div>'});
+                                       customOverlay.setMap(map);
 
-												}
-											}
+                                    }
+                                 }
 
-										})
-					})
+                              })
+               })
 
-			function setChildText() {
-				openWin.document.getElementById("cInput").value = document
-						.getElementById("pInput").value;
-			}
-		</script>
+         function setChildText() {
+            openWin.document.getElementById("cInput").value = document
+                  .getElementById("pInput").value;
+         }
+      </script>
 
 
     <script th:inline="javascript">
@@ -132,16 +146,14 @@ color: #dc3545;
      function radioClick(val){
      let resId= document.getElementById('restaurantId').value;
      resId = val;
-	console.log(resId);
-	 restaurantId=resId;
-	 	console.log(restaurantId);
+        restaurantId=resId;
 
-	}
-	flag = 1;
-function setOrder()
-{ if (flag==1) { open("/board/select?restaurantId="+restaurantId , "_blank"); self.close(); } }
+   }
+   flag = 1;
+    function setOrder()
+        { if (flag==1) { open("/board/select?restaurantId="+restaurantId , "_blank"); self.close(); } }
 
- 		/*]]>*/
+       /*]]>*/
 </script>
 
 

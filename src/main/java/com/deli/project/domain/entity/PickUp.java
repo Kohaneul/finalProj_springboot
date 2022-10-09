@@ -27,6 +27,9 @@ public class PickUp {
 
     private boolean isShow;
 
+    @OneToMany(mappedBy = "pickUp")
+    private List<Restaurant> restaurant;
+
     private String address;
 
     @OneToMany(mappedBy = "pickUp")

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/PlaceSelect.css}"/>
+<title>주문 확인 창</title>
+
+<body>
+<div class="container">
+    <form role="form" action="/board/order/{id} (id=${order.id})" th:object="${saveForm}" method="post">
+    <div>
+        픽업장소 : <li th:text="${restaurant.pickUp.placeName}"></li>
+        <input type="hidden" th:field="*{pickUp_id}" class="form-control"  readonly>
+    </div>
+
+    <div>
+        카테고리 :
+        <li th:text="${restaurant.category.categoryName}"></li>
+        <input type="hidden" th:field="*{category_id}" class="form-control"  readonly>
+
+    </div>
+
+    <div>
+        장소명 : <li th:text="${restaurant.placeName}"></li>
+        <input type="hidden" th:field="*{pickUp_id}" class="form-control"  readonly>
+
+    </div>
+
+    <div>
+        주소 : <li th:text="|${restaurant.address.city} ${restaurant.address.state}| "></li>
+        <input type="hidden" th:field="*{pickUp_id}" class="form-control"  readonly>
+    </div>
+        <input type="submit" th:value="확인" th:onclick="onClick()">
+    </form>
+
+    <script th:inline="javascript">
+/*<![CDATA[*/
+
+  		function onClick(){
+  			alert("저장이 완료되었습니다");
+ 		}
+ 		/*]]>*/
+</script>
+
+</div>
+</body>
+</html>

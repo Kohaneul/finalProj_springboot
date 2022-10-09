@@ -20,6 +20,10 @@ public class Restaurant {
     @Column(name="restaurant_name")
     private String restaurantName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="pickup_id")
+    private PickUp pickUp;
+
     @Embedded
     private Address address;
 
@@ -49,7 +53,11 @@ public class Restaurant {
         isShow = show;
     }
 
-    public static Restaurant setRestaurant(String restaurantName, Address address,Category category) {
+    public void setPickUp(PickUp pickUp) {
+        this.pickUp = pickUp;
+    }
+
+    public static Restaurant setRestaurant(String restaurantName, Address address, Category category) {
         Restaurant restaurant = new Restaurant();
         restaurant.setAddress(address);
         restaurant.setRestaurantName(restaurantName);

@@ -31,5 +31,8 @@ public class Delivery {
     public void setDeliveryStatus(DeliveryStatus deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
     }
+    public Delivery(DeliveryStatus deliveryStatus){
+        this.deliveryStatus = deliveryStatus;
 
+    }
 }

@@ -36,6 +36,8 @@ public class QPickUp extends EntityPathBase<PickUp> {
 
     public final StringPath placeName = createString("placeName");
 
+    public final ListPath<Restaurant, QRestaurant> restaurant = this.<Restaurant, QRestaurant>createList("restaurant", Restaurant.class, QRestaurant.class, PathInits.DIRECT2);
+
     public QPickUp(String variable) {
         this(PickUp.class, forVariable(variable), INITS);
     }

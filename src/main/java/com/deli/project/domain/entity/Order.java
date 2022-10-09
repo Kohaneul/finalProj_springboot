@@ -53,9 +53,8 @@ public class Order {
         this.loginId = loginId;
     }
 
-    public static Order createOrder(Restaurant restaurant, String loginId, LocalDateTime localDateTime, Delivery delivery){
+    public static Order createOrder(Restaurant restaurant, LocalDateTime localDateTime, Delivery delivery){
         Order order = new Order();
-        order.setLoginId(loginId);
         order.setRestaurant(restaurant);
         order.setOrderDate(localDateTime);
         order.setOrderStatus(OrderStatus.START);

@@ -9,14 +9,12 @@ import com.deli.project.domain.repository.RestaurantDto;
 import com.deli.project.domain.service.CategoryService;
 import com.deli.project.domain.service.PickUpService;
 import com.deli.project.domain.service.RestaurantService;
+import com.deli.project.web.controller.form.RestaurantSaveForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,7 +32,7 @@ public class RestaurantController {
     private final CategoryService categoryService;
     private final PickUpService pickUpService;
     @GetMapping("/step_4")
-    private String totalPickUp(@RequestParam("categoryId")Long categoryId, @SessionAttribute(PICKUP_SESSION)Long pickupId,HttpServletRequest request,Model model){
+    private String totalPickUp(@RequestParam("categoryId")Long categoryId, @SessionAttribute(PICKUP_SESSION)Long pickupId, HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         session.setAttribute(ConstEntity.CATEGORY_SESSION,categoryId);
         log.info("categoryId={}",categoryId);
@@ -43,21 +41,39 @@ public class RestaurantController {
         Category category = categoryService.findOne(categoryId);
         model.addAttribute("category",category);
         model.addAttribute("pickUp",pickUp);
-        log.info("pickUp={}",pickUp.getAddress());
         List<Restaurant> restaurants = restaurantService.findDto(new RestaurantDto(categoryId, pickUpAddress));
-//        Restaurant restaurant = Restaurant.setRestaurant(pickUp.getPlaceName(),new Address(pickUpAddress.split(" ")[0],pickUpAddress.split(" ")[1]),category);
-//        restaurants.add(restaurant);
-        log.info("restaurants={}",restaurants.size());
         model.addAttribute("restaurants",restaurants);
         return "/restaurant/RestaurantSelect";
     }
+    @GetMapping("/step_5")
+    public String restaurantSelect2(@RequestParam("restaurantId")Long restaurantId,
+                                    @SessionAttribute(PICKUP_SESSION)Long pickupId,
+                                    @SessionAttribute(CATEGORY_SESSION)Long categoryId,
+                                    @SessionAttribute(USER_SESSION)Long memberId,
+                                    Model model){
 
-    @GetMapping
-    public String restaurantSelect2(@RequestParam("restaurantId")Long restaurantId, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.setAttribute(RESTAURANT_SESSION,restaurantId);
-        return "order/Order";
+        //픽업장소,카테고리,장소명,주소
+
+        Restaurant restaurant = restaurantService.findOne(restaurantId);
+
+        RestaurantSaveForm form = new RestaurantSaveForm(pickUpService.findOne(pickupId),categoryService.findOne(categoryId), restaurant,restaurant.getAddress());
+        model.addAttribute("saveForm",form);
+        model.addAttribute("restaurant",restaurantService.findOne(restaurantId));
+        return "/order/OrderCheck";
     }
+
+
+
+//    @GetMapping("/{id}")
+//    public String restaurantCheck(@PathVariable("restaurantId")Long restaurantId,@SessionAttribute(PICKUP_SESSION)Long pickupId,@SessionAttribute(CATEGORY_SESSION)Long categoryId,
+//                                  @SessionAttribute(USER_SESSION)Long memberId,HttpServletRequest request,Model model){
+//        RestaurantSaveForm form = new RestaurantSaveForm(pickupId,categoryId,memberId,restaurantId);
+//        model.addAttribute("restaurantForm",form);
+//
+//        return "/order/OrderCheck";
+//    }
+//
+//
 
 
 }
