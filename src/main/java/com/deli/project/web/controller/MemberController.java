@@ -53,7 +53,7 @@ public class MemberController {
                 log.info("rejectedValue={}",fieldError.getRejectedValue());
                 log.info("message={}",fieldError.getDefaultMessage());
             }
-            return "/thymeleaf/member/Member";
+            return "/member/Member";
         }
         memberSave(memberForm, redirectAttributes, model);
         log.info(memberForm.getAttachFile().getOriginalFilename());

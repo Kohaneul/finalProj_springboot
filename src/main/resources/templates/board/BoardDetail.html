@@ -6,7 +6,6 @@
 
 <body>
 <div class="container">
-    <form role="form" th:action="@{/board/{boardId}(boardId=${board.getId()})}" th:object="${boardForm}" method="post">
         <div>
             <li>   글번호 : <span th:text="${board.getId()}"></span></li>
         </div>
@@ -25,14 +24,14 @@
         <div>
             <li>  내용 : <span th:text="board.getContent()"></span></li>
         </div>
-        <input type="submit" th:value="확인" th:onclick="onClick()">
-    </form>
+        <input type="button" th:value="확인" th:onclick="onClick()">
 
     <script th:inline="javascript">
 /*<![CDATA[*/
 
   		function onClick(){
   			alert("리스트로 돌아갑니다.");
+  			 location.href = "/board/all";
  		}
  		/*]]>*/
 </script>

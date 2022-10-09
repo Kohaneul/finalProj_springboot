@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <div>
+            <form th:object="${memberSearch}" class="form-inline">
+                <div class="form-group mb-2">
+                    <input type="text" th:field="*{loginId}" class="form-control"
+                           placeholder="회원아이디 입력"/>
+                </div>
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{memberSort}" class="form-control">
+                        <option value="">등급</option>
+                        <option th:each=
+                                        "sortMember : ${T(com.deli.project.domain.entity.MemberSort).values()}"
+                                th:value="${sortMember}"
+                                th:text="${sortMember}">option
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">검색</button>
+            </form>
+        </div>
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>아이디</th>
+                <th>닉네임</th>
+                <th>휴대폰번호</th>
+                <th>도시</th>
+                <th>주소</th>
+                <th>우편번호</th>
+                <th>분류</th>
+<!--                <th></th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${boards}">
+                <td th:text="${board.id}"></td>
+                <td th:text="${board.order.loginId}"></td>
+                <td th:text="${board.order.id}"></td>
+                <td th:text="${board.title}"></td>
+                <td th:text="${board.content}"></td>
+                <td th:text="${board.localDateTime}"></td>
+<!--                <td><a th:if="${session.LOGIN_SESSION.toString().contains('ADMIN')}" href="#" th:href="@{/members/{id}/edit (id=${member.id})}" class="btn btn-primary" role="button">수정</a></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div>
+
+</body>
+</html>

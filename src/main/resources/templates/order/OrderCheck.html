@@ -6,7 +6,7 @@
 
 <body>
 <div class="container">
-    <form role="form" th:action="@{/board/order/{orderId}(orderId=${order.getId()})}" th:object="${saveForm}" method="post">
+    <form role="form" th:object="${saveForm}" method="post">
     <div>
      <li>   픽업장소 : <span th:text="${saveForm.getPickUp().getPlaceName()}"></span></li>
     </div>

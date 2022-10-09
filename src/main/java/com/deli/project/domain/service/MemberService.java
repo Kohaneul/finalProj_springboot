@@ -28,6 +28,9 @@ public class MemberService {
     public Member findOne(Long id){
         return repository.findOne(id);
     }
+    public Member findLoginId(String loginId){
+        return repository.findId(loginId);
+    }
     public List<Member> findAll(MemberSearch memberSearch){
         return repository.findAll(memberSearch);
     }

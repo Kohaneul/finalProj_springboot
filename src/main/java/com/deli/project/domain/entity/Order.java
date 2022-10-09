@@ -49,12 +49,12 @@ public class Order {
         this.loginId = loginId;
     }
 
-    public static Order createOrder(Restaurant restaurant,String loginId, Delivery delivery){
+    public static Order createOrder(Restaurant restaurant,String loginId){
         Order order = new Order();
         order.setLoginId(loginId);
         order.setRestaurant(restaurant);
         order.setOrderStatus(OrderStatus.START);
-        order.setDelivery(delivery);
+        order.setDelivery(new Delivery());
         return order;
     }
 }
