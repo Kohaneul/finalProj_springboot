@@ -17,21 +17,21 @@ public class Board {
     @GeneratedValue
     @Column(name = "board_id")
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
-    private Member member;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
     private LocalDateTime localDateTime;
     private String title;
 
     private String content;
 
-    public void setMember(Member member) {
-        this.member = member;
-    }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public void setContent(String content) {
@@ -43,12 +43,11 @@ public class Board {
         this.localDateTime = localDateTime;
     }
 
-    public static Board createBoard(Member member, String title, String content){
+    public static Board createBoard(Order order, String title, String content){
        Board board = new Board();
-        board.setMember(member);
+        board.setOrder(order);
         board.setTitle(title);
         board.setContent(content);
-        board.setLocalDateTime(LocalDateTime.now());
        return board;
     }
 

@@ -6,28 +6,20 @@
 
 <body>
 <div class="container">
-    <form role="form" action="/board/order/{id} (id=${order.id})" th:object="${saveForm}" method="post">
+    <form role="form" th:action="@{/board/order/{orderId}(orderId=${order.getId()})}" th:object="${saveForm}" method="post">
     <div>
-        픽업장소 : <li th:text="${restaurant.pickUp.placeName}"></li>
-        <input type="hidden" th:field="*{pickUp_id}" class="form-control"  readonly>
+     <li>   픽업장소 : <span th:text="${saveForm.getPickUp().getPlaceName()}"></span></li>
     </div>
 
     <div>
-        카테고리 :
-        <li th:text="${restaurant.category.categoryName}"></li>
-        <input type="hidden" th:field="*{category_id}" class="form-control"  readonly>
-
+      <li>  카테고리 : <span th:text="${saveForm.getCategory().getCategoryName()}"></span></li>
+    </div>
+    <div>
+        <li>  장소명 : <span th:text="${saveForm.getRestaurant().getRestaurantName()}"></span></li>
     </div>
 
     <div>
-        장소명 : <li th:text="${restaurant.placeName}"></li>
-        <input type="hidden" th:field="*{pickUp_id}" class="form-control"  readonly>
-
-    </div>
-
-    <div>
-        주소 : <li th:text="|${restaurant.address.city} ${restaurant.address.state}| "></li>
-        <input type="hidden" th:field="*{pickUp_id}" class="form-control"  readonly>
+        <li>  주소 : <span th:text="|${restaurant.address.city} ${restaurant.address.state}| "></span></li>
     </div>
         <input type="submit" th:value="확인" th:onclick="onClick()">
     </form>

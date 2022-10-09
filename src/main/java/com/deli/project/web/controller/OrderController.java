@@ -1,13 +1,13 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.Delivery;
 import com.deli.project.domain.entity.DeliveryStatus;
 import com.deli.project.domain.entity.Order;
 import com.deli.project.domain.entity.Restaurant;
-import com.deli.project.domain.repository.OrderRepository;
-import com.deli.project.domain.service.MemberService;
 import com.deli.project.domain.service.OrderService;
 import com.deli.project.domain.service.RestaurantService;
+import com.deli.project.web.controller.form.BoardForm;
 import com.deli.project.web.controller.form.RestaurantSaveForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import static com.deli.project.domain.ConstEntity.*;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -29,20 +31,21 @@ public class OrderController {
     private final RestaurantService restaurantService;
 
 
-
-
-    @GetMapping("/{id}")
-    public String orderCheckFin(@PathVariable Long id){
-        Restaurant restaurant = restaurantService.findOne(id);
-
-        String address = restaurant.getAddress().getCity() + restaurant.getAddress().getState();
-        String placeName = restaurant.getPickUp().getPlaceName();
-        String loginId = restaurant.getPickUp().getMember().getLoginId();
-
-        Order order = Order.createOrder(restaurant, LocalDateTime.now(),new Delivery(DeliveryStatus.ING));
-        orderService.saveOrder(order);
+    @GetMapping("/{orderId}")
+    public String orderCheckFin(@PathVariable("orderId") Long orderId,@ModelAttribute BoardForm boardForm){
+        Order order = orderService.findOne(orderId);
+        boardForm.setOrder(order);
         return "board/BoardForm";
     }
 
+    @PostMapping
+    public String selectFin(@ModelAttribute("saveForm")RestaurantSaveForm saveForm, HttpServletRequest request){
+        Restaurant restaurant = restaurantService.findOne(saveForm.getRestaurant().getId());
+        Order order = Order.createOrder(restaurant,saveForm.getPickUp().getMember().getLoginId(),new Delivery(DeliveryStatus.ING));
+        Long orderId = orderService.saveOrder(order);
+        HttpSession session = request.getSession();
+        session.setAttribute(ConstEntity.ORDER_SESSION,orderId);
+        return "board/BoardDetail";
+    }
 
 }

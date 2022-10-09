@@ -21,8 +21,6 @@ color: #dc3545;
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
     <div id="map"></div>
-
-
     <span id="restaurantName"></span>
 
 
@@ -36,12 +34,11 @@ color: #dc3545;
         </thead>
         <tbody>
         <tr th:each="restaurant : ${restaurants}">
-            <form action="/board/select/step_5" >
+            <form action="/board/select" >
 <!--            <form action="/board/order/{id} (id=${restaurant.id})">-->
                 <td><input type="radio" name = "restaurantId" th:restaurantId="${restaurant.id}" th:onclick="radioClick(this.getAttribute('restaurantId'))"></td>
                 <td th:text="${restaurant.restaurantName}"></td>
                 <td th:text="${restaurant.address.city} + ${restaurant.address.state}"></td>
-
         </tr>
         </form>
         </tbody>
@@ -151,7 +148,7 @@ color: #dc3545;
    }
    flag = 1;
     function setOrder()
-        { if (flag==1) { open("/board/select?restaurantId="+restaurantId , "_blank"); self.close(); } }
+        { if (flag==1) { open("/board/select/"+restaurantId , "_blank"); self.close(); } }
 
        /*]]>*/
 </script>

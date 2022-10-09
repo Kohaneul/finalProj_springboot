@@ -21,8 +21,6 @@ public class Member {
     private String loginId;
     private String password;
     private String nickName;
-    @OneToMany(mappedBy = "member")
-    private List<Board> board;
 
     @OneToMany(mappedBy = "member")
     private List<PickUp> pickUpList = new ArrayList<>();

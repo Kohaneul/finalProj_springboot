@@ -19,7 +19,7 @@ color: #dc3545;
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
   <h2>글쓰기 Page</h2>
-  <form role="form" action="/board/new" th:object="${memberForm}" method="post" enctype="multipart/form-data">
+  <form role="form" action="/board/new" th:object="${boardForm}" method="post" enctype="multipart/form-data">
 
     <div th:if="${#fields.hasGlobalErrors()}">
       <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
@@ -30,12 +30,6 @@ color: #dc3545;
              th:class="${#fields.hasErrors('loginId')}? 'form-control fieldError' : 'form-control'">
       <p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}">Incorrect date</p>
     </div>
-    <div class="form-group">
-      <label th:for="attachFile">사진첨부</label>
-      <input type="file"  name="attachFile" >
-    </div>
-
-
 
     <div class="form-group">
       <label th:for="nickName">닉네임</label>
@@ -44,51 +38,30 @@ color: #dc3545;
       <p th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}">Incorrect date</p>
     </div>
     <div class="form-group">
-      <label th:for="password">비밀번호</label>
-      <input type="password" th:field="*{password}" class="form-control"  placeholder="비밀번호를 입력하세요"
-             th:class="${#fields.hasErrors('password')}? 'form-control fieldError' : 'form-control'">
-      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
-    </div>
-    <div class="form-group">
-      <label th:for="passwordCheck">비밀번호(확인)</label>
-      <input type="password" th:field="*{passwordCheck}" class="form-control"  placeholder="비밀번호를 입력하세요"
-             th:class="${#fields.hasErrors('passwordCheck')}? 'form-control fieldError' : 'form-control'">
-      <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Incorrect date</p>
-    </div>
-    <div class="form-group">
-      <label th:for="memberSort">등급</label>
-      <select th:field="*{memberSort}" class="form-control">
-        <option value="">등급 선택</option>
-        <option th:each=
-                        "memberSort : ${T(com.deli.project.domain.entity.MemberSort).values()}" th:value="${memberSort}" th:text="${memberSort}">
-        </option>
-      </select>
-      <p th:if="${#fields.hasErrors('memberSort')}" th:errors="*{memberSort}">Incorrect date</p>
-    </div>
-    <div class="form-group">
-      <label th:for="phoneNumber">휴대폰번호</label>
-      <input type="text" th:field="*{phoneNumber}" class="form-control" placeholder="휴대폰 번호를 입력하세요" th:class="${#fields.hasErrors('phoneNumber')}? 'form-control fieldError' : 'form-control'">
-      <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Incorrect date</p>
-    </div>
-
-    <div class="form-group">
-      <label th:for="city">도시</label>
+      <label th:for="city">픽업장소</label>
       <input type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요" th:class="${#fields.hasErrors('city')}? 'form-control fieldError' : 'form-control'">
       <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Incorrect date</p>
     </div>
     <div class="form-group">
-      <label th:for="state">주소</label>
+      <label th:for="city">카테고리</label>
+      <input type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요" th:class="${#fields.hasErrors('city')}? 'form-control fieldError' : 'form-control'">
+      <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Incorrect date</p>
+    </div>
+    <div class="form-group">
+      <label th:for="state">식당이름</label>
       <input type="text" th:field="*{state}" class="form-control" placeholder="거리를 입력하세요" th:class="${#fields.hasErrors('state')}? 'form-control fieldError' : 'form-control'">
       <p th:if="${#fields.hasErrors('state')}" th:errors="*{state}">Incorrect date</p>
     </div>
-
-    <div class="form-group">
-      <label th:for="zipCode">우편번호</label>
-      <input type="text" th:field="*{zipCode}" class="form-control" placeholder="우편번호를 입력하세요" th:class="${#fields.hasErrors('zipCode')}? 'form-control fieldError' : 'form-control'">
-      <p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}">Incorrect date</p>
+    <div>
+      <label th:for="state">제목</label>
+      <input type="text" th:field="*{state}" class="form-control" placeholder="거리를 입력하세요" th:class="${#fields.hasErrors('state')}? 'form-control fieldError' : 'form-control'">
+      <p th:if="${#fields.hasErrors('state')}" th:errors="*{state}">Incorrect date</p>
     </div>
-
-
+    <div>
+      <label th:for="state">내용</label>
+      <input type="text" th:field="*{state}" class="form-control" placeholder="거리를 입력하세요" th:class="${#fields.hasErrors('state')}? 'form-control fieldError' : 'form-control'">
+      <p th:if="${#fields.hasErrors('state')}" th:errors="*{state}">Incorrect date</p>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <br/>

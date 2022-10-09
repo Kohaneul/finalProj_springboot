@@ -48,7 +48,7 @@ public class BoardRepository{
     }
 
     private BooleanExpression containsLoginId(String loginId) {
-        return board.member.loginId.contains(loginId);
+        return board.order.restaurant.category.pickUp.member.loginId.eq(loginId);
     }
 
 

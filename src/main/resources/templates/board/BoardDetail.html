@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/PlaceSelect.css}"/>
+<title>주문 확인 창</title>
+
+<body>
+<div class="container">
+    <form role="form" th:action="@{/board/{boardId}(boardId=${board.getId()})}" th:object="${boardForm}" method="post">
+        <div>
+            <li>   글번호 : <span th:text="${board.getId()}"></span></li>
+        </div>
+
+        <div>
+            <li>  작성자 : <span th:text="${order.getLoginId()}"></span></li>
+        </div>
+        <div>
+            <li>  주문번호 : <span th:text="${order.getId()}"></span></li>
+        </div>
+
+
+        <div>
+            <li>  제목 : <span th:text="board.getTitle()"></span></li>
+        </div>
+        <div>
+            <li>  내용 : <span th:text="board.getContent()"></span></li>
+        </div>
+        <input type="submit" th:value="확인" th:onclick="onClick()">
+    </form>
+
+    <script th:inline="javascript">
+/*<![CDATA[*/
+
+  		function onClick(){
+  			alert("리스트로 돌아갑니다.");
+ 		}
+ 		/*]]>*/
+</script>
+
+</div>
+</body>
+</html>
