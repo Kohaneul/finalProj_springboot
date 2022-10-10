@@ -7,6 +7,7 @@ import com.deli.project.domain.entity.PickUp;
 import com.deli.project.domain.service.CalculateDto;
 import com.deli.project.domain.service.MemberService;
 import com.deli.project.domain.service.PickUpService;
+import com.deli.project.web.controller.form.PickUpForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,28 +25,22 @@ public class PickUpController {
     private final MemberService memberService;
     private final PickUpService pickUpService;
 
-    @GetMapping("/step_1")
+    @GetMapping("/myPosition")
     public String step1(@SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession,Model model){
 
         Member member = memberService.findOne(memberSession);
-        log.info("userSession={}",memberSession);
         model.addAttribute("member",member);
         return "/map/MapSearch";
     }
 
-    @GetMapping("/step_2")
+    @GetMapping("/pickUpPlace")
     public String step2(@RequestParam("lat")double myLat, @RequestParam("lon")double myLon, @SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession, Model model){
 
         List<CalculateDto> calculate = pickUpService.setArray(pickUpService.findAll(), myLat, myLon);
-        log.info("calculate={}",calculate);
-        log.info("calSize1={}",calculate.size());
-
-        log.info("calSize222={}",calculate.size());
 
         List<PickUp> place = pickUpAdd(myLat,myLon,calculate,memberSession);
         model.addAttribute("cal",calculate);
         model.addAttribute("place",place);
-        log.info("placeSize={}",place.size());
         return "/pickup/PlaceSelect";
     }
 

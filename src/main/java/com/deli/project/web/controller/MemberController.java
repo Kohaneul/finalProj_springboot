@@ -65,7 +65,7 @@ public class MemberController {
     private void alert(HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('회원가입 완료 로그인 페이지로 이동합니다.'); location.href='/login';</script>");
+        out.println("<script>alert('회원가입 완료! 로그인 페이지로 이동합니다.'); location.href='/login';</script>");
         out.flush();
     }
 

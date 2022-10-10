@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.EOFException;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -26,7 +28,7 @@ public class CategoryController {
     private final PickUpService pickUpService;
     private final CategoryService categoryService;
 
-    @GetMapping("/step_3/category")
+    @GetMapping("/category")
     private String pickUpCategory(@RequestParam("pickupId")Long pickupId, Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
         session.setAttribute(ConstEntity.PICKUP_SESSION,pickupId);

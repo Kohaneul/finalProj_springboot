@@ -29,7 +29,7 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final CategoryService categoryService;
     private final PickUpService pickUpService;
-    @GetMapping("/step_4")
+    @GetMapping("/restaurant")
     private String totalPickUp(@RequestParam("categoryId")Long categoryId, @SessionAttribute(PICKUP_SESSION)Long pickupId, HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         session.setAttribute(ConstEntity.CATEGORY_SESSION,categoryId);

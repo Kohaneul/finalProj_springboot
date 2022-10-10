@@ -9,7 +9,7 @@
 
 flag = 1;
 function closeAndSendParam()
-{ if (flag==1) { open("/board/select/step_4?categoryId="+category_Id , "_blank"); self.close(); } }
+{ if (flag==1) { open("/board/select/restaurant?categoryId="+category_Id , "_blank"); self.close(); } }
 
 
 
@@ -22,7 +22,7 @@ function closeAndSendParam()
 		console.log("choose : "+choose);
 
 		let pickup_id = document.getElementById('place_name').value;
-		let url = "/board/select/step_4?categoryId="+choose;
+		let url = "/board/select/restaurant?categoryId="+choose;
 		openWin = window.open(url,"parentForm2","width="+popupWidth+",height="+popupHeight+",left="+left+",top="+top+"resizable=yes")
 
 	}
