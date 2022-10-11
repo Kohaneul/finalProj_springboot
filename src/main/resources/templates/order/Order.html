@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--<head th:replace="fragments/header :: header" />-->
+<head th:replace="fragments/header :: header" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/PlaceSelect.css}"/>
 <title>주문 확인 창</title>
 
 <body>
 <div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div>
         픽업장소 : <li th:text="${restaurant.pickUp.placeName}"></li>
     </div>
@@ -21,9 +22,6 @@
     <div>
     주소 : <li th:text="|${restaurant.address.city} ${restaurant.address.state}| "></li>
     </div>
-
-
-
 </div>
 </body>
 </html>

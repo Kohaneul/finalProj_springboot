@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -30,9 +28,6 @@ public class Restaurant {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
     private Category category;
-
-//    @OneToOne(mappedBy = "restaurant")
-//    private Order order;
 
     private boolean isShow;
 

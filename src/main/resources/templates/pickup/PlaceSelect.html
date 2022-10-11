@@ -6,40 +6,32 @@
 .container {
 max-width: 1000px;
 }
-.fieldError {
-border-color: #dc3545;
-color: #dc3545;
-}
-
-.field-error {
-color: #dc3545;
-}
 </style>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 <div id="map"></div>
-<table class="tableInfo">
-    <thead>
-    <tr>
-    <tr class="trstyle"/>
-    <td>선택</td>
-    <td>장소</td>
-    <td>거리</td>
-    <td>주소</td>
-    </tr>
-    </thead>
-    <tbody>
+    <table class="tableInfo">
+           <thead>
+            <tr>
+                <tr class="trstyle"/>
+                <td>선택</td>
+                <td>장소</td>
+                <td>거리</td>
+                <td>주소</td>
+                </tr>
+           </thead>
+        <tbody>
 
-    <tr th:each="cal : ${cal}">
-            <td><input type="radio" name = "pickupId" th:pickupId="${cal.pickupId}" th:onclick="openChild(this.getAttribute('pickupId'))"></td>
-        <td th:text="${cal.placeName}"></td>
-        <td th:text="${cal.distance}"></td>
-        <td th:text="${cal.address}"></td>
-    </tr>
+        <tr th:each="cal : ${cal}">
+                <td><input type="radio" name = "pickupId" th:pickupId="${cal.pickupId}" th:onclick="openChild(this.getAttribute('pickupId'))"></td>
+            <td th:text="${cal.placeName}"></td>
+            <td th:text="${cal.distance}"></td>
+            <td th:text="${cal.address}"></td>
+        </tr>
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
     <h2 id="h2style">픽업 장소
         <input type="hidden" id = "url" value=""/>
 
@@ -103,13 +95,13 @@ color: #dc3545;
                 })
              })
 
-              </script>
+    </script>
 
 
 </div>
 
 <script th:inline="javascript">
-/*<![CDATA[*/
+    /*<![CDATA[*/
 
      function openChild(val){
      document.getElementById('url').value = val;
@@ -128,7 +120,7 @@ color: #dc3545;
  		    openWin = window.open("/board/select/category?pickupId="+urlVal,"childForm","width="+popupWidth+",height="+popupHeight+",left="+left+",top="+top+"resizable=yes")
  		    }
  		}
- 		/*]]>*/
+ 	/*]]>*/
 </script>
 
 

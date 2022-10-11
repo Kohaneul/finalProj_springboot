@@ -14,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -29,7 +27,6 @@ public class BoardController {
     private final MemberService memberService;
     private final CategoryService categoryService;
     private final PickUpService pickUpService;
-    //아이디, 닉네임, 픽업장소, 카테고리, 식당이름, 제목,내용
 
     @GetMapping("/new/{orderId}")
     public String board(@PathVariable("orderId")Long orderId,@ModelAttribute("boardForm") BoardForm boardForm,
@@ -61,8 +58,6 @@ public class BoardController {
         model.addAttribute("board",board);
         Order order = orderService.findOne(boardId);
         model.addAttribute("order",order);
-
-        //글번호, 작성자, 주문번호, 제목, 내용
         return "/board/BoardDetail";
     }
 

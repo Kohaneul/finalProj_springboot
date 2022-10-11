@@ -1,10 +1,12 @@
 package com.deli.project;
 
 import com.deli.project.domain.entity.*;
+import com.deli.project.domain.repository.UploadFileRepository;
 import com.deli.project.domain.service.CategoryService;
 import com.deli.project.domain.service.MemberService;
 import com.deli.project.domain.service.PickUpService;
 import com.deli.project.domain.service.RestaurantService;
+import com.deli.project.web.controller.MemberUpdateForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -18,20 +20,36 @@ public class TestDataInit {
 
     @Autowired  private MemberService memberService;
     @Autowired  private PickUpService pickUpService;
-
     @Autowired private CategoryService categoryService;
     @Autowired private RestaurantService restaurantService;
+    @Autowired private UploadFileRepository uploadFileRepository;
 
     @EventListener(ApplicationReadyEvent.class)
     public void dataInit(){
-        Member memberA = Member.createMember("memberA","1111","memberA","010-1111-2222", BASIC,new Address("서울시","영등포구 신길동","123-456"),null);
-        Member memberB = Member.createMember("memberB","2222","memberB","010-2222-2222", BASIC,new Address("서울시","종로구 사직동","789-456"),null);
-        Member memberC = Member.createMember("memberC","3333","memberC","010-3333-3333", ADMIN,new Address("서울시","종로구 무악동","1111-5544"),null);
-        Member memberD = Member.createMember("memberD","4444","memberF","010-4444-4444", BASIC,new Address("서울시","중구 다산동","1111-5544"),null);
+        UploadFile uploadFile1 = new UploadFile("smile3.jpg","7dc3acd3-7db0-41ee-b564-0a7e9996a1e0.jpg");
+        UploadFile uploadFile2 = new UploadFile("smile3.jpg","19dc57db-776d-4350-9c25-45847152644d.jpg");
+
+        UploadFile uploadFile3 = new UploadFile("smile3.jpg","30abe9c8-86e1-400a-9e97-e7442c075705.jpg");
+
+        UploadFile uploadFile4 = new UploadFile("smile3.jpg","56963f74-76fa-4843-a1f9-066844b2e34d.jpg");
+
+        uploadFileRepository.save(uploadFile1);
+        uploadFileRepository.save(uploadFile2);
+        uploadFileRepository.save(uploadFile3);
+        uploadFileRepository.save(uploadFile4);
+
+
+        Member memberA = Member.createMember("memberA","1111","memberA","010-1111-2222", new Address("서울시","영등포구 신길동","123-456"),uploadFile1);
+        Member memberB = Member.createMember("memberB","2222","memberB","010-2222-2222", new Address("서울시","종로구 사직동","789-456"),uploadFile2);
+        Member memberC = Member.createMember("memberC","3333","memberC","010-3333-3333", new Address("서울시","종로구 무악동","1111-5544"),uploadFile3);
+        Member memberD = Member.createMember("memberD","4444","memberF","010-4444-4444", new Address("서울시","중구 다산동","1111-5544"),uploadFile4);
 
         memberService.saveMember(memberA);
         memberService.saveMember(memberB);
-        memberService.saveMember(memberC);
+        Long id = memberService.saveMember(memberC);
+        Member member = memberService.findOne(id);
+        MemberUpdateForm memberUpdateForm = new MemberUpdateForm(member.getId(),member.getLoginId(),member.getPassword(),member.getPassword(),member.getNickName(), ADMIN,member.getPhoneNumber(),member.getAddress().getCity(),member.getAddress().getState(),member.getAddress().getZipCode(),member.getUploadFile());
+        memberService.updateMember(id,memberUpdateForm);
         memberService.saveMember(memberD);
 
         

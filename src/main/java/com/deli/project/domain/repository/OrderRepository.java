@@ -2,8 +2,6 @@ package com.deli.project.domain.repository;
 
 import com.deli.project.domain.entity.Order;
 import com.deli.project.domain.entity.OrderStatus;
-import com.deli.project.domain.entity.QOrder;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;

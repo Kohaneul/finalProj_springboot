@@ -22,10 +22,7 @@ max-width: 1000px;
 <body>
 <div class="container">
 <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-<!--<img th:src="|/image/${member.getUploadFile().getServerFileName()}|" width="300" height="300"/>-->
 
-<!--<img th:style="'background-image:url('+ @{/images/ERROR_500.jpg} +');'"/>-->
-<!--<span th:style="'background-image:url('+ @{/image/ERROR_500.jpg} +');'"></span>-->
 <img th:src="@{/images/ERROR_500.jpg}" id="img" width="1000" >
 <a th:href="@{/}" id="button" class="btn btn-primary" role="button">HOME</a>
 </div>

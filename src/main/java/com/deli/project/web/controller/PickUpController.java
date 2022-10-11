@@ -7,7 +7,6 @@ import com.deli.project.domain.entity.PickUp;
 import com.deli.project.domain.service.CalculateDto;
 import com.deli.project.domain.service.MemberService;
 import com.deli.project.domain.service.PickUpService;
-import com.deli.project.web.controller.form.PickUpForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

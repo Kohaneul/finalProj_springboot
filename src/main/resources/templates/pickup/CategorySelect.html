@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<!--<head th:replace="fragments/header :: header" />-->
 <link rel="stylesheet" type="text/css" th:href="@{/css/PlaceSelect.css}"/>
 <title>메뉴고르기</title>
 
@@ -9,7 +8,6 @@
 <div class="container">
    <div id = "Ctitle"> [ <span th:text="${placeName}"></span> ] 주변 원하는 메뉴를 골라주세요 </div>
     <div id="CForm">
-<!--    <form action="/board/select/restaurant" name="childForm" target="popupName">-->
         <form name="childForm" target="popupName">
 
         <input type="hidden" id="cInput" value=""/>

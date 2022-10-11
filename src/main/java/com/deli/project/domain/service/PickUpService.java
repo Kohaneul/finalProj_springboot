@@ -42,13 +42,10 @@ public class PickUpService {
 
     public List<CalculateDto> setArray(List<PickUp> place, double lat, double lon) {
         List<CalculateDto> cal = new ArrayList<>();
-        log.info("lat={}lon={}",lat,lon);
         for (PickUp pickUp : place) {
 
             double distance = disCal(pickUp.getCoordinate().getLatitude(),pickUp.getCoordinate().getLongitude(),lon,lat);
             if (distance < 1000) {
-                log.info("22222distance={}",distance);
-
                 CalculateDto calculat = new CalculateDto(pickUp.getId(), pickUp.getPlaceName(), pickUp.getAddress(), distance);
                 cal.add(calculat);
             }

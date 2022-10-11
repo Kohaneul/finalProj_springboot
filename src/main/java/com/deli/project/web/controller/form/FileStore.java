@@ -13,14 +13,13 @@ import java.util.UUID;
 
 @Component
 @Slf4j
-
 public class FileStore {
 
     @Value("${file.dir}")
     private String fileDirectory;
 
     public String fullPath(String fileName){
-        log.info("/////////////////////////////filePAth={}",fileDirectory);
+        log.info("filePath={}",fileDirectory);
         return fileDirectory+fileName;
     }
 
@@ -30,12 +29,12 @@ public class FileStore {
             return null;
         }
         String originalFileName = multipartFile.getOriginalFilename();
-        log.info("************** originalFileName ={}",originalFileName);
+        log.info("originalFileName ={}",originalFileName);
         String serverFileName = setServerName(originalFileName);
-        log.info("************** server ={}",serverFileName);
+        log.info("serverFileName ={}",serverFileName);
         multipartFile.transferTo(new File(fullPath(serverFileName)));
-        log.info("************** server ={}",fullPath(serverFileName));
-        return  new UploadFile(originalFileName,serverFileName);
+        log.info("server ={}",fullPath(serverFileName));
+        return new UploadFile(originalFileName,serverFileName);
         }
 
     private String setServerName(String originalFileName){

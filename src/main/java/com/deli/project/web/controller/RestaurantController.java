@@ -4,7 +4,6 @@ import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.RestaurantDto;
 import com.deli.project.domain.service.*;
-import com.deli.project.web.controller.form.OrderForm;
 import com.deli.project.web.controller.form.RestaurantSaveForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +48,6 @@ public class RestaurantController {
                                     @SessionAttribute(CATEGORY_SESSION)Long categoryId,
                                     Model model){
 
-        //픽업장소,카테고리,장소명,주소
         Restaurant restaurant = restaurantService.findOne(restaurantId);
         RestaurantSaveForm form = new RestaurantSaveForm(pickUpService.findOne(pickupId),categoryService.findOne(categoryId), restaurant,restaurant.getAddress());
         model.addAttribute("saveForm",form);

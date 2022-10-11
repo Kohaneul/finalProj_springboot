@@ -1,9 +1,7 @@
 package com.deli.project.domain.repository;
 
 import com.deli.project.domain.entity.Board;
-import com.deli.project.domain.entity.QBoard;
 import com.deli.project.domain.service.BoardSearchDto;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;

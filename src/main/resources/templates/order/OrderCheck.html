@@ -1,11 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/PlaceSelect.css}"/>
 <title>주문 확인 창</title>
-
+<style>
+#orderForm {
+    margin-left:25%;
+}
+</style>
 <body>
 <div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div id = "orderForm">
     <form role="form" th:object="${saveForm}" method="post">
     <div>
      <li>   픽업장소 : <span th:text="${saveForm.getPickUp().getPlaceName()}"></span></li>
@@ -23,16 +28,15 @@
     </div>
         <input type="submit" th:value="확인" th:onclick="onClick()">
     </form>
-
+    </div>
     <script th:inline="javascript">
-/*<![CDATA[*/
+        /*<![CDATA[*/
 
   		function onClick(){
   			alert("저장이 완료되었습니다");
  		}
  		/*]]>*/
-</script>
-
+    </script>
 </div>
 </body>
 </html>

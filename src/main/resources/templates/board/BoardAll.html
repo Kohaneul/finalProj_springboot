@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head th:replace="fragments/header :: header"/>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
@@ -37,7 +37,7 @@
                 <th>주소</th>
                 <th>우편번호</th>
                 <th>분류</th>
-<!--                <th></th>-->
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -48,7 +48,7 @@
                 <td th:text="${board.title}"></td>
                 <td th:text="${board.content}"></td>
                 <td th:text="${board.localDateTime}"></td>
-<!--                <td><a th:if="${session.LOGIN_SESSION.toString().contains('ADMIN')}" href="#" th:href="@{/members/{id}/edit (id=${member.id})}" class="btn btn-primary" role="button">수정</a></td>-->
+                <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')}" href="#" th:href="@{/member/{id}/edit (id=${member.id})}" class="btn btn-primary" role="button">수정</a></td>
             </tr>
             </tbody>
         </table>

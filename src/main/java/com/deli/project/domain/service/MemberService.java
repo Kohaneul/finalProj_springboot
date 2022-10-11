@@ -1,12 +1,17 @@
 package com.deli.project.domain.service;
 
+import com.deli.project.domain.entity.Address;
 import com.deli.project.domain.entity.Member;
+import com.deli.project.domain.entity.UploadFile;
 import com.deli.project.domain.repository.MemberRepository;
 import com.deli.project.domain.repository.MemberSearch;
+import com.deli.project.web.controller.MemberUpdateForm;
+import com.deli.project.web.controller.form.FileStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -19,6 +24,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository repository;
+    private final FileStore fileStore;
 
     @Transactional
     public Long saveMember(Member member){
@@ -42,6 +48,18 @@ public class MemberService {
             return member;
         }
         return null;
+    }
+    @Transactional
+    public void updateMember(Long id, MemberUpdateForm memberUpdateForm) throws IOException {
+        UploadFile uploadFile = fileStore.uploadFile(memberUpdateForm.getAttachFile());
+        Member member = findOne(id);
+        member.setMemberSort(memberUpdateForm.getMemberSort());
+        member.setNickName(memberUpdateForm.getNickName());
+        member.setPhoneNumber(memberUpdateForm.getPhoneNumber());
+        member.setAddress(new Address(memberUpdateForm.getCity(), memberUpdateForm.getState(), memberUpdateForm.getZipCode()));
+        member.setUploadFile(uploadFile);
+        member.setPassword(memberUpdateForm.getPassword());
+        member.setLoginId(memberUpdateForm.getLoginId());
     }
 
     public int duplicatedLoginId(String loginId){

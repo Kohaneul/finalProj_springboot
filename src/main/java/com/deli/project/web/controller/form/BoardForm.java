@@ -1,17 +1,13 @@
 package com.deli.project.web.controller.form;
 
-import com.deli.project.domain.entity.Member;
 import com.deli.project.domain.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Getter @Setter
 @AllArgsConstructor

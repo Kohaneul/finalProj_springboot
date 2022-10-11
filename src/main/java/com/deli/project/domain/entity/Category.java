@@ -1,13 +1,10 @@
 package com.deli.project.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -21,9 +18,6 @@ public class Category {
     @Column(name="category_name")
     private String categoryName;
 
-//    @OneToMany(mappedBy = "category")
-//    @JsonManagedReference
-//    private List<Restaurant>  restaurants = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="pickup_id")

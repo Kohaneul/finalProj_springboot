@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id @GeneratedValue
@@ -32,7 +31,7 @@ public class Member {
     @Embedded
     private Address address;    //city, state, zipCode
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "uploadFile_id")
     private UploadFile uploadFile;
 
@@ -74,14 +73,14 @@ public class Member {
 
 
 
-    public static Member createMember(String loginId, String password, String nickName, String phoneNumber, MemberSort memberSort, Address address,UploadFile uploadFile){
+    public static Member createMember(String loginId, String password, String nickName, String phoneNumber, Address address,UploadFile uploadFile){
         Member member = new Member();
         member.setLoginId(loginId);
         member.setPassword(password);
         member.setUploadFile(uploadFile);
         member.setNickName(nickName);
         member.setPhoneNumber(phoneNumber);
-        member.setMemberSort(memberSort);
+        member.setMemberSort(MemberSort.BASIC);
         member.setAddress(address);
         return member;
     }

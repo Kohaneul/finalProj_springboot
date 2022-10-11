@@ -10,9 +10,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class DeliConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/**","/member/all","/member/{id}","/boards").order(1).excludePathPatterns("/member/new");
-        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/member/all","member/{id}/edit","/member/{id}").order(2).excludePathPatterns("/member/new");
-//        registry.addInterceptor(new ParameterInterceptor()).addPathPatterns("/board/**").order(3);
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/board/**","/member/**","/boards").order(1).excludePathPatterns("/member/new");
+        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/member/all").order(2).excludePathPatterns("/member/new","/member/{id}","/member/{id}/edit");
+
 
     }
 

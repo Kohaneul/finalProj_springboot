@@ -2,7 +2,6 @@ package com.deli.project.web.controller;
 
 import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.Category;
-import com.deli.project.domain.entity.PickUp;
 import com.deli.project.domain.service.CategoryService;
 import com.deli.project.domain.service.PickUpService;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.EOFException;
-import java.io.IOException;
 import java.util.List;
 
 @Controller

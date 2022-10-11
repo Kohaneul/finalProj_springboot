@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
-    <title>Hello</title>
+    <title>메인 Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -15,7 +15,8 @@
             <a href="#" th:if="${session.SESSION_ID!=null}" th:href="@{/logout}" class="btn btn-primary" role="button">Logout</a>
             <a href="#" th:if="${session.SESSION_ID==null}" th:href="@{/login}" class="btn btn-primary" role="button">로그인</a>
             <a href="#" th:if="${session.SESSION_ID==null}" th:href="@{/member/new}" class="btn btn-primary" role="button">회원 가입</a>
-            <a class="btn btn-lg btn-secondary" href="/member/all">회원 목록</a>
+            <a href="#" th:if="${session.USER_ID!=null}"  th:href="@{/member/{id} (id=${session.USER_ID})}" class="btn btn-lg btn-secondary">내 정보 보기</a>
+            <a href="#" th:if="${session.SESSION_ID!=null}"  th:href="@{/member/all}" class="btn btn-lg btn-secondary">회원 목록</a>
         </p>
         <p class="lead">글 등록</p>
         <p>
@@ -23,9 +24,7 @@
             <a class="btn btn-lg btn-dark" href="/boards">글 목록</a>
         </p>
     </div>
-    <a href="#" th:if="${session.LOGIN_SESSION!=null}" th:href="@{/logout}" class="btn btn-primary" role="button">로그아웃</a>
     <div th:replace="fragments/footer :: footer" />
-
 </div> <!-- /container -->
 </body>
 </html>

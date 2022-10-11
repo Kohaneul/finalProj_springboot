@@ -17,6 +17,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         log.info("adminInterceptor");
         String requestURI = request.getRequestURI();
         HttpSession session = request.getSession();
+
         String uuid = session.getAttribute(ConstEntity.SESSION).toString();
         if(!uuid.contains("admin")){
             response.setContentType("text/html; charset=UTF-8");

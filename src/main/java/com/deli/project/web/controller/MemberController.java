@@ -1,5 +1,6 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.Address;
 import com.deli.project.domain.entity.Member;
 import com.deli.project.domain.entity.UploadFile;
@@ -9,6 +10,7 @@ import com.deli.project.web.controller.form.FileStore;
 import com.deli.project.web.controller.form.MemberForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.bcel.Const;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -83,7 +85,7 @@ public class MemberController {
         UploadFile attachFile = fileStore.uploadFile(memberForm.getAttachFile());
 
         Member member = Member.createMember(memberForm.getLoginId(), memberForm.getPassword(), memberForm.getNickName(), memberForm.getPhoneNumber(),
-                memberForm.getMemberSort(),new Address(memberForm.getCity(), memberForm.getState(), memberForm.getZipCode()),attachFile);
+                new Address(memberForm.getCity(), memberForm.getState(), memberForm.getZipCode()),attachFile);
 
         Long memberId = memberService.saveMember(member);
 
@@ -93,19 +95,38 @@ public class MemberController {
 
 
 
-    private void alertMember(HttpServletResponse response, RedirectAttributes redirectAttributes, Long memberId) throws IOException {
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        redirectAttributes.addAttribute("id", memberId);
-        out.println("<script>alert('멤버 입력 확인 창으로 이동합니다.'); location.href='/member/{id}';</script>");
-        out.flush();
-    }
-
     @GetMapping("/{id}")
-    public String findOne(@PathVariable Long id, Model model){
+    public String MyInfo(@SessionAttribute(name = ConstEntity.USER_SESSION) Long id, Model model){
         Member member = memberService.findOne(id);
         model.addAttribute("member",member);
+
         return "/member/MemberCheck";
+    }
+
+
+    @GetMapping("/{id}/edit")
+    public String editMember(@PathVariable Long id,Model model)
+    {
+        Member member = memberService.findOne(id);
+//        model.addAttribute("member",new MemberUpdateForm(member.getId(),member.getLoginId(),member.getPassword(),member.getPassword(),member.getNickName(),member.getMemberSort(),member.getPhoneNumber(),member.getAddress().getCity(),member.getAddress().getState(),member.getAddress().getZipCode(),
+//                null);
+
+        return "/member/updateMember";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String editMember(@PathVariable Long id,@Valid @ModelAttribute("member")MemberUpdateForm memberUpdateForm,BindingResult bindingResult,RedirectAttributes redirectAttributes) throws IOException {
+        if(bindingResult.hasErrors()){
+            return "/member/updateMember";
+        }
+        memberService.updateMember(id,memberUpdateForm);
+        return "redirect:/member/{id}";
+    }
+
+    private void memberUpdate(MemberUpdateForm memberForm, RedirectAttributes redirectAttributes, Model model) throws IOException {
+        memberService.updateMember(memberForm.getId(),memberForm);
+        model.addAttribute("member",memberService.findOne(memberForm.getId()));
+        redirectAttributes.addAttribute("id", memberForm.getId());
     }
 
     @ResponseBody
@@ -123,7 +144,7 @@ public class MemberController {
 
 
     @ResponseBody
-    @GetMapping("/image/{attachFile}")
+    @GetMapping("/images/{attachFile}")
     public Resource image(@PathVariable String attachFile) throws MalformedURLException {
         return new UrlResource("file:"+fileStore.fullPath(attachFile));
     }

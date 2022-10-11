@@ -2,8 +2,6 @@ package com.deli.project.domain.repository;
 
 import com.deli.project.domain.entity.Member;
 import com.deli.project.domain.entity.MemberSort;
-import com.deli.project.domain.entity.QMember;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 import static com.deli.project.domain.entity.QMember.member;
 
