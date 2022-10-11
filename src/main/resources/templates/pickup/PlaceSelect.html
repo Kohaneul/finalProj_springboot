@@ -110,21 +110,23 @@ color: #dc3545;
 
 <script th:inline="javascript">
 /*<![CDATA[*/
-  let pickupId;
+
      function openChild(val){
      document.getElementById('url').value = val;
-	let url = document.getElementById('url').value;
-	console.log(url);
-	 pickupId=url;
 	}
 
   		function onClick(){
+        let urlVal=document.getElementById('url').value;
+  		if(urlVal == null || urlVal == ""){
+  		  alert('선택하지않았습니다.');
+  		}
+  		else{
   			let popupWidth = 500;
   			let popupHeight = 600;
   			let left = Math.ceil((window.screen.width-popupWidth)/2);
-  			let top = Math.ceil((window.screen.height-popupHeight)/2);;
-
- 		openWin = window.open("/board/select/category?pickupId="+pickupId,"childForm","width="+popupWidth+",height="+popupHeight+",left="+left+",top="+top+"resizable=yes")
+  			let top = Math.ceil((window.screen.height-popupHeight)/2);
+ 		    openWin = window.open("/board/select/category?pickupId="+urlVal,"childForm","width="+popupWidth+",height="+popupHeight+",left="+left+",top="+top+"resizable=yes")
+ 		    }
  		}
  		/*]]>*/
 </script>

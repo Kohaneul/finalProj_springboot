@@ -31,12 +31,6 @@ public class OrderController {
 
     private final BoardService boardService;
 
-//    @GetMapping("/new/{orderId}")
-//    public String orderCheckFin(@PathVariable("orderId")Long orderId, @ModelAttribute BoardForm boardForm){
-//        Order order = orderService.findOne(orderId);
-//        boardForm.setOrder(order);
-//        return "board/BoardForm";
-//    }
 
     @PostMapping("/{boardId}")
     public String selectFin(@PathVariable("orderId")Long orderId,@Valid @ModelAttribute("boardForm")BoardForm boardForm, BindingResult bindingResult, RedirectAttributes redirectAttributes){

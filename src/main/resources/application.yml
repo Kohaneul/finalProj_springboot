@@ -28,9 +28,11 @@ logging.level:
   org.hibernate.SQL: debug
 # org.hibernate.type: trace
 
+
 server:
   error:
     include-exception: false
     include-stacktrace: never
     path: '/error'
-    whitelabel.enabled: false
+    whitelabel:
+      enabled: false

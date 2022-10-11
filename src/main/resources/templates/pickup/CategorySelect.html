@@ -5,8 +5,8 @@
 <title>메뉴고르기</title>
 
 <body>
-<div class="container">
 
+<div class="container">
    <div id = "Ctitle"> [ <span th:text="${placeName}"></span> ] 주변 원하는 메뉴를 골라주세요 </div>
     <div id="CForm">
 <!--    <form action="/board/select/restaurant" name="childForm" target="popupName">-->
@@ -26,10 +26,6 @@
     </div>
 </div>
 <script type="text/javascript" th:src="@{/js/CategorySelect.js}"></script>
+
 </body>
 </html>
-<!--  <form name="childForm">-->
-<!--        <ul th:each="cal : ${categories}">-->
-<!--            -->
-<!--            <li th:text="${cal.categoryName}"></li>-->
-<!--        </ul>-->
