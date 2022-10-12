@@ -1,0 +1,51 @@
+.container {
+max-width: 1000px;
+
+}
+form{
+ margin-top:70px;
+}
+#h3Style{
+    z-index: 10;
+    background-color:#F7E600;
+    position: absolute;
+      width:fit-content;
+      margin-left:20px;
+      margin-top:00px;
+      	opacity: 0.8;
+}
+
+#bottomSpace{
+ padding-bottom:220px;
+}
+.fieldError {
+border-color: #dc3545;
+color: #dc3545;
+}
+
+.field-error {
+color: #dc3545;
+}
+.form-group{
+ margin-top:2%;
+ margin-left:10%;
+ margin-bottom:20px;
+ text-align:
+}
+.form-control{
+ width:450px;
+ position: absolute;
+ margin-left:10%;
+ margin-top:-30px;
+ text-align:center;
+}
+.btn-primary{
+ margin-left:29%;
+ margin-top:11%;
+ position: absolute;
+
+}
+#content{
+ height:200px;
+}
+
