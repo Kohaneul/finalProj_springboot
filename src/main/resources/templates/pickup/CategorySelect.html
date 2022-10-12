@@ -1,28 +1,31 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" th:href="@{/css/PlaceSelect.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/CategorySelect.css}"/>
 <title>메뉴고르기</title>
 
 <body>
 
 <div class="container">
-   <div id = "Ctitle"> [ <span th:text="${placeName}"></span> ] 주변 원하는 메뉴를 골라주세요 </div>
+
+    <h3 id="h3Style">카테고리 선택</h3>
+
+    <div id = "Ctitle"> [ <span th:text="${placeName}"></span> ] 주변 원하는 메뉴를 골라주세요 </div>
     <div id="CForm">
         <form name="childForm" target="popupName">
 
-        <input type="hidden" id="cInput" value=""/>
-        <div th:each="cal : ${categories}">
-            <div>
-            <input type="radio" name = "categoryId" th:categoryId="${cal.id}" th:onclick="radioCheck(this.getAttribute('categoryId'))">
-            <span th:text="${cal.categoryName}"></span>
+            <input type="hidden" id="cInput" value=""/>
+            <div th:each="cal : ${categories}">
+                <div>
+                    <input type="radio" name = "categoryId" th:categoryId="${cal.id}" th:onclick="radioCheck(this.getAttribute('categoryId'))">
+                    <span th:text="${cal.categoryName}"></span>
+                </div>
             </div>
-        </div>
-        <br>
-        <input type="hidden" id="categoryId" name ="categoryId" value=""/>
-        <input type = "submit" id = "btn" value="선택" th:onclick= "closeAndSendParam()" />
-    </form>
+            <input type="hidden" id="categoryId" name ="categoryId" value=""/>
+            <input type = "submit" id = "btn1" value="선택" th:onclick= "closeAndSendParam()" />
+        </form>
     </div>
 </div>
+<div id="borderStyle"></div>
 <script type="text/javascript" th:src="@{/js/CategorySelect.js}"></script>
 
 </body>
