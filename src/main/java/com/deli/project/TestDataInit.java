@@ -97,7 +97,7 @@ public class TestDataInit {
         Category category6 = new Category("분식");
         Category category7 = new Category("찜·탕·찌개");
         Category category8 = new Category("피자");
-        Category category9 = new Category("'양식'");
+        Category category9 = new Category("양식");
         Category category10 = new Category("고기·구이");
         Category category11= new Category("족발·보쌈");
         Category category12= new Category("아시안");

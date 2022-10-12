@@ -11,6 +11,7 @@ max-width: 1000px;
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <h3 id="h3Style">내 위치</h3>
     <div>
         <div id="map"></div>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73&libraries=services"></script>
@@ -63,17 +64,21 @@ max-width: 1000px;
             <input type="hidden" name="lat" id="lat" value="" readonly />
 	         <input type="hidden" name="lon" id="lon" value="" readonly />
               <span  id="addrView">
-                  <span class="addr">
+                  <span class="addr">[ 나의 주소 ]
                <span th:value="${member.address.city}" th:text="${member.address.city}"></span>
               <span th:value="${member.address.state}" th:text="${member.address.state}"></span>
+                      </span>            	</span>
 
-                  	         <input type="submit" id = "pickup" value='픽업가능 위치' />
-                      </span>
-            	</span>
-	      </form>
+        <div id="btnStyle">
+            <input type="submit" id = "btn1" value='다음' />
+            <input type="button" id = "btn2" value='이전' />
+        </div>
+
+        </form>
         </span>
     </div>
     <div th:replace="fragments/footer :: footer" />
+    <script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
 
 </div>
 </body>

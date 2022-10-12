@@ -6,13 +6,20 @@
 	display: inline-block;
 	vertical-align: top;
 }
-.container{
-	margin-left:19%;
+#h3Style{
+    z-index: 10;
+    background-color:#F7E600;
+    position: absolute;
+      width:fit-content;
+      margin-left:20px;
+      margin-top:20px;
+      	opacity: 0.8;
 }
+
 
 #addrView {
 	position: absolute;
-	top: 600px;
+	top: 570px;
 	border-radius: 2px;
 	background: #fff;
 	background: rgba(255, 255, 255, 0.8);
@@ -20,7 +27,6 @@
 	padding: 5px;
 	width: 1000px;
 }
-
 .addr{
 	margin-left:350px;
 }
@@ -58,5 +64,33 @@
 
 #map {
 	width: 1000px;
-	height: 550px;
+	height: 530px;
+}
+
+.footer{
+	margin-top:50px;
+}
+
+#btnStyle{
+	margin-top:8px;
+    margin-left:20%;
+}
+
+#btn2 , #btn1{
+	position: absolute;
+	border:none;
+	border-radius: 20px;
+	z-index: 1;
+	width: 50px;
+	font-size:18px;
+	background:black;
+	color:white;
+}
+
+#btn2{
+	margin-left:15%;
+}
+
+#btn1{
+	margin-left:25%;
 }

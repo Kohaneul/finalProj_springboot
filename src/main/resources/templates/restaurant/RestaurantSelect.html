@@ -11,6 +11,7 @@ max-width: 1000px;
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <h3 id="h3Style">식당 선택 창</h3>
 
     <div id="map"></div>
     <span id="restaurantName"></span>
@@ -32,18 +33,23 @@ max-width: 1000px;
                 <td th:text="${restaurant.restaurantName}"></td>
                 <td th:text="${restaurant.address.city} + ${restaurant.address.state}"></td>
         </tr>
-        </form>
         </tbody>
         <h2 id="h2style">
-            [ <span th:text="${pickUp.placeName}"></span> ] 주변 <span th:text="${category.categoryName}"></span>
-            <input type="hidden" id="restaurantId" name="restaurantId" value="">
-            <input type="button" value="확인" th:onclick="setOrder()" />
-        </h2>
+            [ <span th:text="${pickUp.placeName}"></span> ] 주변 <span th:text="${category.categoryName}"></span>        </h2>
+        <input type="hidden" id="restaurantId" name="restaurantId" value="">
+        <div id="btnStyle">
+        <input type="submit" id = "btn1" value="확인" th:onclick="setOrder()" />
+        <input type="button" id = "btn2" value="이전" />
+        </div>
+        </form>
+
     </table>
+    <div th:replace="fragments/footer :: footer" />
 
 
     <script type="text/javascript"  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73&libraries=services"></script>
     <script type="text/javascript"  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73"></script>
+
     <script th:inline="javascript">
             let myPlace= [[${pickUp}]]
 
@@ -128,6 +134,7 @@ max-width: 1000px;
          }
       </script>
 
+    <script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
 
     <script th:inline="javascript">
     /*<![CDATA[*/
@@ -144,7 +151,6 @@ max-width: 1000px;
 
        /*]]>*/
 </script>
-    <div th:replace="fragments/footer :: footer" />
 
 
 </div>

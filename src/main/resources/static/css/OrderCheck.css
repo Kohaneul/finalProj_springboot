@@ -1,0 +1,71 @@
+
+.footer{
+	margin-top:80px;
+}
+img{
+	z-index: 3;
+}
+
+#h3Style{
+    z-index: 10;
+    background-color:#40E0D0;
+    position: absolute;
+      width:fit-content;
+      margin-left:20px;
+      margin-top:20px;
+      	opacity: 0.8;
+}
+#orderForm {
+    margin-left:9%;
+    text-align:center;
+    	z-index: 2;
+}
+
+#chooseCheck{
+	margin-top:30px;
+	font-size:20px;
+}
+
+#decoBox{
+	margin-left:22%;
+	width:400px;
+	border-radius: 15px;
+	height:150px;
+	margin-top:14%;
+	z-index: -100;
+	position: absolute;
+	 background-color: #ddd;
+        opacity: 0.5;
+}
+
+
+#h3Style {
+	position: absolute;
+	float:left;
+	z-index: 30;
+}
+
+#btnStyle{
+	margin-top:30px;
+    margin-left:-75%;
+}
+
+
+#btn2 , #btn1{
+	position: absolute;
+	border:none;
+	border-radius: 20px;
+	z-index: 1;
+	width: 50px;
+	font-size:18px;
+	background:black;
+	color:white;
+}
+
+#btn2{
+	margin-left:15%;
+}
+
+#btn1{
+	margin-left:25%;
+}

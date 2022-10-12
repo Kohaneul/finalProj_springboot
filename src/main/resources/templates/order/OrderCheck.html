@@ -1,34 +1,44 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/OrderCheck.css}"/>
 <title>주문 확인 창</title>
-<style>
-#orderForm {
-    margin-left:25%;
-}
-</style>
+
 <body>
+
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <h3 id="h3Style">선택 확인 창</h3>
+
+    <div id="decoBox"></div>
+
     <div id = "orderForm">
-    <form role="form" th:object="${saveForm}" method="post">
+        <img th:src="|/images/delivery.png|" width="300" height="200"/>
+        <div id="chooseCheck">
+        <form role="form" th:object="${saveForm}" method="post">
     <div>
-     <li>   픽업장소 : <span th:text="${saveForm.getPickUp().getPlaceName()}"></span></li>
+        픽업장소 : <span th:text="${saveForm.getPickUp().getPlaceName()}"></span>
     </div>
 
     <div>
-      <li>  카테고리 : <span th:text="${saveForm.getCategory().getCategoryName()}"></span></li>
+      카테고리 : <span th:text="${saveForm.getCategory().getCategoryName()}"></span>
     </div>
     <div>
-        <li>  장소명 : <span th:text="${saveForm.getRestaurant().getRestaurantName()}"></span></li>
+          장소명 : <span th:text="${saveForm.getRestaurant().getRestaurantName()}"></span>
     </div>
 
     <div>
-        <li>  주소 : <span th:text="|${restaurant.address.city} ${restaurant.address.state}| "></span></li>
+          주소 : <span th:text="|${restaurant.address.city} ${restaurant.address.state}| "></span>
     </div>
-        <input type="submit" th:value="확인" th:onclick="onClick()">
+
+
+     </div>
+    <div id="btnStyle">
+        <input type="submit" id = "btn1" value="다음" name="check"  th:onclick="onClick()"/>
+        <input type="button" id = "btn2" value='이전' />
+    </div>
+
     </form>
-    </div>
     <script th:inline="javascript">
         /*<![CDATA[*/
 
@@ -37,6 +47,7 @@
  		}
  		/*]]>*/
     </script>
+    <script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
     <div th:replace="fragments/footer :: footer" />
 
 </div>

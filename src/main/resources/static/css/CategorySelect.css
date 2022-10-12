@@ -1,19 +1,51 @@
 .container{
-	margin-top:10%;
+	margin-top:15%;
 }
 #Ctitle{
-	font-size:19px;
-	margin-left:4%;
-	margin-bottom:5%;
+	margin-top:55px;
+	font-size:18px;
+	margin-left:5.5%;
+
 }
 #CForm{
+	margin-top:5%;
 	font-size:20px;
 	margin-left:35%;
 }
 
-#btn{
-	width:80px;
-	height:40px;
+#h3Style{
+    z-index: 10;
+    background-color:#F7E600;
+		border-radius: 5px;
+    position: absolute;
+      width:fit-content;
+      margin-left:33%;
+      margin-top:-35px;
+      	opacity: 0.8;
+}
+
+#btn1{
+	margin-top:35px;
 	font-size:25px;
 	margin-left:8%;
+	position: absolute;
+	border:none;
+	border-radius: 20px;
+	z-index: 1;
+	width: 50px;
+	font-size:18px;
+	background:black;
+	color:white;
+}
+#borderStyle{
+	margin-left:3%;
+	position: absolute;
+    border: 5px solid #dddddd;
+	width:450px;
+	height:500px;
+	margin-top:-500px;
+	padding-top:30px;
+	padding-bottom:35px;
+	border-radius: 10px;
+		z-index: -500;
 }

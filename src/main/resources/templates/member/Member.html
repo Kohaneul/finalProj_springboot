@@ -18,7 +18,7 @@ color: #dc3545;
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <h2>회원가입 Page</h2>
+    <h3 id="h3Style">회원가입 창</h3>
     <form role="form" action="/member/new" th:object="${memberForm}" method="post" enctype="multipart/form-data">
 
         <div th:if="${#fields.hasGlobalErrors()}">

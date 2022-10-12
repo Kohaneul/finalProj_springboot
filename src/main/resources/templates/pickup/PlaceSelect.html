@@ -10,7 +10,9 @@ max-width: 1000px;
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-<div id="map"></div>
+    <h3 id="h3Style">픽업장소 선택 창</h3>
+
+    <div id="map"></div>
     <table class="tableInfo">
            <thead>
             <tr>
@@ -32,15 +34,16 @@ max-width: 1000px;
 
         </tbody>
     </table>
-    <h2 id="h2style">픽업 장소
+    <h2 id="h2style">픽업 장소</h2>
         <input type="hidden" id = "url" value=""/>
 
-        <input type="submit" value="선택" name="check" style="margin-top:0px" th:onclick="onClick()"/></h2>
-
+    <div id="btnStyle">
+        <input type="submit" id = "btn1" value="다음" name="check" style="margin-top:0px" th:onclick="onClick()"/>
+        <input type="button" id = "btn2" value='이전' />
+    </div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73&libraries=services"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73"></script>
 
-    </div>
 
     <script th:inline="javascript">
             let myPlace= [[${place}]]
@@ -96,10 +99,9 @@ max-width: 1000px;
              })
 
     </script>
-<div th:replace="fragments/footer :: footer" />
 
 
-</div>
+
 
 <script th:inline="javascript">
     /*<![CDATA[*/
@@ -123,7 +125,9 @@ max-width: 1000px;
  		}
  	/*]]>*/
 </script>
+<script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
+    <div th:replace="fragments/footer :: footer" />
 
-
+</div>
 </body>
 </html>
