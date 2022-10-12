@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
 @NoArgsConstructor
+@Entity
 public class UploadFile {
     @Id
     @GeneratedValue

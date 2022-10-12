@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
+<style>
+.container {
+max-width: 1000px;
+}
+</style>
     <title>메인 Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
@@ -11,7 +16,6 @@
         <h1>HELLO SHOP</h1>
         <p class="lead">회원 기능</p>
         <p>
-
             <a href="#" th:if="${session.SESSION_ID!=null}" th:href="@{/logout}" class="btn btn-primary" role="button">Logout</a>
             <a href="#" th:if="${session.SESSION_ID==null}" th:href="@{/login}" class="btn btn-primary" role="button">로그인</a>
             <a href="#" th:if="${session.SESSION_ID==null}" th:href="@{/member/new}" class="btn btn-primary" role="button">회원 가입</a>

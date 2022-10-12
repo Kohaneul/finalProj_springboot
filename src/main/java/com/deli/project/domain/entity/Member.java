@@ -1,6 +1,7 @@
 package com.deli.project.domain.entity;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,7 @@ public class Member {
     @Embedded
     private Address address;    //city, state, zipCode
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "uploadFile_id")
     private UploadFile uploadFile;
 
@@ -73,14 +74,14 @@ public class Member {
 
 
 
-    public static Member createMember(String loginId, String password, String nickName, String phoneNumber, Address address,UploadFile uploadFile){
+    public static Member createMember(String loginId, String password, String nickName, String phoneNumber, Address address,UploadFile uploadFile,MemberSort memberSort){
         Member member = new Member();
         member.setLoginId(loginId);
         member.setPassword(password);
         member.setUploadFile(uploadFile);
         member.setNickName(nickName);
         member.setPhoneNumber(phoneNumber);
-        member.setMemberSort(MemberSort.BASIC);
+        member.setMemberSort(memberSort);
         member.setAddress(address);
         return member;
     }

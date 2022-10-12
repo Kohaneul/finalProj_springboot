@@ -10,7 +10,6 @@ import com.deli.project.web.controller.form.FileStore;
 import com.deli.project.web.controller.form.MemberForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.bcel.Const;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -20,15 +19,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -85,7 +85,7 @@ public class MemberController {
         UploadFile attachFile = fileStore.uploadFile(memberForm.getAttachFile());
 
         Member member = Member.createMember(memberForm.getLoginId(), memberForm.getPassword(), memberForm.getNickName(), memberForm.getPhoneNumber(),
-                new Address(memberForm.getCity(), memberForm.getState(), memberForm.getZipCode()),attachFile);
+                new Address(memberForm.getCity(), memberForm.getState(), memberForm.getZipCode()),attachFile,memberForm.getMemberSort());
 
         Long memberId = memberService.saveMember(member);
 
@@ -98,24 +98,24 @@ public class MemberController {
     @GetMapping("/{id}")
     public String MyInfo(@SessionAttribute(name = ConstEntity.USER_SESSION) Long id, Model model){
         Member member = memberService.findOne(id);
-        model.addAttribute("member",member);
+        model.addAttribute("memberForm",member);
 
         return "/member/MemberCheck";
     }
 
 
     @GetMapping("/{id}/edit")
-    public String editMember(@PathVariable Long id,Model model)
+    public String editMember(@PathVariable Long id, Model model)
     {
         Member member = memberService.findOne(id);
-//        model.addAttribute("member",new MemberUpdateForm(member.getId(),member.getLoginId(),member.getPassword(),member.getPassword(),member.getNickName(),member.getMemberSort(),member.getPhoneNumber(),member.getAddress().getCity(),member.getAddress().getState(),member.getAddress().getZipCode(),
-//                null);
-
+        model.addAttribute("memberForm",new MemberUpdateForm(member.getId(),member.getLoginId(),member.getPassword(),member.getPassword(),member.getNickName(),null,member.getMemberSort(),member.getPhoneNumber(),
+        member.getAddress().getCity(),member.getAddress().getState(),member.getAddress().getZipCode()));
         return "/member/updateMember";
     }
 
+
     @PostMapping("/{id}/edit")
-    public String editMember(@PathVariable Long id,@Valid @ModelAttribute("member")MemberUpdateForm memberUpdateForm,BindingResult bindingResult,RedirectAttributes redirectAttributes) throws IOException {
+    public String editMember(@PathVariable Long id,@Valid @ModelAttribute("memberForm")MemberUpdateForm memberUpdateForm,BindingResult bindingResult) throws IOException {
         if(bindingResult.hasErrors()){
             return "/member/updateMember";
         }
@@ -123,11 +123,6 @@ public class MemberController {
         return "redirect:/member/{id}";
     }
 
-    private void memberUpdate(MemberUpdateForm memberForm, RedirectAttributes redirectAttributes, Model model) throws IOException {
-        memberService.updateMember(memberForm.getId(),memberForm);
-        model.addAttribute("member",memberService.findOne(memberForm.getId()));
-        redirectAttributes.addAttribute("id", memberForm.getId());
-    }
 
     @ResponseBody
     @GetMapping("/attach/{id}")

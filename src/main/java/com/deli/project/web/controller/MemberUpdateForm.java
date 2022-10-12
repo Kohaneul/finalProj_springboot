@@ -33,6 +33,9 @@ public class MemberUpdateForm {
     private String nickName;
 
     @NotNull
+    private MultipartFile uploadFile;
+
+    @NotNull
     private MemberSort memberSort;
 
     @NotEmpty
@@ -44,8 +47,5 @@ public class MemberUpdateForm {
     private String state;
     @NotEmpty
     private String zipCode;
-
-    @NotNull
-    private MultipartFile attachFile;
 
 }

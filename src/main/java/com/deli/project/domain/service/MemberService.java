@@ -11,11 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @Service
@@ -51,15 +48,14 @@ public class MemberService {
     }
     @Transactional
     public void updateMember(Long id, MemberUpdateForm memberUpdateForm) throws IOException {
-        UploadFile uploadFile = fileStore.uploadFile(memberUpdateForm.getAttachFile());
-        Member member = findOne(id);
+        Member  member = findOne(id);
         member.setMemberSort(memberUpdateForm.getMemberSort());
-        member.setNickName(memberUpdateForm.getNickName());
+        member.setPassword(memberUpdateForm.getPassword());
         member.setPhoneNumber(memberUpdateForm.getPhoneNumber());
         member.setAddress(new Address(memberUpdateForm.getCity(), memberUpdateForm.getState(), memberUpdateForm.getZipCode()));
-        member.setUploadFile(uploadFile);
-        member.setPassword(memberUpdateForm.getPassword());
-        member.setLoginId(memberUpdateForm.getLoginId());
+        member.setUploadFile(fileStore.uploadFile(memberUpdateForm.getUploadFile()));
+        log.info(member.getUploadFile().getServerFileName());
+        member.setNickName(memberUpdateForm.getNickName());
     }
 
     public int duplicatedLoginId(String loginId){
