@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/myPositionSearch.css}"/>>
+<link rel="stylesheet" type="text/css" th:href="@{/css/MapSearch.css}"/>
 <style>
 .container {
 max-width: 1000px;
@@ -73,6 +73,8 @@ max-width: 1000px;
 	      </form>
         </span>
     </div>
+    <div th:replace="fragments/footer :: footer" />
+
 </div>
 </body>
 </html>

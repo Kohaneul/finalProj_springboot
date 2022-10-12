@@ -13,7 +13,7 @@ max-width: 1000px;
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div class="jumbotron">
-        <h1>HELLO SHOP</h1>
+        <h1>배달 공동구매</h1>
         <p class="lead">회원 기능</p>
         <p>
             <a href="#" th:if="${session.SESSION_ID!=null}" th:href="@{/logout}" class="btn btn-primary" role="button">Logout</a>

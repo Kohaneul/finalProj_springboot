@@ -22,6 +22,8 @@
     <div>
     주소 : <li th:text="|${restaurant.address.city} ${restaurant.address.state}| "></li>
     </div>
+    <div th:replace="fragments/footer :: footer" />
+
 </div>
 </body>
 </html>

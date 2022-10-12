@@ -54,7 +54,6 @@ public class MemberService {
         member.setPhoneNumber(memberUpdateForm.getPhoneNumber());
         member.setAddress(new Address(memberUpdateForm.getCity(), memberUpdateForm.getState(), memberUpdateForm.getZipCode()));
         member.setUploadFile(fileStore.uploadFile(memberUpdateForm.getUploadFile()));
-        log.info(member.getUploadFile().getServerFileName());
         member.setNickName(memberUpdateForm.getNickName());
     }
 

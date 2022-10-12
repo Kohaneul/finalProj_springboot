@@ -27,6 +27,9 @@ padding-top: 19px;
 color: #777;
 border-top: 1px solid #e5e5e5;
 }
+a{
+    text-decoration: none;
+}
 /* Customize container */
 @media (min-width: 768px) {
 .container {

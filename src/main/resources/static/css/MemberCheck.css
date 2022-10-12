@@ -1,0 +1,26 @@
+.container {
+    max-width: 1000px;
+
+}
+
+#memberImg{
+    	z-index: 1;
+    position: absolute;
+    margin-left:5%;
+    margin-top:1%;
+}
+#memberCheckForm{
+    margin-left:35%;
+}
+
+#button{
+    margin-bottom:3%;
+}
+#notice{
+    margin-top:4%;
+    margin-left:5.5%;
+    background-color:black;
+    color:white;
+    width:fit-content;
+
+}

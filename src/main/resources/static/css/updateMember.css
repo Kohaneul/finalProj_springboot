@@ -1,0 +1,33 @@
+.container {
+max-width: 1000px;
+}
+.field-error {
+border-color: #dc3545;
+color: #dc3545;
+}
+#pageInfo{
+    margin-left:18px;
+    margin-top:-15px;
+    padding-bottom:10px;
+}
+#updateMemberForm{
+    margin-left:33%;
+}
+
+label{
+    z-index: 1;
+    margin-left:-80px;
+    position: absolute;
+    margin-bottom:10px;
+
+}
+input,select{
+    margin-left:5%;
+    margin-bottom:10px;
+}
+.form-control{
+    width:400px;
+}
+.btn-primary{
+    margin-left:16%;
+}
