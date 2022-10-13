@@ -2,6 +2,38 @@
 body {
 padding-top: 25px;
 }
+#home{
+   color:#40E0D0;
+   font-weight: bold;
+   margin-left:5px;
+
+}
+#h3Style{
+    z-index: 10;
+    background-color:#F7E600;
+    position: absolute;
+      margin-top:-45px;
+         opacity: 0.8;
+   font-size:20px;
+      border-radius: 5px;
+
+}
+
+.btn-primary{
+   background:#40E0D0;
+   border:none;
+}
+#myPosition{
+    z-index: 5;
+    position: absolute;
+    margin-top:-10%;
+   margin-left:59%;
+      border-radius: 40px;
+
+}
+#hereImage{
+   border-radius: 40px;
+}
 
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -13,7 +45,7 @@ padding-right: 15px;
 }
 /* Custom page header */
 .header {
-border-bottom: 1px solid #e5e5e5;
+border-bottom: 2px solid #e5e5e5;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -25,7 +57,7 @@ padding-bottom: px;
 .footer {
 padding-top: 0px;
 color: #777;
-border-top: 1px solid #e5e5e5;
+border-top: 2px solid #e5e5e5;
 }
 a{
     text-decoration: none;

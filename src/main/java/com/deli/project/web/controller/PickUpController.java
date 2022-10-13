@@ -40,6 +40,8 @@ public class PickUpController {
         List<PickUp> place = pickUpAdd(myLat,myLon,calculate,memberSession);
         model.addAttribute("cal",calculate);
         model.addAttribute("place",place);
+        model.addAttribute("myLat",myLat);
+        model.addAttribute("myLon",myLon);
         return "/pickup/PlaceSelect";
     }
 

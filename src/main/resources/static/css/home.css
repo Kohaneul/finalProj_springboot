@@ -1,0 +1,47 @@
+img{
+	z-index: 3;
+	position: absolute;
+	margin-left:15%;
+	margin-top:-7.5%;
+}
+#h1Title{
+	margin-left:-0%;
+	margin-top:-5%;
+	padding-bottom:1%;
+}
+.jumbotron{
+	margin-top:13%;
+	margin-bottom:10%;
+	margin-left:-41%;
+}
+
+.lead{
+	margin-left:47%;
+	border-radius: 10px;
+	width:fit-content;
+	text-decoration: underline lightgray 5px;
+	color:black;
+}
+
+.btn{
+	background-color:#40E0D0;
+	border-radius: 80px;
+	margin-left:2%;
+	margin-bottom:1%;
+	width:180px;
+	height:61px;
+	color:white;
+	font-weight: bold;
+}
+#logout_btn{
+	margin-left:36%;
+    margin-top:21%;
+	border-radius: 5px;
+	font-size:15px;
+	text-decoration: underline yellow 2px;
+	background:none;
+	color:black;
+	z-index: 3;
+	position: absolute;
+
+}

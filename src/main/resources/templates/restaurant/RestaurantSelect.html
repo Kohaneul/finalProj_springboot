@@ -11,7 +11,7 @@ max-width: 1000px;
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <h3 id="h3Style">식당 선택 창</h3>
+    <h3 id="h3Style">#5. 식당 선택</h3>
 
     <div id="map"></div>
     <span id="restaurantName"></span>
@@ -37,9 +37,11 @@ max-width: 1000px;
         <h2 id="h2style">
             [ <span th:text="${pickUp.placeName}"></span> ] 주변 <span th:text="${category.categoryName}"></span>        </h2>
         <input type="hidden" id="restaurantId" name="restaurantId" value="">
+        <a href="#" id="myPosition" onclick="location.reload()"><img th:src="|/images/here.png|" width="40" height="40"/></a>
+
         <div id="btnStyle">
         <input type="submit" id = "btn1" value="확인" th:onclick="setOrder()" />
-        <input type="button" id = "btn2" value="이전" />
+            <input type="button" id = "btn2" value='이전' onClick="history.back();"/>
         </div>
         </form>
 

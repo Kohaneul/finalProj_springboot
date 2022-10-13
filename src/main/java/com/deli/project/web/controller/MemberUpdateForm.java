@@ -25,9 +25,9 @@ public class MemberUpdateForm {
 
     @NotEmpty
     private String loginId;
-    @NotEmpty
+    @NotEmpty(message="비밀번호를 입력해주세요")
     private String password;
-    @NotEmpty
+    @NotEmpty(message="비밀번호(확인)를 입력해주세요")
     private String passwordCheck;
     @NotEmpty
     private String nickName;
@@ -38,7 +38,7 @@ public class MemberUpdateForm {
     @NotNull
     private MemberSort memberSort;
 
-    @NotEmpty
+    @NotEmpty(message="휴대폰번호를 입력해주세요")
     private String phoneNumber;
 
     @NotEmpty

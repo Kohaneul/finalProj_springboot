@@ -6,7 +6,7 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <h3 id="h3Style">내 위치</h3>
+    <h3 id="h3Style">내 정보</h3>
 
     <div th:object = "${memberForm}">
         <div class="form-group" id="memberImg">
@@ -42,6 +42,7 @@
 
     </form>
     <br/>
+
     <div th:replace="fragments/footer :: footer" />
 
 </div> <!-- /container -->

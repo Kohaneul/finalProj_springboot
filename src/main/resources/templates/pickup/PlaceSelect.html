@@ -10,7 +10,7 @@ max-width: 1000px;
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <h3 id="h3Style">픽업장소 선택 창</h3>
+    <h3 id="h3Style">#2. 픽업 장소 선택</h3>
 
     <div id="map"></div>
     <table class="tableInfo">
@@ -34,12 +34,12 @@ max-width: 1000px;
 
         </tbody>
     </table>
-    <h2 id="h2style">픽업 장소</h2>
         <input type="hidden" id = "url" value=""/>
+    <a href="#" id="myPosition" onclick="location.reload()"><img th:src="|/images/here.png|" width="40" height="40"/></a>
 
     <div id="btnStyle">
         <input type="submit" id = "btn1" value="다음" name="check" style="margin-top:0px" th:onclick="onClick()"/>
-        <input type="button" id = "btn2" value='이전' />
+        <input type="button" id = "btn2" value='이전' onClick="history.back();"/>
     </div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73&libraries=services"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73"></script>
@@ -49,13 +49,13 @@ max-width: 1000px;
             let myPlace= [[${place}]]
             let idx = myPlace.length-1;
             let myLat = myPlace[idx].coordinate.latitude;
-            let address = new Array();
+            let myLon = myPlace[idx].coordinate.longitude;
 
+            let address = new Array();
             for(let i = 0; i<myPlace.length;i++){
                 address[i] = myPlace[i].address;
             }
 
-            let myLon = myPlace[idx].coordinate.longitude;
                let mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
                  center: new kakao.maps.LatLng(myLon,myLat), // 지도의 중심좌표
@@ -99,8 +99,6 @@ max-width: 1000px;
              })
 
     </script>
-
-
 
 
 <script th:inline="javascript">

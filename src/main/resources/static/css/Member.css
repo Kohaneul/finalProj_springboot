@@ -1,0 +1,64 @@
+#h3Style{
+    margin-left:57%;
+
+}
+.container {
+max-width: 1000px;
+}
+#globalError{
+  margin-left:-40%;
+  font-size:20px;
+}
+
+
+.form-group{
+    width:500px;
+    margin-bottom:1%;
+}
+
+.fieldError {
+border-color: #dc3545;
+color: #dc3545;
+}
+
+.field-error {
+  color: #dc3545;
+    margin-left:4%;
+    text-align:center;
+    font-size:14px;
+}
+#memberForm{
+    margin-left:31%;
+    margin-top:2%;
+}
+input,option{
+    height:40px;
+}
+label{
+    margin-left:-110px;
+    z-index:1;
+    margin-top:0.5%;
+    position:absolute;
+}
+
+.btn-primary{
+    margin-top:2%;
+    margin-left:5%;
+    width:80px;
+}
+#submitBtn{
+  margin-left:15%;
+  position:absolute;
+      z-index:1;
+  margin-top:13px;
+
+}
+
+#backBtn{
+  margin-right:-5%;
+}
+
+#fileBtn{
+  margin-top:0.5%;
+  margin-bottom:-1.5%;
+}

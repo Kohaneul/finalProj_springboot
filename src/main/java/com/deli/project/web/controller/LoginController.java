@@ -48,6 +48,7 @@ public class LoginController {
         if(member==null){
             bindingResult.reject("globalError","아이디/비밀번호 입력 오류");
         }
+
         if(bindingResult.hasErrors()){
             return "/member/Login";
         }

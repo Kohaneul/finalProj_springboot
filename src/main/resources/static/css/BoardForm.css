@@ -6,14 +6,8 @@ form{
  margin-top:70px;
 }
 #h3Style{
-    z-index: 10;
-    background-color:#F7E600;
-    position: absolute;
-      width:fit-content;
-      margin-left:20px;
-      margin-top:00px;
-      	opacity: 0.8;
-}
+    margin-left:56%;
+    }
 
 #bottomSpace{
  padding-bottom:220px;

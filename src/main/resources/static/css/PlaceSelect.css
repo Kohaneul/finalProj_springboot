@@ -20,15 +20,8 @@
 	margin-top:50px;
 }
 #h3Style{
-    z-index: 10;
-    background-color:#F7E600;
-    position: absolute;
-      width:fit-content;
-      margin-left:20px;
-      margin-top:20px;
-      	opacity: 0.8;
+    margin-left:53%;
 }
-
 
 .trstyle {
 	border-bottom: 2px solid #dddddd;

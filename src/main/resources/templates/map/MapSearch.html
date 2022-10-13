@@ -11,7 +11,7 @@ max-width: 1000px;
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <h3 id="h3Style">내 위치</h3>
+    <h3 id="h3Style">#1. 내 위치 찾기</h3>
     <div>
         <div id="map"></div>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8800e7024fb23ec08385f1384cbd3f73&libraries=services"></script>
@@ -68,10 +68,11 @@ max-width: 1000px;
                <span th:value="${member.address.city}" th:text="${member.address.city}"></span>
               <span th:value="${member.address.state}" th:text="${member.address.state}"></span>
                       </span>            	</span>
+            <a href="#" id="myPosition" onclick="location.reload()"><img id="hereImage" th:src="|/images/here.png|" width="40" height="40"/></a>
 
         <div id="btnStyle">
             <input type="submit" id = "btn1" value='다음' />
-            <input type="button" id = "btn2" value='이전' />
+            <input type="button" id = "btn2" value='이전' onClick="history.back();"/>
         </div>
 
         </form>

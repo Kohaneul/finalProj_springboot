@@ -6,17 +6,10 @@
 	display: inline-block;
 	vertical-align: top;
 }
+
 #h3Style{
-    z-index: 10;
-    background-color:#F7E600;
-    position: absolute;
-      width:fit-content;
-      margin-left:20px;
-      margin-top:20px;
-      	opacity: 0.8;
+    margin-left:54%;
 }
-
-
 #addrView {
 	position: absolute;
 	top: 570px;

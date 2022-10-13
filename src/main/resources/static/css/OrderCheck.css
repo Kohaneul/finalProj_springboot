@@ -37,14 +37,14 @@ img{
 	 background-color: #ddd;
         opacity: 0.5;
 }
+#h3Style{
+    background-color:#40E0D0;
+    position: absolute;
+      width:fit-content;
+      margin-left:10%;
 
-
-#h3Style {
-	position: absolute;
-	float:left;
-	z-index: 30;
+      	opacity: 0.8;
 }
-
 #btnStyle{
 	margin-top:30px;
     margin-left:-75%;
