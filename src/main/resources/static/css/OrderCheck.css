@@ -1,9 +1,10 @@
 
 .footer{
-	margin-top:80px;
+	margin-top:13%;
 }
 img{
 	z-index: 3;
+
 }
 
 #h3Style{
@@ -19,6 +20,7 @@ img{
     margin-left:9%;
     text-align:center;
     	z-index: 2;
+	margin-top:6%;
 }
 
 #chooseCheck{
@@ -30,8 +32,8 @@ img{
 	margin-left:22%;
 	width:400px;
 	border-radius: 15px;
-	height:150px;
-	margin-top:14%;
+	height:185px;
+	margin-top:16.5%;
 	z-index: -100;
 	position: absolute;
 	 background-color: #ddd;

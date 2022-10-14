@@ -6,9 +6,9 @@
 <body>
 <div class="container">
 
-    <h3 id="h4Style">#6. 메뉴 선택</h3>
+    <h3 id="h4Style">#5. 메뉴 선택</h3>
 
-    <div id = "Ctitle"> [ 식당 :  <span th:text="${restaurantName}"></span> ] 메뉴판 </div>
+    <div id = "Ctitle"> [  <span th:text="${restaurantName}"></span> ] 메뉴판 </div>
     <div id="CForm">
         <form name="childForm" target="popupName">
              <thead>
@@ -20,12 +20,6 @@
                 </tbody>
             </table>
             <input type="hidden" id="cInput" value=""/>
-<!--            <div th:each="menu : ${menuList}">-->
-<!--                <div>-->
-<!--                    <input type="radio" name = "menuId" th:menuId="${menu.id}" th:onclick="radioCheck(this.getAttribute('menuId'))">-->
-<!--                    <span th:text="${menu.name}"></span>-->
-<!--                </div>-->
-<!--            </div>-->
             <input type="hidden" id="mId" name ="mId" value=""/>
             <input type = "submit" id = "btn1" value="선택" th:onclick= "closeAndSendParam()" />
         </form>

@@ -29,16 +29,14 @@ public class BoardController {
     private final PickUpService pickUpService;
 
     @GetMapping("/new/{orderId}")
-    public String board(@PathVariable("orderId")Long orderId,@ModelAttribute("boardForm") BoardForm boardForm,
-                        @SessionAttribute(ConstEntity.PICKUP_SESSION)Long pickUpId, @SessionAttribute(ConstEntity.CATEGORY_SESSION)Long categoryId){
+    public String board(@PathVariable("orderId")Long orderId,@SessionAttribute(name = ConstEntity.USER_SESSION)Long userId,
+                        @SessionAttribute(name=ConstEntity.PICKUP_SESSION)Long pickUpId, @SessionAttribute(name=ConstEntity.CATEGORY_SESSION)Long categoryId
+            ,Model model){
         OrderCheck order = orderService.findOne(orderId);
-        Member member= memberService.findLoginId(order.getLoginId());
-        boardForm.setOrder(order);
-        boardForm.setCategory(categoryService.findOne(categoryId).getCategoryName());
-        boardForm.setNickName(member.getNickName());
-        boardForm.setPickUpName(pickUpService.findOne(pickUpId).getPlaceName());
-        boardForm.setRestaurantName(order.getRestaurant().getRestaurantName());
-        boardForm.setMinOrderPrice(order.getRestaurant().getMinOrderPrice());
+        BoardForm boardForm = new BoardForm(order,memberService.findOne(userId).getNickName(),pickUpService.findOne(pickUpId).getPlaceName(),
+                categoryService.findOne(categoryId).getCategoryName(),order.getRestaurant().getRestaurantName(),order.getRestaurant().getMinOrderPrice());
+        model.addAttribute("boardForm",boardForm);
+
         return "/board/BoardForm";
     }
 

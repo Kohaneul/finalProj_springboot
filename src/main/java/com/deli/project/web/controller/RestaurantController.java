@@ -7,6 +7,7 @@ import com.deli.project.domain.repository.RestaurantDto;
 import com.deli.project.domain.service.*;
 import com.deli.project.web.controller.form.OrderSaveForm;
 import com.deli.project.web.controller.form.RestaurantSaveForm;
+import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -91,58 +92,21 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public String orderCheck(@RequestParam Long menuId,Model model){
+    public String orderCheck(@RequestParam Long menuId,@SessionAttribute(name = PICKUP_SESSION)Long pickUpId, Model model){
         Menu menu = menuRepository.findOne(menuId);
-        OrderSaveForm saveForm = new OrderSaveForm(menu.getRestaurant(),menu);
+        PickUp pickUp = pickUpService.findOne(pickUpId);
+        OrderSaveForm saveForm = new OrderSaveForm(menu.getRestaurant(),pickUp,menu);
+
         model.addAttribute("saveForm",saveForm);
         return "/order/OrderCheck";
     }
-//
-//    @PostMapping
-//    public String orderCheckFin(@ModelAttribute("saveForm")OrderSaveForm saveForm,@SessionAttribute(name= USER_SESSION)Long loginId, RedirectAttributes redirectAttributes){
-//        OrderCheck orderCheck = OrderCheck.createOrder(saveForm.getRestaurant(),memberService.findOne(loginId).getLoginId());
-//        orderService.saveOrder(orderCheck);
-//        redirectAttributes.addAttribute("orderCheckId",orderCheck.getId());
-//        return "redirect:/board/check/{orderCheckId}";
-//    }
-//
-//    @PostMapping("/{restaurantId}")
-//    public String selectMenu(@PathVariable("restaurantId") Long restaurantId, @SessionAttribute(USER_SESSION)Long userId,@SessionAttribute(PICKUP_SESSION)Long pickupId, RedirectAttributes redirectAttributes)
-//
-//    {
-//        String loginId = memberService.findOne(userId).getLoginId();
-//
-//
-//        return "redirect:/board/select/{restaurantId}/menu";
-//    }
-//
-//    @GetMapping("/{restaurantId}/menu")
-//    public String selectMenu(@PathVariable("restaurantId") Long restaurantId,Model model){
-//        List<Menu> menuList = restaurantService.findMenu(restaurantId);
-//
-//        model.addAttribute("menuList",menuList);
-//        return "restaurant/MenuSelect";
-//    }
-//    @GetMapping
-//    public String restaurantSelect2(@RequestParam("restaurantId")Long restaurantId,@RequestParam("menuId") Long menuId,
-//                                    @SessionAttribute(name = PICKUP_SESSION)Long pickUpId,
-//                                    Model model){
-//        Menu menu = restaurantService.findOne(restaurantId, menuId);
-//        Restaurant restaurant = restaurantService.findOne(restaurantId);
-//        OrderSaveForm saveForm = new OrderSaveForm(pickUpService.findOne(pickUpId),restaurant.getCategory(),restaurant,restaurant.getAddress(),menu);
-//        model.addAttribute("saveForm",saveForm);
-//        return "/restaurant/OrderCheck";
-//    }
-
-//    @PostMapping("/{restaurantId}")
-//    public String restaurantSelect3(@PathVariable("restaurantId") Long restaurantId, @SessionAttribute(USER_SESSION)Long userId,@SessionAttribute(PICKUP_SESSION)Long pickupId, RedirectAttributes redirectAttributes){
-//        String loginId = memberService.findOne(userId).getLoginId();
-//        OrderCheck order = OrderCheck.createOrder(restaurantService.findOne(restaurantId),loginId);
-//        Long orderId = orderService.saveOrder(order);
-//        redirectAttributes.addAttribute("orderId",orderId);
-//        return "redirect:/board/new/{orderId}";
-//
-//    }
+    @PostMapping
+    public String orderCheck(@ModelAttribute("saveForm")OrderSaveForm orderSaveForm,RedirectAttributes redirectAttributes){
+        OrderCheck orderCheck = OrderCheck.createOrder(orderSaveForm.getRestaurant(),orderSaveForm.getPickUp().getMember().getLoginId(),orderSaveForm.getMenu());
+        Long orderId = orderService.saveOrder(orderCheck);
+        redirectAttributes.addAttribute("orderId",orderId);
+        return "redirect:/board/new/{orderId}";
+    }
 
 
 }

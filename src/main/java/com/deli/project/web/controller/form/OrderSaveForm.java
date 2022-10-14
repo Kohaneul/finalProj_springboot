@@ -10,6 +10,7 @@ import lombok.Setter;
 public class OrderSaveForm {
 
     private Restaurant restaurant;
+    private PickUp pickUp;
     private Menu menu;
 
 }

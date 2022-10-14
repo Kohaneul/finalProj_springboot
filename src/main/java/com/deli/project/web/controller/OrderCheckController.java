@@ -26,28 +26,8 @@ import java.util.List;
 public class OrderCheckController {
 
     private final OrderCheckService orderService;
-    private final RestaurantService restaurantService;
     private final MemberService memberService;
     private final BoardService boardService;
-//
-//    @GetMapping("/restaurant/menu")
-//    public String selectMenu(@RequestParam("restaurantId")Long restaurantId, Model model){
-//        Restaurant restaurant = restaurantService.findOne(restaurantId);
-//        OrderSaveForm saveForm = new OrderSaveForm(restaurant.getPickUp(),restaurant.getCategory(),restaurant,restaurant.getAddress(),null);
-//        List<Menu> menuList = restaurant.getMenuList();
-//        model.addAttribute("saveForm",saveForm);
-//        model.addAttribute("menuList",menuList);
-//        return "/order/MenuSelect";
-//    }
-//
-//
-//    @PostMapping("/restaurant/menu")
-//    public String selectMenu1(@RequestParam("restaurantId")Long restaurantId,@RequestParam("menuId")Long menuId, Model model){
-//        Restaurant restaurant = restaurantService.findOne(restaurantId);
-//        Menu menu = restaurantService.findOne(restaurantId, menuId);
-//        model.addAttribute("menu",menu);
-//        return "/order/MenuSelect";
-//    }
 
     @GetMapping("/check/{orderCheckId}")
     public String boardCheck(@PathVariable Long orderCheckId, Model model){
