@@ -11,5 +11,4 @@ public class RestaurantDto {
 
     private Long categoryId;
     private String address;
-
 }

@@ -25,11 +25,10 @@ public class RestaurantService {
         return repository.findOne(id);
     }
 
-    public List<Restaurant> findAll(boolean isShow){
-        return repository.findAll(isShow);
+    public List<Restaurant> findAll(){
+        return repository.findAll();
     }
 
-    @Transactional
     public List<Restaurant> findDto(RestaurantDto restaurantDto){
         return repository.findAll(restaurantDto);
     }

@@ -30,14 +30,14 @@ public class RestaurantRepository {
         return em.find(Restaurant.class, id);
     }
     
-    public List<Restaurant> findAll(boolean isShow){
-        return em.createQuery("select c from Restaurant c where c.isShow = :isShow",Restaurant.class).setParameter("isShow",isShow).getResultList();
+    public List<Restaurant> findAll(){
+        return em.createQuery("select c from Restaurant c order by c.score desc",Restaurant.class).getResultList();
     }
 
     public List<Restaurant> findAll(RestaurantDto restaurantDto){
         String address = restaurantDto.getAddress();
         Long categoryId = restaurantDto.getCategoryId();
-        return query.select(QRestaurant.restaurant).from(QRestaurant.restaurant).where(containsCity(address),equalsCategoryId(categoryId)).fetch();
+        return query.select(QRestaurant.restaurant).from(QRestaurant.restaurant).where(containsCity(address),equalsCategoryId(categoryId)).orderBy(QRestaurant.restaurant.score.desc()).fetch();
     }
 
     private BooleanExpression equalsCategoryId(Long categoryId) {

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/MenuSelect.css}"/>
+<title>메뉴고르기</title>
+
+<body>
+<div class="container">
+
+    <h3 id="h4Style">#6. 메뉴 선택</h3>
+
+    <div id = "Ctitle"> [ 식당 :  <span th:text="${restaurantName}"></span> ] 메뉴판 </div>
+    <div id="CForm">
+        <form name="childForm" target="popupName">
+             <thead>
+                <tr th:each="menu : ${menuList}">
+                    <td><input type="checkbox" name = "menuId" th:menuId="${menu.id}" th:onclick="radioCheck(this.getAttribute('menuId'))"></td>
+                    <td th:text="${menu.name}"></td> :
+                    <td th:text="${menu.price}"></td><br>
+                </tr>
+                </tbody>
+            </table>
+            <input type="hidden" id="cInput" value=""/>
+<!--            <div th:each="menu : ${menuList}">-->
+<!--                <div>-->
+<!--                    <input type="radio" name = "menuId" th:menuId="${menu.id}" th:onclick="radioCheck(this.getAttribute('menuId'))">-->
+<!--                    <span th:text="${menu.name}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+            <input type="hidden" id="mId" name ="mId" value=""/>
+            <input type = "submit" id = "btn1" value="선택" th:onclick= "closeAndSendParam()" />
+        </form>
+    </div>
+</div>
+<div id="borderStyle"></div>
+<script type="text/javascript" th:src="@{/js/MenuSelect.js}"></script>
+
+</body>
+</html>

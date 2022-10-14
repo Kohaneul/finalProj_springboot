@@ -1,6 +1,6 @@
 package com.deli.project.web.controller.form;
 
-import com.deli.project.domain.entity.Order;
+import com.deli.project.domain.entity.OrderCheck;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +11,9 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderForm {
+public class OrderCheckForm {
    @NotEmpty
-    private Order order;
+    private OrderCheck order;
     @NotEmpty
     @Length(min = 5,max = 100)
     private String title;
@@ -21,7 +21,7 @@ public class OrderForm {
     @Length(min = 5,max = 500)
     private String content;
 
-    public void setOrder(Order order) {
+    public void setOrder(OrderCheck order) {
         this.order = order;
     }
 

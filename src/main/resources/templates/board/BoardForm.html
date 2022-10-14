@@ -7,35 +7,37 @@
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
   <h3 id="h3Style">글쓰기 Page</h3>
-  <form role="form" th:object="${boardForm}" method="post" >
+  <form role="form" th:object="${boardForm}" method="post"  onsubmit="return false">
     <div th:if="${#fields.hasGlobalErrors()}">
       <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
     </div>
     <div class="form-group">
       <label th:for="order">아이디</label>
-      <input type="text" th:field="*{order.loginId}" class="form-control" placeholder="제목을 입력하세요" th:class="${#fields.hasErrors('order')}? 'form-control fieldError' : 'form-control'" readonly>
-      <p th:if="${#fields.hasErrors('order')}" th:errors="*{order}">Incorrect date</p>
+      <input type="text" th:field="*{order.loginId}" class="form-control" readonly>
     </div>
 
     <div class="form-group">
       <label th:for="nickName">닉네임</label>
-      <input type="text" th:field="*{nickName}" class="form-control" placeholder="제목을 입력하세요" th:class="${#fields.hasErrors('nickName')}? 'form-control fieldError' : 'form-control'"readonly>
-      <p th:if="${#fields.hasErrors('nickName')}" th:errors="*{nickName}">Incorrect date</p>
+      <input type="text" th:field="*{nickName}" class="form-control"readonly>
     </div>
     <div class="form-group">
       <label th:for="pickUpName">픽업장소</label>
-      <input type="text" th:field="*{pickUpName}" class="form-control" placeholder="장소를 입력하세요" th:class="${#fields.hasErrors('pickUpName')}? 'form-control fieldError' : 'form-control'"readonly>
-      <p th:if="${#fields.hasErrors('pickUpName')}" th:errors="*{pickUpName}">Incorrect date</p>
+      <input type="text" th:field="*{pickUpName}" class="form-control" readonly>
     </div>
     <div class="form-group">
       <label th:for="category">카테고리</label>
-      <input type="text" th:field="*{category}" class="form-control" placeholder="카테고리를 입력하세요" th:class="${#fields.hasErrors('category')}? 'form-control fieldError' : 'form-control'"readonly>
-      <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Incorrect date</p>    </div>
+      <input type="text" th:field="*{category}" class="form-control" readonly>
+    </div>
 
     <div class="form-group">
       <label th:for="restaurantName">식당이름</label>
-      <input type="text" th:field="*{restaurantName}" class="form-control" placeholder="식당이름을 입력하세요" th:class="${#fields.hasErrors('restaurantName')}? 'form-control fieldError' : 'form-control'"readonly>
-      <p th:if="${#fields.hasErrors('restaurantName')}" th:errors="*{restaurantName}">Incorrect date</p>    </div>
+      <input type="text" th:field="*{restaurantName}" class="form-control" readonly>
+    </div>
+
+    <div class="form-group">
+      <label th:for="minOrderPrice">최소 주문 금액</label>
+      <input type="text" th:field="*{minOrderPrice}" class="form-control" readonly>
+    </div>
 
       <div class="form-group">
       <label th:for="state">제목</label>
@@ -47,6 +49,7 @@
       <input type="text" th:field="*{content}" class="form-control" placeholder="내용을 입력하세요" th:class="${#fields.hasErrors('content')}? 'form-control fieldError' : 'form-control'">
       <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Incorrect date</p>
     </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <div id="bottomSpace"></div>

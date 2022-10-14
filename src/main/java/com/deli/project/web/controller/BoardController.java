@@ -3,7 +3,7 @@ package com.deli.project.web.controller;
 import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.Board;
 import com.deli.project.domain.entity.Member;
-import com.deli.project.domain.entity.Order;
+import com.deli.project.domain.entity.OrderCheck;
 import com.deli.project.domain.service.*;
 import com.deli.project.web.controller.form.BoardForm;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
-    private final OrderService orderService;
+    private final OrderCheckService orderService;
     private final BoardService boardService;
     private final MemberService memberService;
     private final CategoryService categoryService;
@@ -31,13 +31,14 @@ public class BoardController {
     @GetMapping("/new/{orderId}")
     public String board(@PathVariable("orderId")Long orderId,@ModelAttribute("boardForm") BoardForm boardForm,
                         @SessionAttribute(ConstEntity.PICKUP_SESSION)Long pickUpId, @SessionAttribute(ConstEntity.CATEGORY_SESSION)Long categoryId){
-        Order order = orderService.findOne(orderId);
+        OrderCheck order = orderService.findOne(orderId);
         Member member= memberService.findLoginId(order.getLoginId());
         boardForm.setOrder(order);
         boardForm.setCategory(categoryService.findOne(categoryId).getCategoryName());
         boardForm.setNickName(member.getNickName());
         boardForm.setPickUpName(pickUpService.findOne(pickUpId).getPlaceName());
         boardForm.setRestaurantName(order.getRestaurant().getRestaurantName());
+        boardForm.setMinOrderPrice(order.getRestaurant().getMinOrderPrice());
         return "/board/BoardForm";
     }
 
@@ -52,14 +53,6 @@ public class BoardController {
         return "redirect:/board/{boardId}";
     }
 
-    @GetMapping("/{boardId}")
-    public String boardCheck(@PathVariable Long boardId, Model model){
-        Board board = boardService.findOne(boardId);
-        model.addAttribute("board",board);
-        Order order = orderService.findOne(boardId);
-        model.addAttribute("order",order);
-        return "/board/BoardDetail";
-    }
 
 
     @GetMapping("/all")

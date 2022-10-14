@@ -1,0 +1,49 @@
+.container{
+	margin-top:18%;
+}
+#Ctitle{
+	margin-top:55px;
+	font-size:20px;
+	margin-left:27%;
+}
+#CForm{
+	margin-top:5%;
+	font-size:20px;
+	margin-left:26%;
+}
+
+#h4Style{
+    z-index: 10;
+    background-color:#F7E600;
+		border-radius: 5px;
+    position: absolute;
+      width:fit-content;
+      margin-left:33%;
+      margin-top:-35px;
+      	opacity: 0.8;
+}
+#btn1{
+	margin-top:35px;
+	font-size:25px;
+	margin-left:18%;
+	position: absolute;
+	border:none;
+	border-radius: 20px;
+	z-index: 1;
+	width: 50px;
+	font-size:18px;
+	background:black;
+	color:white;
+}
+#borderStyle{
+	margin-left:3%;
+	position: absolute;
+    border: 5px solid #dddddd;
+	width:450px;
+	height:500px;
+	margin-top:-260px;
+	padding-top:30px;
+	padding-bottom:35px;
+	border-radius: 10px;
+		z-index: -500;
+}

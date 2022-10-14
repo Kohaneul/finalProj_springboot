@@ -18,7 +18,7 @@ public class Board {
     private Long id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    private Order order;
+    private OrderCheck order;
     private LocalDateTime localDateTime;
     private String title;
 
@@ -29,7 +29,7 @@ public class Board {
         this.title = title;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(OrderCheck order) {
         this.order = order;
     }
 
@@ -42,7 +42,7 @@ public class Board {
         this.localDateTime = localDateTime;
     }
 
-    public static Board createBoard(Order order, String title, String content){
+    public static Board createBoard(OrderCheck order, String title, String content){
        Board board = new Board();
         board.setOrder(order);
         board.setTitle(title);

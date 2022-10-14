@@ -1,10 +1,9 @@
 package com.deli.project;
 
 import com.deli.project.domain.entity.*;
-import com.deli.project.domain.service.CategoryService;
-import com.deli.project.domain.service.MemberService;
-import com.deli.project.domain.service.PickUpService;
-import com.deli.project.domain.service.RestaurantService;
+import com.deli.project.domain.repository.MenuRepository;
+import com.deli.project.domain.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -14,12 +13,15 @@ import static com.deli.project.domain.entity.MemberSort.ADMIN;
 import static com.deli.project.domain.entity.MemberSort.BASIC;
 
 @Component
+@Slf4j
 public class TestDataInit {
 
     @Autowired  private MemberService memberService;
     @Autowired  private PickUpService pickUpService;
     @Autowired private CategoryService categoryService;
     @Autowired private RestaurantService restaurantService;
+
+    @Autowired private MenuRepository menuRepository;
 
     @EventListener(ApplicationReadyEvent.class)
     public void dataInit(){
@@ -120,15 +122,21 @@ public class TestDataInit {
         categoryService.saveCategory(category14);
 
 
-        Restaurant restaurant1 = Restaurant.setRestaurant("A 돈까스",new Address("서울","영등포구 신길로 10"),category1);
-        Restaurant restaurant2 = Restaurant.setRestaurant("B 돈까스",new Address("서울","영등포구 영등포로 410"),category1);
-        Restaurant restaurant3 = Restaurant.setRestaurant("C 돈까스",new Address("서울","영등포구 신풍로25길 6 1층"),category1);
-        Restaurant restaurant4 = Restaurant.setRestaurant("D 돈까스",new Address("서울","영등포구 신길동 95-254"),category1);
+        Restaurant restaurant1 = Restaurant.setRestaurant("A 돈까스",new Address("서울","영등포구 신길로 10"),category1,4.9,15000);
+        Restaurant restaurant2 = Restaurant.setRestaurant("B 돈까스",new Address("서울","영등포구 영등포로 410"),category1,4.5,20000);
+        Restaurant restaurant3 = Restaurant.setRestaurant("C 돈까스",new Address("서울","영등포구 신풍로25길 6 1층"),category1,3.3,30000);
+        Restaurant restaurant4 = Restaurant.setRestaurant("D 돈까스",new Address("서울","영등포구 신길동 95-254"),category1,4.8,18000);
 
-        Restaurant restaurant5 = Restaurant.setRestaurant("A 중식집",new Address("서울","영등포구 여의대방로 137"),category2);
-        Restaurant restaurant6 = Restaurant.setRestaurant("B 중식집",new Address("서울","영등포구 신길로39길 1"),category2);
-        Restaurant restaurant7 = Restaurant.setRestaurant("C 중식집",new Address("서울","영등포구 신풍로25길 6 1층"),category2);
-        Restaurant restaurant8 = Restaurant.setRestaurant("D 중식집",new Address("서울","영등포구 여의대방로 137"),category2);
+        Restaurant restaurant5 = Restaurant.setRestaurant("A 중식집",new Address("서울","영등포구 여의대방로 137"),category2,4.2,20000);
+        Restaurant restaurant6 = Restaurant.setRestaurant("B 중식집",new Address("서울","영등포구 신길로39길 1"),category2,4.5,25000);
+        Restaurant restaurant7 = Restaurant.setRestaurant("C 중식집",new Address("서울","영등포구 신풍로25길 6 1층"),category2,4.4,18000);
+        Restaurant restaurant8 = Restaurant.setRestaurant("D 중식집",new Address("서울","영등포구 여의대방로 137"),category2,4.0,30000);
+
+        Menu menu1 = new Menu("돈까스 정식 A",10000,restaurant1);
+        Menu menu2 = new Menu("돈까스 정식 B",13000,restaurant1);
+        Menu menu3 = new Menu("치즈돈까스",11000,restaurant1);
+        Menu menu4 = new Menu("우동",7000,restaurant1);
+        Menu menu5 = new Menu("냉모밀",7000,restaurant1);
 
         restaurantService.saveRestaurant(restaurant1);
         restaurantService.saveRestaurant(restaurant2);
@@ -138,6 +146,14 @@ public class TestDataInit {
         restaurantService.saveRestaurant(restaurant6);
         restaurantService.saveRestaurant(restaurant7);
         restaurantService.saveRestaurant(restaurant8);
+
+        menuRepository.save(menu1);
+        menuRepository.save(menu2);
+        menuRepository.save(menu3);
+        menuRepository.save(menu4);
+        menuRepository.save(menu5);
+
+
 
     }
 }

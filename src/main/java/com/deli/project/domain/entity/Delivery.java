@@ -17,12 +17,12 @@ public class Delivery {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="order_id")
-    private Order order;
+    private OrderCheck order;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;  //    PICKUP,ING,COMPLETE
 
-    public void setOrder(Order order) {
+    public void setOrder(OrderCheck order) {
         this.order = order;
 
     }
