@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-
+/**
+ * 픽업 장소 저장소
+ * */
 @Repository
 public class PickUpRepository {
     private final EntityManager em;

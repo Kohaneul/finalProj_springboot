@@ -2,11 +2,11 @@ package com.deli.project.web.controller;
 
 import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.Address;
+import com.deli.project.domain.entity.ImageFile;
 import com.deli.project.domain.entity.Member;
-import com.deli.project.domain.entity.UploadFile;
-import com.deli.project.domain.repository.MemberSearch;
+import com.deli.project.domain.repository.MemberSearchDTO;
 import com.deli.project.domain.service.MemberService;
-import com.deli.project.web.controller.form.FileStore;
+import com.deli.project.web.controller.form.ImageStore;
 import com.deli.project.web.controller.form.MemberForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
@@ -28,7 +27,6 @@ import javax.validation.Valid;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -38,7 +36,7 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
 
-    private final FileStore fileStore;
+    private final ImageStore fileStore;
 
     @GetMapping("/new")
     public String join(@ModelAttribute("memberForm") MemberForm memberForm){
@@ -82,7 +80,7 @@ public class MemberController {
 
 
     private void memberSave(MemberForm memberForm, RedirectAttributes redirectAttributes, Model model) throws IOException {
-        UploadFile attachFile = fileStore.uploadFile(memberForm.getAttachFile());
+        ImageFile attachFile = fileStore.uploadFile(memberForm.getAttachFile());
 
         Member member = Member.createMember(memberForm.getLoginId(), memberForm.getPassword(), memberForm.getNickName(), memberForm.getPhoneNumber(),
                 new Address(memberForm.getCity(), memberForm.getState(), memberForm.getZipCode()),attachFile,memberForm.getMemberSort());
@@ -146,7 +144,7 @@ public class MemberController {
 
 
     @GetMapping("/all")
-    public String memberAll(@ModelAttribute("memberSearch") MemberSearch memberSearch, Model model){
+    public String memberAll(@ModelAttribute("memberSearch") MemberSearchDTO memberSearch, Model model){
         List<Member> members = memberService.findAll(memberSearch);
         model.addAttribute("members",members);
 

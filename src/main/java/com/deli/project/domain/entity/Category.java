@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+/**
+ * 카테고리 테이블
+ * */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

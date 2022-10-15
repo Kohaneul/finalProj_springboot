@@ -27,11 +27,21 @@ public class MyErrorController implements ErrorController {
         out.flush();
   }
 
-  @GetMapping("/500")
-  public String error500(){
+
+  public String getErrorPath(){
+      return "/error/error-400";
+  }
+    @GetMapping("/500")
+    public String error500(HttpServletResponse response){
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       return "/error/error-500";
   }
 
+    @GetMapping("/400")
+    public String error400(HttpServletResponse response){
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return "/error/error-400";
+    }
 
 
 }

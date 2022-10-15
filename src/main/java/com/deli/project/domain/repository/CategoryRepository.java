@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-
+/**
+ * 카테고리 정보 저장소
+ */
 @Repository
 public class CategoryRepository {
     private final EntityManager em;

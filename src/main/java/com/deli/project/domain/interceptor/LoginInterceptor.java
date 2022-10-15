@@ -1,13 +1,16 @@
 package com.deli.project.domain.interceptor;
-
 import com.deli.project.domain.ConstEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+/**
+ * 로그인 Interceptor.
+ * 로그인을 해야 세션 id가 부여되어 글 작성이 가능.
+ * */
 @Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
     @Override

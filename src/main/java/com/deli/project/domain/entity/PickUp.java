@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-
+/**
+ * 픽업 장소 테이블
+ * */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -32,13 +32,7 @@ public class PickUpService {
     public List<PickUp> findAll(){
         return repository.findAll();
     }
-//    @Transactional
-//    public List<PickUp> findCloseToDistance(double myLat, double myLon){
-//        List<PickUp> allPickUp = findAll();
-//        List<CalculateDto> calculateDtos = setCalculate(allPickUp, myLat, myLon);
-//        calculateDtos.stream().filter(calculateDto -> allPickUp.add(findOne(calculateDto.getPickupId())));
-//        return allPickUp;
-//    }
+
 
     public List<CalculateDto> setArray(List<PickUp> place, double lat, double lon) {
         List<CalculateDto> cal = new ArrayList<>();

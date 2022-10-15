@@ -1,7 +1,7 @@
 package com.deli.project.domain.service;
 
 import com.deli.project.domain.entity.Restaurant;
-import com.deli.project.domain.repository.RestaurantDto;
+import com.deli.project.domain.repository.RestaurantDTO;
 import com.deli.project.domain.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class RestaurantService {
         return repository.findAll();
     }
 
-    public List<Restaurant> findDto(RestaurantDto restaurantDto){
+    public List<Restaurant> findDto(RestaurantDTO restaurantDto){
         return repository.findAll(restaurantDto);
     }
 

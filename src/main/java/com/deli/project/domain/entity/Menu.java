@@ -4,14 +4,17 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
+/**
+ * 메뉴(식당) 테이블
+ * */
+
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
 public class Menu {
-
     @GeneratedValue
     @Id @Column(name="menu_id")
     private Long id;

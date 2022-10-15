@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+/**
+ * 게시판 테이블
+ * */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

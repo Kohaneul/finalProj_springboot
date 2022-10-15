@@ -1,15 +1,13 @@
 package com.deli.project.domain.entity;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * 식당 정보 테이블
+ * */
 @Entity
 @Getter
 @Slf4j

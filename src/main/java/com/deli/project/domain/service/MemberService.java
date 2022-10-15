@@ -2,11 +2,10 @@ package com.deli.project.domain.service;
 
 import com.deli.project.domain.entity.Address;
 import com.deli.project.domain.entity.Member;
-import com.deli.project.domain.entity.UploadFile;
 import com.deli.project.domain.repository.MemberRepository;
-import com.deli.project.domain.repository.MemberSearch;
+import com.deli.project.domain.repository.MemberSearchDTO;
 import com.deli.project.web.controller.MemberUpdateForm;
-import com.deli.project.web.controller.form.FileStore;
+import com.deli.project.web.controller.form.ImageStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository repository;
-    private final FileStore fileStore;
+    private final ImageStore fileStore;
 
     @Transactional
     public Long saveMember(Member member){
@@ -34,7 +33,7 @@ public class MemberService {
     public Member findLoginId(String loginId){
         return repository.findId(loginId);
     }
-    public List<Member> findAll(MemberSearch memberSearch){
+    public List<Member> findAll(MemberSearchDTO memberSearch){
         return repository.findAll(memberSearch);
     }
 

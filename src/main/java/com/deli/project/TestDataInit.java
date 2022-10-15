@@ -25,12 +25,12 @@ public class TestDataInit {
 
     @EventListener(ApplicationReadyEvent.class)
     public void dataInit(){
-        UploadFile uploadFile1 = new UploadFile("smile3.jpg","7dc3acd3-7db0-41ee-b564-0a7e9996a1e0.jpg");
-        UploadFile uploadFile2 = new UploadFile("smile3.jpg","19dc57db-776d-4350-9c25-45847152644d.jpg");
+        ImageFile uploadFile1 = new ImageFile("smile3.jpg","7dc3acd3-7db0-41ee-b564-0a7e9996a1e0.jpg");
+        ImageFile uploadFile2 = new ImageFile("smile3.jpg","19dc57db-776d-4350-9c25-45847152644d.jpg");
 
-        UploadFile uploadFile3 = new UploadFile("smile3.jpg","30abe9c8-86e1-400a-9e97-e7442c075705.jpg");
+        ImageFile uploadFile3 = new ImageFile("smile3.jpg","30abe9c8-86e1-400a-9e97-e7442c075705.jpg");
 
-        UploadFile uploadFile4 = new UploadFile("smile3.jpg","56963f74-76fa-4843-a1f9-066844b2e34d.jpg");
+        ImageFile uploadFile4 = new ImageFile("smile3.jpg","56963f74-76fa-4843-a1f9-066844b2e34d.jpg");
 
 
 

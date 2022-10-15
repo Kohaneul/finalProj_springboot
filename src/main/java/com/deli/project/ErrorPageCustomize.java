@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 public class ErrorPageCustomize implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
     @Override
     public void customize(ConfigurableWebServerFactory factory) {
-
+        ErrorPage errorPage400 = new ErrorPage(HttpStatus.BAD_REQUEST,"/error/400");
         ErrorPage errorPageEx = new ErrorPage(RuntimeException.class,"/error/400");
         ErrorPage errorPage500 = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR,"/error/500");
-        factory.addErrorPages(errorPage500,errorPageEx);
+        factory.addErrorPages(errorPage500,errorPageEx,errorPage400);
     }
 }

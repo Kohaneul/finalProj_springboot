@@ -1,15 +1,14 @@
 package com.deli.project.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 회원 정보 테이블
+ * */
 @Entity
 @Getter
 @NoArgsConstructor
@@ -34,7 +33,7 @@ public class Member {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "uploadFile_id")
-    private UploadFile uploadFile;
+    private ImageFile uploadFile;
 
     public void setPickUpList(List<PickUp> pickUpList) {
         this.pickUpList = pickUpList;
@@ -64,7 +63,7 @@ public class Member {
         this.address = address;
     }
 
-    public void setUploadFile(UploadFile uploadFile) {
+    public void setUploadFile(ImageFile uploadFile) {
         this.uploadFile = uploadFile;
     }
 
@@ -74,7 +73,7 @@ public class Member {
 
 
 
-    public static Member createMember(String loginId, String password, String nickName, String phoneNumber, Address address,UploadFile uploadFile,MemberSort memberSort){
+    public static Member createMember(String loginId, String password, String nickName, String phoneNumber, Address address, ImageFile uploadFile, MemberSort memberSort){
         Member member = new Member();
         member.setLoginId(loginId);
         member.setPassword(password);

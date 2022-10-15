@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/OrderCheck.css}"/>
 <title>주문 확인 창</title>
@@ -15,31 +15,39 @@
     <div id = "orderForm">
         <img th:src="|/images/delivery.png|" width="300" height="200"/>
         <div id="chooseCheck">
-        <form role="form" th:object="${saveForm}" method="post">
-    <div>
-        픽업장소 : <span th:text="${saveForm.getPickUp().getPlaceName()}"></span>
-    </div>
+            <div>
+                픽업장소 : <span th:text="${saveForm.pickUp?.placeName}"></span>
+            </div>
+            <div>
+                카테고리 : <span th:text="${saveForm.restaurant.category.categoryName}"></span>
+            </div>
+            <div>
+                장소명 : <span th:text="${saveForm.restaurant.restaurantName}"></span>
+            </div>
 
-    <div>
-          카테고리 : <span th:text="${saveForm.getRestaurant().getCategory().getCategoryName()}"></span>
-    </div>
-    <div>
-          장소명 : <span th:text="${saveForm.getRestaurant().getRestaurantName()}"></span>
-    </div>
+            <div>
+                주소 : <span th:text="|${saveForm.getRestaurant().getAddress().getCity()} ${saveForm.getRestaurant().getAddress().getState()}| "></span>
+            </div>
+            <div>
+                주문 메뉴 : <span th:text="|${saveForm.getMenu().getName()} ( ${saveForm.getMenu().getPrice()} 원) |"></span>
+            </div>
 
-    <div>
-          주소 : <span th:text="|${saveForm.getRestaurant().getAddress().getCity()} ${saveForm.getRestaurant().getAddress().getState()}| "></span>
-    </div>
-    <div>
-         주문 메뉴 : <span th:text="|${saveForm.getMenu().getName()} ( ${saveForm.getMenu().getPrice()} 원) |"></span>
-    </div>
-    <div>
+<!--            <td><a th:href="@{/board/new/{orderId}(orderId=${orderCheck.id})" class="btn btn-primary" role="button">수정</a></td>-->
 
-    <div id="btnStyle">
-        <input type="submit" id = "btn1" value="다음" name="check"  th:onclick="onClick()"/>
-        <input type="button" id = "btn2" value='이전' onClick="history.back();"/>
-    </div>
-    </form>
+
+        <form role="form"  th:action="/board/new/{orderId}(orderId=${orderCheck.id})" th:object="${saveForm}" method="post">
+            <input type="hidden" th:field="*{restaurant}">
+            <input type="hidden" th:field="*{pickUp}">
+            <input type="hidden" th:field="*{menu}">
+            <div id="btnStyle">
+                <input type="submit" id = "btn1" value="다음" />
+                <input type="button" id = "btn2" value='이전' onClick="history.back();"/>
+            </div>
+        </form>
+
+
+
+
     </div>
     </div>
 
@@ -47,6 +55,7 @@
    <script th:inline="javascript">
     /*<![CDATA[*/
      		function onClick(){
+     		document.getElementById('chooseCheck').value
      		  alert('글 작성 페이지로 이동합니다.');
  		    }
  		}

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-
+/**
+ * 식당 정보 저장소
+ */
 @Repository
 @Slf4j
 public class RestaurantRepository {
@@ -34,7 +36,7 @@ public class RestaurantRepository {
         return em.createQuery("select c from Restaurant c order by c.score desc",Restaurant.class).getResultList();
     }
 
-    public List<Restaurant> findAll(RestaurantDto restaurantDto){
+    public List<Restaurant> findAll(RestaurantDTO restaurantDto){
         String address = restaurantDto.getAddress();
         Long categoryId = restaurantDto.getCategoryId();
         return query.select(QRestaurant.restaurant).from(QRestaurant.restaurant).where(containsCity(address),equalsCategoryId(categoryId)).orderBy(QRestaurant.restaurant.score.desc()).fetch();

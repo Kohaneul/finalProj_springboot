@@ -1,6 +1,6 @@
 package com.deli.project.web.controller.form;
 
-import com.deli.project.domain.entity.UploadFile;
+import com.deli.project.domain.entity.ImageFile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 @Slf4j
-public class FileStore {
+public class ImageStore {
 
     @Value("${file.dir}")
     private String fileDirectory;
@@ -24,7 +24,7 @@ public class FileStore {
     }
 
     @Transactional
-    public UploadFile uploadFile(MultipartFile multipartFile) throws IOException {
+    public ImageFile uploadFile(MultipartFile multipartFile) throws IOException {
         if(multipartFile.isEmpty()){
             return null;
         }
@@ -34,7 +34,7 @@ public class FileStore {
         log.info("serverFileName ={}",serverFileName);
         multipartFile.transferTo(new File(fullPath(serverFileName)));
         log.info("server ={}",fullPath(serverFileName));
-        return new UploadFile(originalFileName,serverFileName);
+        return new ImageFile(originalFileName,serverFileName);
         }
 
     private String setServerName(String originalFileName){

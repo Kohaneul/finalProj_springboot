@@ -11,7 +11,9 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.deli.project.domain.entity.QMember.member;
-
+/**
+ * 멤버 정보 저장소
+ */
 @Repository
 @Slf4j
 public class MemberRepository {
@@ -45,7 +47,8 @@ public class MemberRepository {
         return em.createQuery("select m from Member m where m.nickName = :nickName",Member.class).setParameter("nickName",nickName).getResultList();
     }
 
-    public List<Member> findAll(MemberSearch memberSearch){
+//특정 조건에 부합하는 회원 정보 조회
+    public List<Member> findAll(MemberSearchDTO memberSearch){
         MemberSort memberSort = memberSearch.getMemberSort();
         String loginId = memberSearch.getLoginId();
         return query.select(member).from(member).where(containsLoginId(loginId),equalsMemberSort(memberSort)).fetch();

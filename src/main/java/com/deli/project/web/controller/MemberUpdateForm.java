@@ -1,20 +1,14 @@
 package com.deli.project.web.controller;
 
-import com.deli.project.domain.entity.Address;
 import com.deli.project.domain.entity.MemberSort;
-import com.deli.project.domain.entity.PickUp;
-import com.deli.project.domain.entity.UploadFile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor

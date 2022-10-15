@@ -3,11 +3,9 @@ package com.deli.project.web.controller;
 import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.MenuRepository;
-import com.deli.project.domain.repository.RestaurantDto;
+import com.deli.project.domain.repository.RestaurantDTO;
 import com.deli.project.domain.service.*;
-import com.deli.project.web.controller.form.OrderSaveForm;
 import com.deli.project.web.controller.form.RestaurantSaveForm;
-import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -35,19 +33,6 @@ public class RestaurantController {
     private final PickUpService pickUpService;
     private final MenuRepository menuRepository;
 
-//    @GetMapping("/restaurant")
-//    public String resChoose(@RequestParam("categoryId")Long categoryId, @SessionAttribute(PICKUP_SESSION)Long pickupId, HttpServletRequest request, Model model){
-//        HttpSession session = request.getSession();
-//        session.setAttribute(ConstEntity.CATEGORY_SESSION,categoryId);
-//        PickUp pickUp = pickUpService.findOne(pickupId);
-//        String pickUpAddress = pickUp.getAddress();
-//        Category category = categoryService.findOne(categoryId);
-//        model.addAttribute("category",category);
-//        model.addAttribute("pickUp",pickUp);
-//        List<Restaurant> restaurants = restaurantService.findDto(new RestaurantDto(categoryId, pickUpAddress));
-//        model.addAttribute("restaurants",restaurants);
-//        return "/restaurant/RestaurantSelect";
-//    }
 
     @GetMapping("/restaurant")
     public String resChoose(@ModelAttribute("saveForm")RestaurantSaveForm saveForm,@RequestParam("categoryId")Long categoryId, @SessionAttribute(PICKUP_SESSION)Long pickupId, HttpServletRequest request, Model model){
@@ -57,7 +42,7 @@ public class RestaurantController {
         PickUp pickUp = pickUpService.findOne(pickupId);
         saveForm.setPickUp(pickUp);
         saveForm.setAddress(new Address(pickUp.getAddress().split(" ")[0],pickUp.getAddress().split(" ")[1]));
-        List<Restaurant> restaurants = restaurantService.findDto(new RestaurantDto(categoryId, pickUp.getAddress()));
+        List<Restaurant> restaurants = restaurantService.findDto(new RestaurantDTO(categoryId, pickUp.getAddress()));
         model.addAttribute("restaurants",restaurants);
         model.addAttribute("pickUp",pickUp);
         return "/restaurant/RestaurantSelect";
@@ -89,23 +74,6 @@ public class RestaurantController {
         Menu menu = menuRepository.findOne(menuId);
         model.addAttribute("menu",menu);
         return "redirect:/board/select";
-    }
-
-    @GetMapping
-    public String orderCheck(@RequestParam Long menuId,@SessionAttribute(name = PICKUP_SESSION)Long pickUpId, Model model){
-        Menu menu = menuRepository.findOne(menuId);
-        PickUp pickUp = pickUpService.findOne(pickUpId);
-        OrderSaveForm saveForm = new OrderSaveForm(menu.getRestaurant(),pickUp,menu);
-
-        model.addAttribute("saveForm",saveForm);
-        return "/order/OrderCheck";
-    }
-    @PostMapping
-    public String orderCheck(@ModelAttribute("saveForm")OrderSaveForm orderSaveForm,RedirectAttributes redirectAttributes){
-        OrderCheck orderCheck = OrderCheck.createOrder(orderSaveForm.getRestaurant(),orderSaveForm.getPickUp().getMember().getLoginId(),orderSaveForm.getMenu());
-        Long orderId = orderService.saveOrder(orderCheck);
-        redirectAttributes.addAttribute("orderId",orderId);
-        return "redirect:/board/new/{orderId}";
     }
 
 

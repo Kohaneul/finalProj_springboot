@@ -2,7 +2,7 @@ package com.deli.project.domain.service;
 
 import com.deli.project.domain.entity.OrderCheck;
 import com.deli.project.domain.repository.OrderCheckRepository;
-import com.deli.project.domain.repository.OrderSearch;
+import com.deli.project.domain.repository.OrderSearchDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class OrderCheckService {
         return repository.findOne(id);
     }
 
-    public List<OrderCheck> findAll(OrderSearch orderSearch){
+    public List<OrderCheck> findAll(OrderSearchDTO orderSearch){
         return repository.findAll(orderSearch);
     }
 

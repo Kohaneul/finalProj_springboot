@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-
+/**
+ * 메뉴 저장소
+ * */
 @Repository
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
