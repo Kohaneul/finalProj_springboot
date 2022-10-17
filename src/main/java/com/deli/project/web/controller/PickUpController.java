@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 픽업 장소 관련 컨트롤러
+*/
 @RequiredArgsConstructor
 @Controller
 @Slf4j
@@ -26,22 +28,22 @@ public class PickUpController {
 
     @GetMapping("/myPosition")
     public String step1(@SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession,Model model){
-
-        Member member = memberService.findOne(memberSession);
+        Member member = memberService.findOne(memberSession);   //로그인시 생성해두었던 USER_SESSION (MEMBER PK값) 조회
         model.addAttribute("member",member);
         return "/map/MapSearch";
     }
 
+    //회원 주소와 픽업장소의 거리를 계산하고 VIEW로 보여줌
     @GetMapping("/pickUpPlace")
     public String step2(@RequestParam("lat")double myLat, @RequestParam("lon")double myLon, @SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession, Model model){
-
+        //픽업장소의 경,위도와 Member의 경도, 위도를 계산
         List<CalculateDto> calculate = pickUpService.setArray(pickUpService.findAll(), myLat, myLon);
-
+        //해당되는 pickup 장소를 테이블에 넣음
         List<PickUp> place = pickUpAdd(myLat,myLon,calculate,memberSession);
         model.addAttribute("cal",calculate);
         model.addAttribute("place",place);
-        model.addAttribute("myLat",myLat);
-        model.addAttribute("myLon",myLon);
+//        model.addAttribute("myLat",myLat);
+//        model.addAttribute("myLon",myLon);
         return "/pickup/PlaceSelect";
     }
 

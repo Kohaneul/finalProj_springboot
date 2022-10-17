@@ -5,6 +5,7 @@ import com.deli.project.domain.service.BoardSearchDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -15,6 +16,7 @@ import static com.deli.project.domain.entity.QBoard.board;
  * 게시글 저장소
  * */
 @Repository
+@Transactional(readOnly = true)
 public class BoardRepository{
 
     private final EntityManager em;
@@ -25,6 +27,7 @@ public class BoardRepository{
         this.query=new JPAQueryFactory(em);
     }
 
+    @Transactional
     public void save(Board board){
         em.persist(board);
     }

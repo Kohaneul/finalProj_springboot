@@ -5,15 +5,19 @@ import com.deli.project.domain.entity.OrderStatus;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.deli.project.domain.entity.QOrderCheck.orderCheck;
 /**
- * 주문 체크 확인
+ * 회원 위치->픽업장소->카테고리->식당 의 순차적인 선택을 한 후
+ * 글쓰기 전 선택 내역에 대한 최종 확인을 하는 함수
+ *
  * */
 @Repository
+@Transactional(readOnly = true)
 public class OrderCheckRepository {
     private final EntityManager em;
     private final JPAQueryFactory query;
@@ -23,7 +27,7 @@ public class OrderCheckRepository {
         this.em = em;
         this.query = new JPAQueryFactory(em);
     }
-
+    @Transactional
     public void save(OrderCheck Order){
         em.persist(Order);
     }
@@ -31,7 +35,8 @@ public class OrderCheckRepository {
     public OrderCheck findOne(Long id){
         return em.find(OrderCheck.class, id);
     }
-    
+
+    //주문상태, 특정 문자열을 포함하고 있는지 여부를 확인하여 반환
     public List<OrderCheck> findAll(OrderSearchDTO orderSearch){
         OrderStatus orderStatus = orderSearch.getOrderStatus();
         String loginId = orderSearch.getLoginId();

@@ -27,7 +27,7 @@ public class CategoryController {
     @GetMapping("/category")
     private String pickUpCategory(@RequestParam("pickupId")Long pickupId, Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
-        session.setAttribute(ConstEntity.PICKUP_SESSION,pickupId);
+        session.setAttribute(ConstEntity.PICKUP_SESSION,pickupId);  //선택한 픽업 pk값 세션에 저장
         List<Category> categories = categoryService.findAll();
         model.addAttribute("placeName",pickUpService.findOne(pickupId).getPlaceName());
         model.addAttribute("categories",categories);

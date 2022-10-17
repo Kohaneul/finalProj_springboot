@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 /**
  * 픽업 장소 테이블
@@ -23,20 +24,17 @@ public class PickUp {
     private String placeName;
 
     @Embedded
-    private Coordinate coordinate;
-
-    private boolean isShow;
+    private Coordinate coordinate;  //좌표 : 경도, 위도의 공통 속성을 묵음
 
     @OneToMany(mappedBy = "pickUp")
-    private List<Restaurant> restaurant;
+    private List<Category> category = new ArrayList<>();
 
     private String address;
 
-    @OneToMany(mappedBy = "pickUp")
-    private List<Category> category;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "member_id")
+//    private Member member;
 
 
     public void setPlaceName(String placeName) {
@@ -48,12 +46,11 @@ public class PickUp {
     }
 
 
-
-    public void setMember(Member member) {
-        this.member = member;
-        member.getPickUpList().add(this);
-
-    }
+//
+//    public void setMember(Member member) {
+//        this.member = member;
+//        member.getPickUpList().add(this);
+//    }
 
     public PickUp(String placeName,String address, Coordinate coordinate){
         this.placeName = placeName;

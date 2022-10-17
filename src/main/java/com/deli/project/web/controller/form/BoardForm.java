@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardForm {
-
     @NotNull
     private OrderCheck order;
     @NotEmpty

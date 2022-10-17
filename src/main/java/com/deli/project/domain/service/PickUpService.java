@@ -26,25 +26,25 @@ public class PickUpService {
     }
 
     public PickUp findOne(Long id){
-        return repository.findOne(id);
+        return repository.findById(id).orElse(null);
     }
 
     public List<PickUp> findAll(){
         return repository.findAll();
     }
 
-
+    //GeoCoder를 통해서 사용자의 위치를 경도, 위도 주소값으로 반환받아 거리를 계산해주는 기능
     public List<CalculateDto> setArray(List<PickUp> place, double lat, double lon) {
         List<CalculateDto> cal = new ArrayList<>();
         for (PickUp pickUp : place) {
 
             double distance = disCal(pickUp.getCoordinate().getLatitude(),pickUp.getCoordinate().getLongitude(),lon,lat);
-            if (distance < 1000) {
-                CalculateDto calculat = new CalculateDto(pickUp.getId(), pickUp.getPlaceName(), pickUp.getAddress(), distance);
-                cal.add(calculat);
+            if (distance < 1000) {  //거리가 1km 미만이라면
+                CalculateDto calculat = new CalculateDto(pickUp.getId(), pickUp.getPlaceName(), pickUp.getAddress(), distance); //CalculateDto 객체 생성하여
+                cal.add(calculat);//넣는다.
             }
         }
-        sortList(cal);// 가까운 순으로 정렬하는 메소드
+        sortList(cal);// 거리가 가까운 순으로 정렬하는 메소드
         return cal;
     }
 
@@ -52,7 +52,6 @@ public class PickUpService {
         Collections.sort(obj, new Comparator<CalculateDto>(){
             @Override
             public int compare(CalculateDto o1, CalculateDto o2) {
-                log.info("o1={},o2={}",o1,o2);
                 return o1.getDistance() < o2.getDistance()?-1:1;
             }
         });

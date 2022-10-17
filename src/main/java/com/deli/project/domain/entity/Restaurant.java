@@ -38,7 +38,6 @@ public class Restaurant {
 
     private int minOrderPrice;
 
-    private boolean isShow;
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
@@ -52,9 +51,6 @@ public class Restaurant {
         this.address = address;
     }
 
-    public void setShow(boolean show) {
-        isShow = show;
-    }
 
     public void setPickUp(PickUp pickUp) {
         this.pickUp = pickUp;
@@ -75,7 +71,6 @@ public class Restaurant {
         restaurant.setAddress(address);
         restaurant.setRestaurantName(restaurantName);
         restaurant.setCategory(category);
-        restaurant.setShow(false);
         restaurant.setMinOrderPrice(minOrderPrice);
         restaurant.setScore(score);
 

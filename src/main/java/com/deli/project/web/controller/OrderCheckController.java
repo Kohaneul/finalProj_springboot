@@ -1,7 +1,10 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
+import com.deli.project.domain.repository.MemberRepository;
 import com.deli.project.domain.repository.MenuRepository;
+import com.deli.project.domain.repository.OrderCheckRepository;
 import com.deli.project.domain.service.*;
 import com.deli.project.web.controller.form.BoardForm;
 import com.deli.project.web.controller.form.OrderSaveForm;
@@ -14,9 +17,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import static com.deli.project.domain.ConstEntity.PICKUP_SESSION;
+import static com.deli.project.domain.ConstEntity.*;
 
 
 @Controller
@@ -25,11 +29,10 @@ import static com.deli.project.domain.ConstEntity.PICKUP_SESSION;
 @RequestMapping("/board")
 public class OrderCheckController {
     private final MenuRepository menuRepository;
-
-    private final OrderCheckService orderService;
+    private final RestaurantService restaurantService;
     private final MemberService memberService;
-    private final BoardService boardService;
-
+    private final OrderCheckRepository orderCheckRepository;
+    private final CategoryService categoryService;
     private final PickUpService pickUpService;
 
 
@@ -43,19 +46,18 @@ public class OrderCheckController {
         return "/order/OrderCheck";
     }
     @PostMapping("/select")
-    public String orderCheck(@Valid @ModelAttribute("saveForm")OrderSaveForm orderSaveForm,BindingResult bindingResult,RedirectAttributes redirectAttributes){
-        if(bindingResult.hasErrors()){
-            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                log.info("rejectedValue={}",fieldError.getRejectedValue());
-                log.info("message={}",fieldError.getDefaultMessage());
-            }
-            return "/order/OrderCheck";
-        }
-        OrderCheck orderCheck = OrderCheck.createOrder(orderSaveForm.getRestaurant(),orderSaveForm.getPickUp().getMember().getLoginId(),orderSaveForm.getMenu());
-        Long orderId = orderService.saveOrder(orderCheck);
+    public String orderCheck(HttpSession session,RedirectAttributes redirectAttributes){
 
-        log.info("orderId={}",orderId);
-        redirectAttributes.addAttribute("orderId",orderId);
+
+        Restaurant restaurant = restaurantService.findOne((Long) session.getAttribute(RESTAURANT_SESSION));
+        Member member = memberService.findOne((Long) session.getAttribute(USER_SESSION));
+        Menu menu = menuRepository.findOne((Long) session.getAttribute(MENU_SESSION));
+
+        OrderCheck orderCheck = OrderCheck.createOrder(restaurant,member.getLoginId(),menu);
+        orderCheckRepository.save(orderCheck);
+        log.info("orderId={}",orderCheck.getId());
+        session.setAttribute(ORDER_CHECK_SESSION,orderCheck.getId());
+        redirectAttributes.addAttribute("orderId",orderCheck.getId());
         return "redirect:/board/new/{orderId}";
     }
 

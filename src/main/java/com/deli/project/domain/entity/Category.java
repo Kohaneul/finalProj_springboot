@@ -27,6 +27,7 @@ public class Category {
 
     public void setPickUp(PickUp pickUp) {
         this.pickUp = pickUp;
+
         for (Category category : pickUp.getCategory()) {
             category.setPickUp(pickUp);
         }

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+
+import static com.deli.project.domain.entity.QRestaurant.restaurant;
+
 /**
  * 식당 정보 저장소
  */
@@ -39,19 +42,16 @@ public class RestaurantRepository {
     public List<Restaurant> findAll(RestaurantDTO restaurantDto){
         String address = restaurantDto.getAddress();
         Long categoryId = restaurantDto.getCategoryId();
-        return query.select(QRestaurant.restaurant).from(QRestaurant.restaurant).where(containsCity(address),equalsCategoryId(categoryId)).orderBy(QRestaurant.restaurant.score.desc()).fetch();
+        return query.select(restaurant).from(restaurant).where(containsCity(address),equalsCategoryId(categoryId)).orderBy(restaurant.score.desc()).fetch();
     }
 
     private BooleanExpression equalsCategoryId(Long categoryId) {
-        log.info("cccccccc={}",categoryId);
-        return QRestaurant.restaurant.category.id.eq(categoryId);
+        return restaurant.category.id.eq(categoryId);
     }
 
     private BooleanExpression containsCity(String address) {
         address = address.split(" ")[1];
-        log.info("address={}",address);
-
-        return QRestaurant.restaurant.address.state.contains(address);
+        return restaurant.address.state.contains(address);
     }
 
 

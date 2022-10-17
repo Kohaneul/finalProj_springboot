@@ -16,11 +16,9 @@ import java.io.PrintWriter;
 public class AdminInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String requestURI = request.getRequestURI();
         HttpSession session = request.getSession();
-
         String uuid = session.getAttribute(ConstEntity.SESSION).toString();
-        if(!uuid.contains("admin")){
+        if(!uuid.contains("admin")){    //ADMIN일 경우 로그인시 발생하는 SESSION_ID에 'ADMIN'이라고 기재함 -> 문자열이 ADMIN을 포함하지 않는 경우에
             response.setContentType("text/html; charset=UTF-8");
             response.sendRedirect("/");
             PrintWriter out = response.getWriter();

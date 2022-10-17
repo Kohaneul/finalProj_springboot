@@ -13,7 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
-
+/**
+ * 회원 가입시 중복체크(아이디, 닉네임 중복체크), 가입, 아이디찾기 를 실행하기 위한 서비스 함수.
+ *
+ * */
 @Service
 @RequiredArgsConstructor
 @Slf4j

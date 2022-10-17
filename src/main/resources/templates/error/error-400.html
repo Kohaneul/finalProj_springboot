@@ -12,9 +12,7 @@ max-width: 1000px;
     	z-index: 1;
 	position: absolute;
 }
-#img{
-    margin-top:-30px;
-}
+
 
 
 </style>
@@ -25,6 +23,8 @@ max-width: 1000px;
 
     <img th:src="@{/images/ERROR_400.jpg}" id="img" width="1000" >
     <a th:href="@{/}" id="button" class="btn btn-primary" role="button">HOME</a>
+    <div th:replace="fragments/footer :: footer" />
+
 </div>
 </body>
 </html>

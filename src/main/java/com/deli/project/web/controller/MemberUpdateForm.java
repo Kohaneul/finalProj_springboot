@@ -9,7 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
+/**
+ * 내 정보 수정 FORM
+ * */
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
