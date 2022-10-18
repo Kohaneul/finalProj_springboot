@@ -11,20 +11,18 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QOrder is a Querydsl query type for Order
+ * QOrderCheck is a Querydsl query type for OrderCheck
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QOrder extends EntityPathBase<Order> {
+public class QOrderCheck extends EntityPathBase<OrderCheck> {
 
-    private static final long serialVersionUID = 1659884181L;
+    private static final long serialVersionUID = 1984329587L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QOrder order = new QOrder("order1");
+    public static final QOrderCheck orderCheck = new QOrderCheck("orderCheck");
 
     public final QBoard board;
-
-    public final QDelivery delivery;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -34,26 +32,27 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final QRestaurant restaurant;
 
-    public QOrder(String variable) {
-        this(Order.class, forVariable(variable), INITS);
+    public final NumberPath<Integer> totalPrice = createNumber("totalPrice", Integer.class);
+
+    public QOrderCheck(String variable) {
+        this(OrderCheck.class, forVariable(variable), INITS);
     }
 
-    public QOrder(Path<? extends Order> path) {
+    public QOrderCheck(Path<? extends OrderCheck> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QOrder(PathMetadata metadata) {
+    public QOrderCheck(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QOrder(PathMetadata metadata, PathInits inits) {
-        this(Order.class, metadata, inits);
+    public QOrderCheck(PathMetadata metadata, PathInits inits) {
+        this(OrderCheck.class, metadata, inits);
     }
 
-    public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
+    public QOrderCheck(Class<? extends OrderCheck> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
-        this.delivery = inits.isInitialized("delivery") ? new QDelivery(forProperty("delivery"), inits.get("delivery")) : null;
         this.restaurant = inits.isInitialized("restaurant") ? new QRestaurant(forProperty("restaurant"), inits.get("restaurant")) : null;
     }
 

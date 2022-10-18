@@ -5,8 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import java.util.List;
+
 /**
  * 카테고리 정보 저장소
  */

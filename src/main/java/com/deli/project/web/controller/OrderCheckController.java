@@ -21,10 +21,8 @@ import static com.deli.project.domain.ConstEntity.*;
 @RequestMapping("/board")
 public class OrderCheckController {
     private final MenuRepository menuRepository;
-    private final RestaurantService restaurantService;
     private final MemberService memberService;
     private final OrderCheckRepository orderCheckRepository;
-    private final CategoryService categoryService;
     private final PickUpService pickUpService;
 
 
@@ -38,54 +36,16 @@ public class OrderCheckController {
         return "/order/OrderCheck";
     }
     @PostMapping("/select")
-    public String orderCheck(HttpSession session,RedirectAttributes redirectAttributes){
-
-
-        Restaurant restaurant = restaurantService.findOne((Long) session.getAttribute(RESTAURANT_SESSION));
-        Member member = memberService.findOne((Long) session.getAttribute(USER_SESSION));
+    public String orderCheck(@ModelAttribute(name = "saveForm") OrderSaveForm saveForm, HttpSession session,RedirectAttributes redirectAttributes){
         Menu menu = menuRepository.findOne((Long) session.getAttribute(MENU_SESSION));
 
-        OrderCheck orderCheck = OrderCheck.createOrder(restaurant,member.getLoginId(),menu);
+        OrderCheck orderCheck = OrderCheck.createOrder(saveForm.getRestaurant(),memberService.findOne((Long) session.getAttribute(USER_SESSION)).getLoginId(),saveForm.getMenu());
         orderCheckRepository.save(orderCheck);
         log.info("orderId={}",orderCheck.getId());
         session.setAttribute(ORDER_CHECK_SESSION,orderCheck.getId());
         redirectAttributes.addAttribute("orderId",orderCheck.getId());
         return "redirect:/board/new/{orderId}";
     }
-
-
-
-//
-//
-//
-//    @GetMapping("/check/{orderCheckId}")
-//    public String boardCheck(@PathVariable Long orderCheckId, Model model){
-//        OrderCheck orderCheck = orderService.findOne(orderCheckId);
-//        Restaurant restaurant=orderCheck.getRestaurant();
-//        String nickName = memberService.findLoginId(orderCheck.getLoginId()).getNickName();
-//        BoardForm boardForm = new BoardForm(orderCheck, nickName,restaurant.getPickUp().getPlaceName(), restaurant.getCategory().getCategoryName(), restaurant.getRestaurantName(), restaurant.getMinOrderPrice());
-//        model.addAttribute("boardForm",boardForm);
-//        return "/board/BoardForm";
-//    }
-//    @PostMapping("/check/{orderCheckId}")
-//    public String selectFin(@Valid @ModelAttribute("boardForm")BoardForm boardForm,BindingResult bindingResult,RedirectAttributes redirectAttributes){
-//        if(bindingResult.hasErrors()){
-//            return "board/BoardForm";
-//        }
-//        Board board = Board.createBoard(boardForm.getOrder(), boardForm.getTitle(), boardForm.getContent());
-//        Long boardId = boardService.save(board);
-//        redirectAttributes.addAttribute("boardId",boardId);
-//        return "redirect:/board/{boardId}";
-//    }
-//
-//    @GetMapping("/{boardId}")
-//    public String boardDetail(@PathVariable("boardId")Long boardId,Model model){
-//        Board board = boardService.findOne(boardId);
-//        model.addAttribute("board",board);
-//        return "/board/BoardDetail";
-//    }
-//
-//
 
 
 }

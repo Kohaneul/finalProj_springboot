@@ -1,9 +1,7 @@
 package com.deli.project.web.controller;
 
-import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.BoardRepository;
-import com.deli.project.domain.repository.MenuRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
 import com.deli.project.domain.service.*;
 import com.deli.project.web.controller.form.BoardForm;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Enumeration;
 import java.util.List;
 
 import static com.deli.project.domain.ConstEntity.*;
@@ -40,7 +37,6 @@ public class BoardController {
 
     @GetMapping("/new/{orderId}")
     public String board(@PathVariable("orderId")Long orderId,HttpSession session, Model model){
-        OrderCheck orderCheck = orderCheckRepository.findOne(orderId);
         BoardForm boardForm = setBoardForm(session);
         model.addAttribute("boardForm",boardForm);
         return "/board/BoardForm";
