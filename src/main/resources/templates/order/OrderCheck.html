@@ -31,19 +31,21 @@
             <div>
                 주문 메뉴 : <span th:text="|${saveForm.getMenu().getName()} ( ${saveForm.getMenu().getPrice()} 원) |"></span>
             </div>
+        <a th:href="@{/board/new/{orderId}(orderId=${orderCheck.id})" class="btn btn-primary" role="button">수정</a></button>
+            <button  class="btn btn-primary" onclick="history.back();">이전</button>
 
-<!--            <td><a th:href="@{/board/new/{orderId}(orderId=${orderCheck.id})" class="btn btn-primary" role="button">수정</a></td>-->
+            <!--            <td><a th:href="@{/board/new/{orderId}(orderId=${orderCheck.id})" class="btn btn-primary" role="button">수정</a></td>-->
 
 
-        <form role="form"  th:action="/board/new/{orderId}(orderId=${orderCheck.id})" th:object="${saveForm}" method="post">
-            <input type="hidden" th:field="*{restaurant}">
-            <input type="hidden" th:field="*{pickUp}">
-            <input type="hidden" th:field="*{menu}">
-            <div id="btnStyle">
-                <input type="submit" id = "btn1" value="다음" />
-                <input type="button" id = "btn2" value='이전' onClick="history.back();"/>
-            </div>
-        </form>
+<!--        <form role="form"  th:action="|/board/new/{orderId}(orderId=${orderCheck.id})}" th:object="${saveForm}" method="post">-->
+<!--            <input type="hidden" th:field="*{restaurant}">-->
+<!--            <input type="hidden" th:field="*{pickUp}">-->
+<!--            <input type="hidden" th:field="*{menu}">-->
+<!--            <div id="btnStyle">-->
+<!--                <input type="submit" id = "btn1" value="다음" />-->
+<!--                <input type="button" id = "btn2" value='이전' onClick="history.back();"/>-->
+<!--            </div>-->
+<!--        </form>-->
 
 
 

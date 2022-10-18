@@ -1,4 +1,5 @@
 package com.deli.project.domain.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +31,9 @@ public class Restaurant {
     private Address address;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
+    @JsonIgnore
     private Category category;
 
     private double score;

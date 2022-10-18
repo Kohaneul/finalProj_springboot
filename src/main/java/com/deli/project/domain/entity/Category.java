@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 카테고리 테이블
  * */
@@ -20,6 +23,8 @@ public class Category {
     @Column(name="category_name")
     private String categoryName;
 
+//    @OneToMany(mappedBy = "category")
+//    private List<Restaurant> restaurants = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="pickup_id")

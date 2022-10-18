@@ -27,14 +27,7 @@ max-width: 1000px;
         </tr>
         </thead>
         <tbody>
-        <div th:object="${saveForm}">
-                <input type="hidden" th:field="*{restaurant}">
-                <input type="hidden" th:field="*{pickUp}">
-                <input type="hidden" th:field="*{category}">
-                <input type="hidden" th:field="*{address}">
-        </div>
-
-        <tr th:each="restaurant : ${restaurants}">
+               <tr th:each="restaurant : ${restaurants}">
                 <td><input type="radio" name = "restaurantId" th:restaurantId="${restaurant.id}" th:onclick="radioClick(this.getAttribute('restaurantId'))"></td>
                 <td th:text="${restaurant.restaurantName}"></td>
                 <td th:text="${restaurant.address.city} + ${restaurant.address.state}"></td>
@@ -42,7 +35,7 @@ max-width: 1000px;
         </tr>
         </tbody>
         <h2 id="h2style">
-            [ <span th:text="${saveForm.pickUp.placeName}"></span> ] 주변 <span th:text="${saveForm.category.categoryName}"></span>        </h2>
+            [ <span th:text="${pickUp.placeName}"></span> ] 주변 <span th:text="${category.categoryName}"></span>        </h2>
         <input type="hidden" id="resId" name="resId" value="">
         <a href="#" onclick="location.reload()"><img th:src="|/images/here.png|" id="myPosition" width="40" height="40"/></a>
         <div id="btnStyle">
