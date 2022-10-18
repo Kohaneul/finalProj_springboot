@@ -21,7 +21,9 @@ bin/
 .idea
 *.iws
 *.iml
-*.ipr
+*.ipr]
+*.jpg
+src/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
