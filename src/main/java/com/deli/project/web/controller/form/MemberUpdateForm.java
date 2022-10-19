@@ -1,4 +1,4 @@
-package com.deli.project.web.controller;
+package com.deli.project.web.controller.form;
 
 import com.deli.project.domain.entity.MemberSort;
 import lombok.AllArgsConstructor;

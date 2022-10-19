@@ -2,18 +2,39 @@ package com.deli.project.web.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-//예외, 에러 발생시 처리하는 컨트롤러
+/**
+ * 예외, 에러 발생시 처리하는 컨트롤러
+ * */
 @Slf4j
 @ControllerAdvice
 @RequestMapping("/error")
 public class MyErrorController implements ErrorController {
+    @GetMapping
+    public String handleError(HttpServletRequest request){
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        if(status!=null) {
+            int statusCode = Integer.valueOf(status.toString());
+            if (statusCode == HttpStatus.BAD_REQUEST.value()) {
+                return "error/400";
+            } else {
+                return "error/500";
+            }
+
+
+        }
+        return "error/500";
+    }
+
+
 
     //파라미터 값을 선택 안하게 되면 NumberFormatException이 발생하게 된다.
     //해당 예외가 발생하게 되면 처리해주는 Controller

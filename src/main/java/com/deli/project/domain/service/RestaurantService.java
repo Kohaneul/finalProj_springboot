@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+/**
+ * Restaurant 저장소를 주입 받아 저장, 조회 기능을 실행하기 위한 서비스 함수.
+ *
+ * */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

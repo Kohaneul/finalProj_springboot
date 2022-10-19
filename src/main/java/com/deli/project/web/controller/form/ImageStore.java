@@ -1,15 +1,17 @@
 package com.deli.project.web.controller.form;
-
 import com.deli.project.domain.entity.ImageFile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+/**
+ * 이미지 업로드시 이미지 파일명, 경로 -> 객체로 변환
+ *
+ * */
 
 @Component
 @Slf4j

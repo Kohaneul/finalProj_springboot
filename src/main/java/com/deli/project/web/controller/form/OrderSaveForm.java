@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+/**
+ * 주문내역 저장하는 FORM
+ *
+ * */
 
 
 @Getter @Setter
@@ -12,7 +16,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderSaveForm {
 
-    //픽업장소,카테고리,장소명,주소,주문메뉴
     private String pickUpPlace;
     private String categoryName;
     private String restaurantName;

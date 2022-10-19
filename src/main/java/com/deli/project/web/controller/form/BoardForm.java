@@ -9,6 +9,10 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+/**
+ * 게시글 작성 FORM
+ *
+ * */
 
 @Getter @Setter
 @AllArgsConstructor

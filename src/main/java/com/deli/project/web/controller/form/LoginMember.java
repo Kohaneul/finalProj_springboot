@@ -7,6 +7,10 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * 로그인 FORM
+ *
+ * */
 
 @Getter
 @Setter

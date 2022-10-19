@@ -11,6 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+/**
+ * 회원가입 FORM
+ *
+ * */
 
 @Getter @Setter
 @AllArgsConstructor

@@ -4,12 +4,14 @@ import com.deli.project.domain.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
+/**
+ * 식당 정보 저장시 사용되는 FORM
+ *
+ * */
 @Getter @Setter
 @AllArgsConstructor
 public class RestaurantSaveForm {
 
-    //픽업장소,카테고리,장소명,주소
     private PickUp pickUp;
     private Category category;
     private Restaurant restaurant;

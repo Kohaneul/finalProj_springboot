@@ -8,6 +8,7 @@ import com.deli.project.domain.repository.MemberSearchDTO;
 import com.deli.project.domain.service.MemberService;
 import com.deli.project.web.controller.form.ImageStore;
 import com.deli.project.web.controller.form.MemberForm;
+import com.deli.project.web.controller.form.MemberUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;

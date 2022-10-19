@@ -4,7 +4,7 @@ import com.deli.project.domain.entity.Address;
 import com.deli.project.domain.entity.Member;
 import com.deli.project.domain.repository.MemberRepository;
 import com.deli.project.domain.repository.MemberSearchDTO;
-import com.deli.project.web.controller.MemberUpdateForm;
+import com.deli.project.web.controller.form.MemberUpdateForm;
 import com.deli.project.web.controller.form.ImageStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
