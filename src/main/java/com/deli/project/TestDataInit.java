@@ -147,6 +147,7 @@ public class TestDataInit {
         restaurantService.saveRestaurant(restaurant7);
         restaurantService.saveRestaurant(restaurant8);
 
+
         menuRepository.save(menu1);
         menuRepository.save(menu2);
         menuRepository.save(menu3);

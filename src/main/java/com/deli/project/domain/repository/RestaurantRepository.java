@@ -27,8 +27,8 @@ public class RestaurantRepository {
         this.query = new JPAQueryFactory(em);
     }
 
-    public void save(Restaurant Restaurant){
-        em.persist(Restaurant);
+    public void save(Restaurant restaurant){
+        em.persist(restaurant);
     }
 
     public Restaurant findOne(Long id){

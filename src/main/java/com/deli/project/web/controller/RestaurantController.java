@@ -1,5 +1,6 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.MenuRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
@@ -35,8 +36,8 @@ public class RestaurantController {
     //선택한 카테고리와 일치하는 식당 정보를 보여줌
     @GetMapping("/restaurant")
     public String resChoose(@RequestParam("categoryId")Long categoryId, @SessionAttribute(PICKUP_SESSION)Long pickupId, HttpSession session, Model model){
-        //선택한 식당 관련 pk 값은 세션에 저장
-        sessionSave(session, CATEGORY_SESSION,categoryId);  //선택한 카테고리 pk값 세션에 저장
+        //선택한 카테고리 관련 pk 값은 세션에 저장
+        sessionSave(session, CATEGORY_SESSION,categoryId); 
         PickUp pickUp = pickUpService.findOne(pickupId);
         List<Restaurant> restaurants = restaurantService.findDto(new RestaurantDTO(categoryId, pickUp.getAddress()));
         model.addAttribute("restaurants",restaurants);
@@ -50,17 +51,19 @@ public class RestaurantController {
         session.setAttribute(CONST_ENTITY, id);
     }
 
-
+    //선택한 카테고리와 일치하는 식당 정보를 보여줌
     @PostMapping("/restaurant")
-    public String resChoose(HttpSession session,@RequestParam("restaurantId")Long restaurantId, RedirectAttributes redirectAttributes){
-        sessionSave(session, RESTAURANT_SESSION,restaurantId);
+    public String resChoose(@RequestParam("restaurantId")Long restaurantId, RedirectAttributes redirectAttributes){
         Restaurant restaurant = restaurantService.findOne(restaurantId);
+        //선택한 식당 관련 pk 값은 세션에 저장
         redirectAttributes.addAttribute("restaurantId", restaurant.getId());
         return "redirect:/board/select/{restaurantId}/menu";
     }
-
+    
+    //선택한 식당정보에 속하는 메뉴 정보를 보여줌
     @GetMapping("/{restaurantId}/menu")
-    public String chooseMenu(@PathVariable Long restaurantId,Model model){
+    public String chooseMenu(HttpSession session,@PathVariable Long restaurantId,Model model){
+        session.setAttribute(RESTAURANT_SESSION, restaurantId);
         List<Menu> menuList = menuRepository.findMenuList(restaurantId);
         model.addAttribute("menuList",menuList);
        String restaurantName= restaurantService.findOne(restaurantId).getRestaurantName();
@@ -68,8 +71,11 @@ public class RestaurantController {
         return "/restaurant/MenuSelect";
     }
 
+    //메뉴 선택
     @PostMapping("/{restaurantId}/menu")
-    public String chooseMenu2(@PathVariable Long restaurantId,@RequestParam Long menuId, Model model){
+    public String chooseMenu2(HttpSession session,@PathVariable Long restaurantId,@RequestParam Long menuId, Model model){
+        //선택한 메뉴 세션에 저장
+        sessionSave(session, MENU_SESSION,menuId);
         Menu menu = menuRepository.findOne(menuId);
         model.addAttribute("menu",menu);
         return "redirect:/board/select";

@@ -24,10 +24,9 @@ public class BoardForm {
     private String category;
     @NotEmpty
     private String restaurantName;
-    @NotEmpty
     @Length(min = 5,max = 100)
     private String title;
-    @NotEmpty
+
     @Length(min = 5,max = 500)
     private String content;
     @NotNull

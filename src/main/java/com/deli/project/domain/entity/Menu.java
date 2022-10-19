@@ -1,9 +1,7 @@
 package com.deli.project.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 /**
  * 메뉴(식당) 테이블
@@ -11,6 +9,7 @@ import javax.persistence.*;
 
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity

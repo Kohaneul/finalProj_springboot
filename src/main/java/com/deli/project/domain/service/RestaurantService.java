@@ -16,9 +16,9 @@ public class RestaurantService {
     private final RestaurantRepository repository;
 
     @Transactional
-    public Long saveRestaurant(Restaurant Restaurant){
-        repository.save(Restaurant);
-        return Restaurant.getId();
+    public Long saveRestaurant(Restaurant restaurant){
+        repository.save(restaurant);
+        return restaurant.getId();
     }
 
     public Restaurant findOne(Long id){

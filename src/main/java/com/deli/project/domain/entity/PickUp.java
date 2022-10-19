@@ -3,6 +3,7 @@ package com.deli.project.domain.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PickUp {
-
     @Id
     @GeneratedValue
     @Column(name="pickup_id")
@@ -32,11 +32,6 @@ public class PickUp {
     private String address;
 
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "member_id")
-//    private Member member;
-
-
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
     }
@@ -45,12 +40,6 @@ public class PickUp {
         this.coordinate = coordinate;
     }
 
-
-//
-//    public void setMember(Member member) {
-//        this.member = member;
-//        member.getPickUpList().add(this);
-//    }
 
     public PickUp(String placeName,String address, Coordinate coordinate){
         this.placeName = placeName;

@@ -45,9 +45,14 @@ public class BoardController {
     private BoardForm setBoardForm(HttpSession session){
         OrderCheck orderCheck = orderCheckRepository.findOne((Long) session.getAttribute(ORDER_CHECK_SESSION));
         Member member = memberService.findOne((Long) session.getAttribute(USER_SESSION));
+        log.info("member={}",member.getId());
         PickUp pickUp = pickUpService.findOne((Long) session.getAttribute(PICKUP_SESSION));
+        log.info("pickUp={}",pickUp.getId());
         Category category = categoryService.findOne((Long) session.getAttribute(CATEGORY_SESSION));
+        log.info("category={}",category.getId());
         Restaurant restaurant = restaurantService.findOne((Long) session.getAttribute(RESTAURANT_SESSION));
+        log.info("restaurant={}",restaurant.getId());
+
         BoardForm boardForm = new BoardForm(orderCheck,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),null,null,restaurant.getMinOrderPrice());
 
         return boardForm;
