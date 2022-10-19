@@ -35,6 +35,7 @@ public class RestaurantController {
     //선택한 카테고리와 일치하는 식당 정보를 보여줌
     @GetMapping("/restaurant")
     public String resChoose(@RequestParam("categoryId")Long categoryId, @SessionAttribute(PICKUP_SESSION)Long pickupId, HttpSession session, Model model){
+        //선택한 식당 관련 pk 값은 세션에 저장
         sessionSave(session, CATEGORY_SESSION,categoryId);  //선택한 카테고리 pk값 세션에 저장
         PickUp pickUp = pickUpService.findOne(pickupId);
         List<Restaurant> restaurants = restaurantService.findDto(new RestaurantDTO(categoryId, pickUp.getAddress()));
@@ -44,16 +45,14 @@ public class RestaurantController {
         return "/restaurant/RestaurantSelect";
     }
 
+
     private void sessionSave(HttpSession session, String CONST_ENTITY,Long id) {
         session.setAttribute(CONST_ENTITY, id);
     }
 
 
     @PostMapping("/restaurant")
-    public String resChoose(HttpSession session,@RequestParam("restaurantId")Long restaurantId, BindingResult bindingResult,RedirectAttributes redirectAttributes){
-        if(bindingResult.hasErrors()){
-            return "/restaurant/RestaurantSelect";
-        }
+    public String resChoose(HttpSession session,@RequestParam("restaurantId")Long restaurantId, RedirectAttributes redirectAttributes){
         sessionSave(session, RESTAURANT_SESSION,restaurantId);
         Restaurant restaurant = restaurantService.findOne(restaurantId);
         redirectAttributes.addAttribute("restaurantId", restaurant.getId());
