@@ -21,17 +21,18 @@ public class MyErrorController implements ErrorController {
     @GetMapping
     public String handleError(HttpServletRequest request){
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        log.info("status={}",status);
         if(status!=null) {
             int statusCode = Integer.valueOf(status.toString());
-            if (statusCode == HttpStatus.BAD_REQUEST.value()) {
-                return "error/400";
+            if (statusCode == HttpStatus.BAD_REQUEST.value() || statusCode == HttpStatus.NOT_FOUND.value()) {
+                return "/error/error-400";
             } else {
-                return "error/500";
+                return "/error/error-500";
             }
 
 
         }
-        return "error/500";
+        return "redirect:/ error/500";
     }
 
 

@@ -18,7 +18,7 @@ public class Board {
     @GeneratedValue
     @Column(name = "board_id")
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
     private OrderCheck order;
     private LocalDateTime localDateTime;

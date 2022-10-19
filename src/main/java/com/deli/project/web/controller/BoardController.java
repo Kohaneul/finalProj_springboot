@@ -25,7 +25,6 @@ import static com.deli.project.domain.ConstEntity.*;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/board")
 public class BoardController {
 
     private final OrderCheckRepository orderCheckRepository;
@@ -35,7 +34,7 @@ public class BoardController {
     private final RestaurantService restaurantService;
     private final PickUpService pickUpService;
 
-    @GetMapping("/new/{orderId}")
+    @GetMapping("/board/new/{orderId}")
     public String board(@PathVariable("orderId")Long orderId,HttpSession session, Model model){
         BoardForm boardForm = setBoardForm(session);
         model.addAttribute("boardForm",boardForm);
@@ -52,27 +51,32 @@ public class BoardController {
         log.info("category={}",category.getId());
         Restaurant restaurant = restaurantService.findOne((Long) session.getAttribute(RESTAURANT_SESSION));
         log.info("restaurant={}",restaurant.getId());
-
         BoardForm boardForm = new BoardForm(orderCheck,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),null,null,restaurant.getMinOrderPrice());
 
         return boardForm;
     }
 
 
-    @PostMapping("/new/{orderId}")
+    @PostMapping("/board/new/{orderId}")
     public String board2(@Valid @ModelAttribute("boardForm")BoardForm form, BindingResult bindingResult,RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             return "/board/BoardForm";
         }
         Board board = Board.createBoard(form.getOrder(),form.getTitle(),form.getContent());
         boardRepository.save(board);
-        redirectAttributes.addAttribute("boardId",board.getId());
+        Long boardId = board.getId();
+        redirectAttributes.addAttribute("boardId",boardId);
         return "redirect:/board/{boardId}";
     }
 
+    @GetMapping("/board/{boardId}")
+    public String boardView(@PathVariable Long boardId, Model model){
+        Board board = boardRepository.findOne(boardId);
+        model.addAttribute("board",board);
+        return "/board/BoardDetail";
+    }
 
-
-    @GetMapping("/all")
+    @GetMapping("/boards")
     public String boardAll(Model model){
         List<Board> boards = boardRepository.findAll(new BoardSearchDto());
         model.addAttribute("boards",boards);

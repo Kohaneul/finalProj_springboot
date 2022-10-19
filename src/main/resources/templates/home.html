@@ -14,7 +14,7 @@
         <img th:src="|/images/MainPage.png|" width="400" height="400"/>
         <p class="lead" th:if="${session.USER_ID==null}">회원 기능</p>
         <p>
-            <a href="#" th:if="${session.SESSION_ID!=null}" th:href="@{/logout}" class="btn" id="logout_btn" role="button">Logout</a>
+            <a href="#" th:if="${session.SESSION_ID!=null}" th:href="@{/logout}" class="btn" id="logout_btn" role="button" th:onclick="onClick()">Logout</a>
             <a href="#" th:if="${session.SESSION_ID==null}" th:href="@{/login}" class="btn" id="login_btn" role="button">로그인</a>
         <a href="#" th:if="${session.SESSION_ID==null}" th:href="@{/member/new}" class="btn" id="form_btn"  role="button">회원 가입</a>
         <p class="lead">글 작성 기능</p>
@@ -27,6 +27,14 @@
             <a  href="/boards"  class="btn" id="list_btn" role="button">글 목록</a>
         </p>
     </div>
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+
+       function onClick(){
+        alert('로그아웃 되었습니다.')
+ 		}
+       /*]]>*/
+    </script>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
