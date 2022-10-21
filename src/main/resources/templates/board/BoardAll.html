@@ -38,10 +38,11 @@
             </thead>
             <tbody>
             <tr th:each="board : ${boards}">
-                <td th:text="${board.order.loginId}"></td>
-                <td th:text="${board.title}"></td>
-                <td><a href="#" th:href="@{/board/{boardId}/view (boardId=${board.id})}" class="btn btn-primary" th:text="${board.content}"></a></td>
-                <td th:text="${board.localDateTime}"></td>
+                <td th:text="${board.id}"></td>
+                <td th:text="${board.order.loginId}" style="font-size:12px;"></td>
+                <td th:text="${board.title}" style="font-size:12px;"></td>
+                <td><a href="#" th:href="@{/board/{boardId}/view (boardId=${board.id})}" th:text="${board.content}"></a></td>
+                <td th:text="${board.localDateTime}" style="font-size:12px;"></td>
                 <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')}" href="#" th:href="@{/member/{id}/edit (id=${member.id})}" class="btn btn-primary" role="button">수정</a></td>
             </tr>
             </tbody>

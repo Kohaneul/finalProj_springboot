@@ -78,15 +78,29 @@ public class BoardController {
     @GetMapping("/boards")
     public String boardAll(@ModelAttribute("boardSearch")BoardSearchDto boardSearch, Model model){
         List<Board> boards = boardRepository.findAll(boardSearch);
+        boardTextedit(boards);
+
         model.addAttribute("boards",boards);
 
         return "/board/BoardAll";
     }
+
+    private void boardTextedit(List<Board> boards) {
+        for (Board board : boards) {
+            if(board.getContent().length()>20){
+                board.setContent(board.getContent().substring(0,20)+"....");
+            }
+            else{
+                board.setContent(board.getContent()+"...");
+            }
+        }
+    }
+
     @GetMapping("/board/{boardId}/view")
     public String boardView(@PathVariable Long boardId, Model model){
         Board board = boardRepository.findOne(boardId);
         model.addAttribute("board",board);
-        return "/board/Board";
+        return "/board/BoardView";
 
     }
 

@@ -1,13 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/BoardDetail.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/BoardView.css}"/>
 <title>주문 확인 창</title>
 
 <body>
     <div class="container">
         <div th:replace="fragments/bodyHeader :: bodyHeader"/>
         <h3 id="h3Style">글 정보</h3>
+
+        <div id="commentList">
+            <div th:if="${board.comments.size()>0}">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr th:each="comment : ${board.comments}">
+                        <td th:text="${comment.memberLoginId}"></td>
+                        <td th:text="${comment.content}"></td>
+                        <td th:text="${comment.localDateTime}"></td>
+                        <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')} || ${comment.memberLoginId.equals(${memberId})}" href="#" th:href="@{/comment/{loginId}/edit (id=${comment.loginId})}" class="btn btn-primary" role="button">댓글 수정</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${board.comments.size()<1}">
+                <input type="text" placeholder="댓글을 입력하세요" name = "comment" id="comment">
+                <!--                th:onclick="commentSave(this.getAttribute('commentContent'))-->
+                <a class="btn btn-primary" role="button" onclick="commentSave">댓글올리기</a>
+            </div>
+        </div>
 
         <div th:object = "${board}">
             <div id="boardForm">
@@ -24,36 +44,6 @@
                     <ul id="content">내용 : <span  th:text="*{content}"></span></ul>
                 </div>
             </div>
-        </div>
-
-        <div id="commentList">
-            <div th:if="${#lists.size('comments')>0}">
-            <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>아이디</th>
-                <th>내용</th>
-                <th>시간</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="comment : ${comments}">
-                <td th:text="${comment.memberLoginId}"></td>
-                <td th:text="${comment.content}"></td>
-                <td th:text="${comment.localDateTime}"></td>
-                <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')} || ${comment.memberLoginId.equals(${memberId})}" href="#" th:href="@{/comment/{loginId}/edit (id=${comment.loginId})}" class="btn btn-primary" role="button">댓글 수정</a></td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
-            <div th:if="${#lists.size('comments')<1}">
-                <input type="text" placeholder="댓글을 입력하세요" name = "comment" id="comment">
-<!--                th:onclick="commentSave(this.getAttribute('commentContent'))-->
-                <a class="btn btn-primary" role="button" onclick="commentSave">댓글올리기</a>
-            </div>
-        </div>
         </div>
     <script th:inline="javascript">
          /*<![CDATA[*/
@@ -73,9 +63,9 @@
  		/*]]>*/
 </script>
         <script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
-
         <div th:replace="fragments/footer :: footer" />
 
-</div>
+
+    </div>
 </body>
 </html>

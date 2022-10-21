@@ -3,6 +3,7 @@ package com.deli.project.domain.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class Board {
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
     private OrderCheck order;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime localDateTime;
     private String title;
 
@@ -58,6 +60,7 @@ public class Board {
         board.setOrder(order);
         board.setTitle(title);
         board.setContent(content);
+        board.setLocalDateTime(LocalDateTime.now());
        return board;
     }
 
