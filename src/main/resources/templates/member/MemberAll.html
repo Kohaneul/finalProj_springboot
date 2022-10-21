@@ -1,19 +1,19 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
-<body>
+<link rel="stylesheet" type="text/css" th:href="@{/css/MemberAll.css}"/>
+
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
     <h3 id="h3Style">회원 목록</h3>
 
-    <div>
-        <div>
+        <div id="sortTab">
             <form th:object="${memberSearch}" class="form-inline">
-                <div class="form-group mb-2">
-                    <input type="text" th:field="*{loginId}" class="form-control"
+                <div class="form-group mb-2" id="sortId">
+               <input type="text" th:field="*{loginId}" class="form-control"
                            placeholder="회원아이디 입력"/>
                 </div>
-                <div class="form-group mx-sm-1 mb-2">
+                <div class="form-group mx-sm-1 mb-2" id="sortGrade">
                     <select th:field="*{memberSort}" class="form-control">
                         <option value="">등급</option>
                         <option th:each=
@@ -24,6 +24,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">검색</button>
+
             </form>
         </div>
 
@@ -57,7 +58,6 @@
             </tr>
             </tbody>
         </table>
-    </div>
     <div th:replace="fragments/footer :: footer"/>
 </div>
 

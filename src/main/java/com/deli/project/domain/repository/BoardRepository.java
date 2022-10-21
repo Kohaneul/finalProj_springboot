@@ -1,7 +1,9 @@
 package com.deli.project.domain.repository;
 
 import com.deli.project.domain.entity.Board;
+import com.deli.project.domain.entity.Comment;
 import com.deli.project.domain.service.BoardSearchDto;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -32,6 +34,11 @@ public class BoardRepository{
         em.persist(board);
     }
 
+    @Transactional
+    public void save(Comment comment){
+        em.persist(comment);
+    }
+
     public Board findOne(Long id){
         return em.find(Board.class,id);
     }
@@ -46,12 +53,18 @@ public class BoardRepository{
         return query.select(board).from(board).where(containsLoginId(loginId),containsTitle(title)).fetch();
     }
 
-    private BooleanExpression containsTitle(String title) {
-        return board.title.contains(title);
+    private BooleanBuilder containsTitle(String title) {
+        if(title==null){
+        return new BooleanBuilder();
+        }
+        return new BooleanBuilder(board.title.contains(title));
     }
 
-    private BooleanExpression containsLoginId(String loginId) {
-        return board.order.loginId.eq(loginId);
+    private BooleanBuilder containsLoginId(String loginId) {
+        if(loginId==null){
+            return new BooleanBuilder();
+        }
+        return new BooleanBuilder(board.order.loginId.eq(loginId));
     }
 
 

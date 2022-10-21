@@ -51,8 +51,7 @@ public class BoardController {
         log.info("category={}",category.getId());
         Restaurant restaurant = restaurantService.findOne((Long) session.getAttribute(RESTAURANT_SESSION));
         log.info("restaurant={}",restaurant.getId());
-        BoardForm boardForm = new BoardForm(orderCheck,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),null,null,restaurant.getMinOrderPrice());
-
+        BoardForm boardForm = new BoardForm(orderCheck,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),null,null,restaurant.getMinOrderPrice(),null);
         return boardForm;
     }
 
@@ -70,17 +69,25 @@ public class BoardController {
     }
 
     @GetMapping("/board/{boardId}")
-    public String boardView(@PathVariable Long boardId, Model model){
+    public String boardCheck(@PathVariable Long boardId, Model model){
         Board board = boardRepository.findOne(boardId);
         model.addAttribute("board",board);
         return "/board/BoardDetail";
     }
 
     @GetMapping("/boards")
-    public String boardAll(Model model){
-        List<Board> boards = boardRepository.findAll(new BoardSearchDto());
+    public String boardAll(@ModelAttribute("boardSearch")BoardSearchDto boardSearch, Model model){
+        List<Board> boards = boardRepository.findAll(boardSearch);
         model.addAttribute("boards",boards);
+
         return "/board/BoardAll";
+    }
+    @GetMapping("/board/{boardId}/view")
+    public String boardView(@PathVariable Long boardId, Model model){
+        Board board = boardRepository.findOne(boardId);
+        model.addAttribute("board",board);
+        return "/board/Board";
+
     }
 
 }

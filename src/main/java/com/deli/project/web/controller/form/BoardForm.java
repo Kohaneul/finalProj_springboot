@@ -1,5 +1,6 @@
 package com.deli.project.web.controller.form;
 
+import com.deli.project.domain.entity.Comment;
 import com.deli.project.domain.entity.OrderCheck;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,9 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 게시글 작성 FORM
  *
@@ -36,12 +40,15 @@ public class BoardForm {
     @NotNull
     private int minOrderPrice;
 
-    public BoardForm(OrderCheck order, String nickName, String pickUpName, String category, String restaurantName, int minOrderPrice) {
+    private List<Comment> comment = new ArrayList<>();
+
+    public BoardForm(OrderCheck order, String nickName, String pickUpName, String category, String restaurantName, int minOrderPrice,List<Comment> comments) {
         this.order = order;
         this.nickName = nickName;
         this.pickUpName = pickUpName;
         this.category = category;
         this.restaurantName = restaurantName;
         this.minOrderPrice = minOrderPrice;
+        this.comment = comments;
     }
 }

@@ -1,52 +1,46 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/BoardAll.css}"/>
+
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-    <div>
-        <div>
-            <form th:object="${memberSearch}" class="form-inline">
-                <div class="form-group mb-2">
-                    <input type="text" th:field="*{loginId}" class="form-control"
-                           placeholder="회원아이디 입력"/>
-                </div>
-                <div class="form-group mx-sm-1 mb-2">
-                    <select th:field="*{memberSort}" class="form-control">
-                        <option value="">등급</option>
-                        <option th:each=
-                                        "sortMember : ${T(com.deli.project.domain.entity.MemberSort).values()}"
-                                th:value="${sortMember}"
-                                th:text="${sortMember}">option
-                        </option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">검색</button>
-            </form>
-        </div>
 
+    <div id="sortTab">
+        <form th:object="${boardSearch}" class="form-inline">
+            <div class="form-group mb-2"  id="sortId">
+                <input type="text" th:field="*{loginId}" class="form-control"
+                       placeholder="회원아이디 입력"/>
+            </div>
+            <div class="form-group mx-sm-1 mb-2"  id="sortTitle">
+                <input type="text" th:field="*{title}" class="form-control"
+                       placeholder="제목 입력"/>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">검색</button>
+        </form>
+    </div>
+    <div th:if="${boards.size()<1}" >
+        <span id="message">글 내용이 없습니다.<a href="#" th:href="@{/board/select/myPosition}" class="btn btn-primary" role="button">등록</a></span>
+    </div>
 
-        <table class="table table-striped">
+    <div th:if="${boards.size()>0}">
+    <table class="table table-striped">
             <thead>
             <tr>
                 <th>#</th>
                 <th>아이디</th>
-                <th>닉네임</th>
-                <th>휴대폰번호</th>
-                <th>도시</th>
-                <th>주소</th>
-                <th>우편번호</th>
-                <th>분류</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>시간</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="board : ${boards}">
-                <td th:text="${board.id}"></td>
                 <td th:text="${board.order.loginId}"></td>
-                <td th:text="${board.order.id}"></td>
                 <td th:text="${board.title}"></td>
-                <td th:text="${board.content}"></td>
+                <td><a href="#" th:href="@{/board/{boardId}/view (boardId=${board.id})}" class="btn btn-primary" th:text="${board.content}"></a></td>
                 <td th:text="${board.localDateTime}"></td>
                 <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')}" href="#" th:href="@{/member/{id}/edit (id=${member.id})}" class="btn btn-primary" role="button">수정</a></td>
             </tr>

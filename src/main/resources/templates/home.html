@@ -21,6 +21,7 @@
 
         <a href="#" th:if="${session.USER_ID!=null}"  th:href="@{/member/{id} (id=${session.USER_ID})}" id="myInfo_btn" class="btn" role="button">내 정보 보기</a>
             <a href="#" th:if="${session.SESSION_ID!=null}"  th:href="@{/member/all}" class="btn" id="memberAll_btn" role="button" >회원 목록</a>
+
         </p>
         <p>
             <a  href="/board/select/myPosition" class="btn" id="update_btn" role="button">글 등록</a>
