@@ -17,15 +17,20 @@
                         <td th:text="${comment.memberLoginId}"></td>
                         <td th:text="${comment.content}"></td>
                         <td th:text="${comment.localDateTime}"></td>
-                        <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')} || ${comment.memberLoginId.equals(${memberId})}" href="#" th:href="@{/comment/{loginId}/edit (id=${comment.loginId})}" class="btn btn-primary" role="button">댓글 수정</a></td>
+                        <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')}" href="#" th:href="@{/comment/{loginId}/edit (id=${comment.loginId})}" class="btn btn-primary" role="button">댓글 수정</a></td>
                     </tr>
+                    <form role="form"  method="post">
+                        <input type="text" placeholder="댓글을 입력하세요" name = "comment">
+                        <input type="submit" value="댓글 올리기">
+                    </form>
                     </tbody>
                 </table>
             </div>
             <div th:if="${board.comments.size()<1}">
-                <input type="text" placeholder="댓글을 입력하세요" name = "comment" id="comment">
-                <!--                th:onclick="commentSave(this.getAttribute('commentContent'))-->
-                <a class="btn btn-primary" role="button" onclick="commentSave">댓글올리기</a>
+                <form role="form"  method="post">
+                <input type="text" placeholder="댓글을 입력하세요" name = "comment">
+                <input type="submit" value="댓글 올리기">
+                </form>
             </div>
         </div>
 
@@ -53,12 +58,6 @@
   			 location.href = "/board/all";
  		}
 
- 		let comment = [[${board.comments}]]
-
-
- 		function commentSave(){
- 		 comment.put(document.getElementById('comment').value);
- 		}
 
  		/*]]>*/
 </script>

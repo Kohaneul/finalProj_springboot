@@ -36,10 +36,10 @@ public class Comment {
         board.getComments().add(this);
     }
 
-    public Comment (String memberLoginId, String content, double score,LocalDateTime localDateTime){
+    public Comment (String memberLoginId, String content, double score){
         this.memberLoginId = memberLoginId;
         this.content = content;
         this.score = score;
-        this.localDateTime = localDateTime;
+        this.localDateTime = LocalDateTime.now();
     }
 }

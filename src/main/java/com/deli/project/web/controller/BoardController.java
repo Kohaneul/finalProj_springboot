@@ -7,6 +7,7 @@ import com.deli.project.domain.service.*;
 import com.deli.project.web.controller.form.BoardForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,6 +34,7 @@ public class BoardController {
     private final CategoryService categoryService;
     private final RestaurantService restaurantService;
     private final PickUpService pickUpService;
+    private String loginId;
 
     @GetMapping("/board/new/{orderId}")
     public String board(@PathVariable("orderId")Long orderId,HttpSession session, Model model){
@@ -43,6 +45,7 @@ public class BoardController {
 
     private BoardForm setBoardForm(HttpSession session){
         OrderCheck orderCheck = orderCheckRepository.findOne((Long) session.getAttribute(ORDER_CHECK_SESSION));
+        loginId = orderCheck.getLoginId();
         Member member = memberService.findOne((Long) session.getAttribute(USER_SESSION));
         log.info("member={}",member.getId());
         PickUp pickUp = pickUpService.findOne((Long) session.getAttribute(PICKUP_SESSION));
@@ -87,21 +90,45 @@ public class BoardController {
 
     private void boardTextedit(List<Board> boards) {
         for (Board board : boards) {
-            if(board.getContent().length()>20){
-                board.setContent(board.getContent().substring(0,20)+"....");
+            StringBuilder sb = new StringBuilder();
+            String str = sb.append(board.getContent()).toString();
+            log.info("String str={}",str);
+            if(str.length()>20){
+                log.info("String length={}",str.length());
+                board.setContent(sb.delete(20,str.length()).append("....").toString());
             }
             else{
-                board.setContent(board.getContent()+"...");
+                board.setContent(sb.append("...").toString());
             }
         }
     }
+
+//    private void boardTextedit(List<Board> boards) {
+//        for (Board board : boards) {
+//            if(board.getContent().length()>20){
+//                board.setContent(board.getContent().substring(0,20)+"....");
+//            }
+//            else{
+//                board.setContent(board.getContent()+"...");
+//            }
+//        }
+//    }
 
     @GetMapping("/board/{boardId}/view")
     public String boardView(@PathVariable Long boardId, Model model){
         Board board = boardRepository.findOne(boardId);
         model.addAttribute("board",board);
         return "/board/BoardView";
+    }
+
+    @PostMapping("/board/{boardId}/view")
+    public String boardView(@PathVariable Long boardId,@RequestParam("comment") String comment, Model model){
+        Board board = boardRepository.findOne(boardId);
+        board.getComments().add(new Comment(loginId,comment,0));
+        model.addAttribute("board",board);
+        return "/board/BoardView";
 
     }
+
 
 }

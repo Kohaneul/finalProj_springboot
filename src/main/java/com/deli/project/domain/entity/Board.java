@@ -30,7 +30,7 @@ public class Board {
     private String title;
 
     @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
-    private List<Comment>comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     private String content;
 
