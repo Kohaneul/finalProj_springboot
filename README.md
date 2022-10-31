@@ -29,13 +29,16 @@ Java11, SpringBoot 2.7.4 , Gradle, JPA, JavaScript, HTML, CSS, Thymeleaf, 카카
 ![image](https://user-images.githubusercontent.com/96707563/196576060-90c69daf-d4eb-44a8-9d49-c20cd76b7412.png)
 ![image](https://user-images.githubusercontent.com/96707563/196576088-9853d315-021b-4af4-bfdf-2fbd3fc589b7.png)
 ![image](https://user-images.githubusercontent.com/96707563/196576107-178dd6d4-38f8-415f-94e9-e956330d1014.png)
-![image](https://user-images.githubusercontent.com/96707563/196576147-585d099a-c810-4097-85df-a85255c9a612.png)
+![image](https://user-images.githubusercontent.com/96707563/198991291-b7f035db-2940-40f0-bb44-75b9cbcad6ef.png)
+![image](https://user-images.githubusercontent.com/96707563/198991365-286da3cf-11a5-421d-b56d-5b16bc151b40.png)
 ![image](https://user-images.githubusercontent.com/96707563/196576180-ded21069-c45b-40da-ab0f-a55645a75431.png)
 ![image](https://user-images.githubusercontent.com/96707563/196610802-681ddb9c-d5b9-4086-9990-8d5890ec06ea.png)
 ![image](https://user-images.githubusercontent.com/96707563/196610973-ebc69d3c-829f-48e4-907c-1e7dd5ced37a.png)
 ![image](https://user-images.githubusercontent.com/96707563/196610870-d7ddcccd-edc7-4708-b40d-e2635f9b4dc2.png)
 ![image](https://user-images.githubusercontent.com/96707563/196610932-3ae6831e-de3a-45c9-b6f1-b726154fc635.png)
 ![image](https://user-images.githubusercontent.com/96707563/196610995-6183d68b-36fc-43d5-8f53-a7f0f5be1bf1.png)
+![image](https://user-images.githubusercontent.com/96707563/198991475-7100e585-d85f-4afc-bb56-f8e8fc19798c.png)
+
 
 
 
