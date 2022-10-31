@@ -29,8 +29,6 @@ public class MyErrorController implements ErrorController {
             } else {
                 return "/error/error-500";
             }
-
-
         }
         return "redirect:/ error/500";
     }
@@ -43,12 +41,10 @@ public class MyErrorController implements ErrorController {
   public void NumberFormatEx(HttpServletRequest request, HttpServletResponse response, NumberFormatException e) throws IOException {
       //이전 페이지로 redirect
         String referURL = request.getHeader("REFERER");
-        log.info("referURL={}",referURL);
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
          referURL=referURL.substring(referURL.indexOf("b")-1);
         out.println("<script>alert('선택하지 않았습니다.'); location.href='"+referURL+"';</script>");
-        log.info("referURL={}",referURL);
         out.flush();
   }
 

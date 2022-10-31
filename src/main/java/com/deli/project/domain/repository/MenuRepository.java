@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 /**
  * 메뉴 저장소
@@ -30,6 +31,18 @@ public class MenuRepository {
 
     public List<Menu> findMenuList(Long restaurantId){
         return em.createQuery("select m from Menu m where m.restaurant.id = :restaurantId",Menu.class).setParameter("restaurantId",restaurantId).getResultList();
+    }
+
+
+    public List<Menu> findCheckedMenuList(Boolean bool){
+        return em.createQuery("select m from Menu m where m.checkBox = :bool",Menu.class).setParameter("bool",false).getResultList();
+    }
+
+
+    public List<Menu> chooseMenus(List<Long> menuId){
+        List<Menu> list = new ArrayList<>();
+        menuId.stream().forEach(m->list.add(findOne(m)));
+        return list;
     }
 
 

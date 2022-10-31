@@ -9,11 +9,8 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <h3 id="h3Style">#6. 선택 확인</h3>
-
-    <div id="decoBox"></div>
-
+    <img th:src="|/images/delivery.png|"/>
     <div id = "orderForm">
-        <img th:src="|/images/delivery.png|" width="300" height="200"/>
         <div id="chooseCheck">
             <div>
                 픽업장소 : <span th:text="${saveForm.pickUpPlace}"></span>
@@ -28,32 +25,33 @@
             <div>
                 주소 : <span th:text="${saveForm.address} "></span>
             </div>
-            <div>
-                주문 메뉴 : <span th:text="|${menu.name} ( ${menu.price} 원) |"></span>
+            <div>주문 메뉴
+                <tr th:each="menu : ${menus}">
+                <div th:text="|    - ${menu.name} ( ${menu.price}원 )|"></div>
+                </tr>
             </div>
-<!--            <a th:href="@{/board/new/{orderId}(orderId=${orderCheck.id})" class="btn btn-primary" role="button">수정</a></button>-->
-<!--            <button  class="btn btn-primary" onclick="history.back();">이전</button>-->
-
-            <!--            <td><a th:href="@{/board/new/{orderId}(orderId=${orderCheck.id})" class="btn btn-primary" role="button">수정</a></td>-->
-
-                    <form role="form"  th:object="${saveForm}" method="post">
-                        <input type="hidden" th:field="*{pickUpPlace}">
-                        <input type="hidden" th:field="*{categoryName}">
-                        <input type="hidden" th:field="*{restaurantName}">
-                        <input type="hidden" th:field="*{menuId}">
-                        <input type="hidden" th:field="*{address}">
-                        <input type="hidden" th:field="*{LoginId}">
-
+            <div>
+               <span th:text="|   TOTAL : ${saveForm.totalPrice} |"></span>
+            </div>
+            </div>
+            </div>
+                        <form role="form"  th:object="${saveForm}" method="post">
+                            <input type="hidden" th:field="*{pickUpPlace}">
+                            <input type="hidden" th:field="*{categoryName}">
+                            <input type="hidden" th:field="*{restaurantName}">
+                            <input type="hidden" th:field="*{chooseMenuIds}">
+                            <input type="hidden" th:field="*{address}">
+                            <input type="hidden" th:field="*{LoginId}">
+                            <input type="hidden" th:field="*{totalPrice}">
                         <div id="btnStyle">
-                            <input type="submit" id = "btn1" value="다음" />
+                            <input type="submit" id = "btn1" value="다음" onClick="onClick();"/>
                             <input type="button" id = "btn2" value='이전' onClick="history.back();"/>
-
-<!--                            <input type="button" id = "btn2" value='이전' onClick="history.back();"/>-->
                         </div>
                     </form>
 
 
 
+    <div th:replace="fragments/footer :: footer" />
 
         </div>
     </div>
@@ -62,7 +60,6 @@
     <script th:inline="javascript">
     /*<![CDATA[*/
      		function onClick(){
-     		document.getElementById('chooseCheck').value
      		  alert('글 작성 페이지로 이동합니다.');
  		    }
  		}
@@ -70,7 +67,6 @@
 </script>
 
     <script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
-    <div th:replace="fragments/footer :: footer" />
 
 </div>
 </body>

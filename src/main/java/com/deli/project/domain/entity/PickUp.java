@@ -26,11 +26,8 @@ public class PickUp {
     @Embedded
     private Coordinate coordinate;  //좌표 : 경도, 위도의 공통 속성을 묵음
 
-    @OneToMany(mappedBy = "pickUp")
-    private List<Category> category = new ArrayList<>();
 
     private String address;
-
 
     public void setPlaceName(String placeName) {
         this.placeName = placeName;

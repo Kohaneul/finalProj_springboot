@@ -37,6 +37,11 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(@ModelAttribute("loginMember") LoginMember loginMember, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        searchLoginSession(request, response);
+        return "/member/Login";
+    }
+
+    private void searchLoginSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         if(session.getAttribute(ConstEntity.SESSION)!=null){
             response.setContentType("text/html; charset=UTF-8");
@@ -44,7 +49,6 @@ public class LoginController {
             out.println("<script>alert('로그아웃 되셨습니다.'); location.href='/logout';</script>");
             out.flush();
         }
-        return "/member/Login";
     }
 
 
@@ -53,11 +57,9 @@ public class LoginController {
     public String login(@Valid @ModelAttribute("loginMember")LoginMember loginMember, BindingResult bindingResult, HttpServletRequest request){
         Member member = memberService.loginMember(loginMember.getLoginId(), loginMember.getPassword());
         // Validation 기능 작동-> 실패시 기존 로그인 사이트로 이동
-
         if(member==null){
             bindingResult.reject("globalError","아이디/비밀번호 입력 오류");
         }
-
         if(bindingResult.hasErrors()){
             return "/member/Login";
         }
@@ -70,16 +72,23 @@ public class LoginController {
     //로그인 세션 생성
     private void setLoginSession(HttpServletRequest request,Member member) {
         HttpSession session = request.getSession();
-        //UUID : UUID + / +MEMBER 테이블 PK값
+        //UUID : UUID + ' / ' + MEMBER 테이블 PK값
         String uuid = UUID.randomUUID().toString()+"/"+member.getId();
-        if(member.getMemberSort().equals(MemberSort.ADMIN)){
-            uuid ="admin"+uuid;
-        }
-        log.info("uuid={}",uuid);
-        session.setAttribute(ConstEntity.SESSION,uuid); //사용자 SESSION 저장
+        uuid = updateAdminUUID(member, session, uuid);  //멤버 분류 중 admin 세션이라면 구분을 위해 uuid 업데이트
+
         Long id = Long.valueOf(uuid.split("/")[1]);     //생성한 UUID에서 '/' 분류하여 USER_SESSION 저장
+
         session.setAttribute(ConstEntity.USER_SESSION,id);
 
+    }
+
+    private String updateAdminUUID(Member member, HttpSession session, String uuid) {
+        if(member.getMemberSort().equals(MemberSort.ADMIN)){
+            uuid ="admin"+ uuid;
+        }
+        log.info("uuid={}", uuid);
+        session.setAttribute(ConstEntity.SESSION, uuid); //사용자 SESSION 저장
+        return uuid;
     }
 
     //로그아웃 

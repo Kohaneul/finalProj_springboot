@@ -23,28 +23,10 @@ public class Category {
     @Column(name="category_name")
     private String categoryName;
 
-//    @OneToMany(mappedBy = "category")
-//    private List<Restaurant> restaurants = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="pickup_id")
-    private PickUp pickUp;
 
-    public void setPickUp(PickUp pickUp) {
-        this.pickUp = pickUp;
-
-        for (Category category : pickUp.getCategory()) {
-            category.setPickUp(pickUp);
-        }
-    }
-
-    public Category(String categoryName){
+    public Category(String categoryName) {
         this.categoryName = categoryName;
-    }
 
-
-    public Category(String categoryName, PickUp pickUp) {
-        this.categoryName = categoryName;
-        this.pickUp = pickUp;
     }
 }

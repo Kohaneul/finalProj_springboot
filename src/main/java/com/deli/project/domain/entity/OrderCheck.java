@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 주문정보 확인 테이블
  * */
@@ -21,13 +25,22 @@ public class OrderCheck {
     private Long id;
     private String loginId;
 
-
     @OneToOne(mappedBy = "order",fetch = FetchType.LAZY)
     private Board board;
 
-
     private String restaurantName;
-    private int totalPrice;
+    @OneToMany(mappedBy = "orderCheck")
+    private List<Menu> menuList = new ArrayList<>();
+
+
+    public void setMenuList(List<Menu> menuList) {
+        this.menuList = menuList;
+    }
+
+    public void addMenu(Menu...menus) {
+        Arrays.stream(menus).forEach(m->menuList.add(m));
+    }
+
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;    // WAITING,START,COMPLETE
@@ -46,14 +59,12 @@ public class OrderCheck {
         this.restaurantName = restaurantName;
     }
 
-    public static OrderCheck createOrder(String restaurantName , String loginId, Menu ...menus){
+    public static OrderCheck createOrder(String restaurantName , String loginId,List<Menu> menus){
         OrderCheck order = new OrderCheck();
         order.setLoginId(loginId);
         order.setRestaurantName(restaurantName);
         order.setOrderStatus(OrderStatus.START);
-        for (Menu menu : menus) {
-            order.totalPrice +=menu.getPrice();
-        }
+        order.setMenuList(menus);
         return order;
     }
 }

@@ -1,5 +1,6 @@
 package com.deli.project.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,15 +20,24 @@ public class Menu {
     private Long id;
     private String name;
     private int price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private OrderCheck orderCheck;
+
+    private boolean isCheck;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
+    @JsonIgnore
     private Restaurant restaurant;
 
 
-    public Menu(String name, int price,Restaurant restaurant){
+    public Menu(String name, int price, Restaurant restaurant){
         this.name= name;
         this.price= price;
         this.restaurant = restaurant;
+        this.isCheck = false;
     }
 
 

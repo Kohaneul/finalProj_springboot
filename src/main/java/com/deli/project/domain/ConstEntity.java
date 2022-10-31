@@ -1,4 +1,8 @@
 package com.deli.project.domain;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 세션값으로 저장할 session 변수를 상수로 정의
  * SESSION : 로그인시 생성 (형식 : UUID + / +ID)
@@ -11,6 +15,7 @@ package com.deli.project.domain;
  *
  * */
 public abstract class ConstEntity {
+    public static Map<String,Long> ConstMap = new HashMap<>();
     public final static String SESSION = "SESSION_ID";
     public final static String USER_SESSION = "USER_ID";
     public final static String PICKUP_SESSION = "PICKUP_ID";
@@ -18,6 +23,9 @@ public abstract class ConstEntity {
     public final static String RESTAURANT_SESSION = "RESTAURANT_ID";
     public final static String MENU_SESSION = "MENU_ID";
     public final static String ORDER_CHECK_SESSION = "ORDER_CHECK_ID";
+
+
+
 
 
 }

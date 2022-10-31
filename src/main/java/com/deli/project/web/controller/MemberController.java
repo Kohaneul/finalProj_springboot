@@ -54,7 +54,7 @@ public class MemberController {
         duplicatedCheck(memberForm.getLoginId(),memberForm.getNickName(),bindingResult);
         pwEqualCheck(memberForm.getPassword(), memberForm.getPasswordCheck(),bindingResult);
         if(bindingResult.hasErrors()){
-                //에럽라생시 에러 발생한 원인과 값을 로그로 확인
+                //에러발생시 에러 발생한 원인과 값을 로그로 확인
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
                 log.info("rejectedValue={}",fieldError.getRejectedValue());
                 log.info("message={}",fieldError.getDefaultMessage());
@@ -107,7 +107,6 @@ public class MemberController {
     public String MyInfo(@SessionAttribute(name = ConstEntity.USER_SESSION) Long id, Model model){
         Member member = memberService.findOne(id);
         model.addAttribute("memberForm",member);
-
         return "/member/MemberCheck";
     }
 

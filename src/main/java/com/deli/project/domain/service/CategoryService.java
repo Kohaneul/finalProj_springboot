@@ -27,6 +27,7 @@ public class CategoryService {
         return repository.findById(id).orElse(null);
     }
 
+
     public List<Category> findAll(){
         return repository.findAll();
     }

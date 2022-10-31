@@ -11,13 +11,14 @@
     <div id = "Ctitle"> [  <span th:text="${restaurantName}"></span> ] 메뉴판 </div>
     <div id="CForm">
         <form name="childForm" target="popupName">
-             <thead>
-                <tr th:each="menu : ${menuList}">
-                    <td><input type="checkbox" name = "menuId" th:menuId="${menu.id}" th:onclick="radioCheck(this.getAttribute('menuId'))"></td>
-                    <td th:text="${menu.name}"></td> :
-                    <td th:text="${menu.price}"></td><br>
-                </tr>
-                </tbody>
+            <thead>
+            <tr th:each="menu : ${menuList}">
+                <td><input type="checkbox" name = "menuId" th:value="${menu.id}" /></td>
+<!--                <td><input type="checkbox" name = "menuId" th:value="${menu.id}" th:onclick="checks(this)" /></td>-->
+                <td th:text="${menu.name}"></td> :
+                <td th:text="${menu.price}"></td><br>
+            </tr>
+            </tbody>
             </table>
             <input type="hidden" id="cInput" value=""/>
             <input type="hidden" id="mId" name ="mId" value=""/>
@@ -26,7 +27,42 @@
     </div>
 </div>
 <div id="borderStyle"></div>
-<script type="text/javascript" th:src="@{/js/MenuSelect.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        let menu_Id = "";
+        function closeAndSendParam(){
+        let checkBoxes = document.getElementsByName('menuId');
+        for(let i = 0; i<checkBoxes.length;i++){
+            if(checkBoxes[i].checked){
+            menu_Id += checkBoxes.item(i).value + ",";
+            console.log(menu_Id);
+            }
+        };
+        let mId = document.getElementById('mId').value;
+        mId= menu_Id;
+
+        if(menu_Id == null || menu_Id == "" ||menu_Id == "undefined"){
+        alert('선택하지 않았습니다');
+        window.location.reload();
+        }
+        open("/board/select?menuId="+menu_Id); self.close();
+    }
+
+
+	function setChildText(){
+		let popupWidth = 500;
+		let popupHeight = 400;
+		let left = Math.ceil((window.screen.width-popupWidth)/2);
+		let top = Math.ceil((window.screen.height-popupHeight)/2);;
+		console.log("choose : "+choose);
+		let pickup_id = document.getElementById('place_name').value;
+		let url = "/board/select/restaurant/menu?menuId="+choose;
+		openWin = window.open(url,"parentForm2","width="+popupWidth+",height="+popupHeight+",left="+left+",top="+top+"resizable=yes")
+
+	}
+       /*]]>*/
+</script>
+<script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
 
 </body>
 </html>

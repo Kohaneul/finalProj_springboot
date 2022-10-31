@@ -1,9 +1,12 @@
 
 .footer{
-	margin-top:13%;
+	margin-top:8%;
 }
 img{
 	z-index: 3;
+	width:250px;
+	margin-top:5%;
+	margin-left:37%;
 
 }
 
@@ -17,41 +20,31 @@ img{
       	opacity: 0.8;
 }
 #orderForm {
-    margin-left:9%;
-    text-align:center;
-    	z-index: 2;
-	margin-top:6%;
+    margin-left:29%;
+	z-index: 5;
+	width: 400px;
+	background-color: #ebebebdd;
+	border-radius: 15px;
+	padding-top:1%;
+	padding-bottom:1%;
 }
 
 #chooseCheck{
-	margin-top:30px;
 	font-size:20px;
+	margin-left:10%;
 }
 
-#decoBox{
-	margin-left:22%;
-	width:400px;
-	border-radius: 15px;
-	height:185px;
-	margin-top:16.5%;
-	z-index: -100;
-	position: absolute;
-	 background-color: #ddd;
-        opacity: 0.5;
-}
 #h3Style{
     background-color:#40E0D0;
     position: absolute;
       width:fit-content;
       margin-left:10%;
-
       	opacity: 0.8;
 }
 #btnStyle{
-	margin-top:30px;
-    margin-left:-75%;
+	margin-top:1.5%;
+	margin-left:16%;
 }
-
 
 #btn2 , #btn1{
 	position: absolute;

@@ -21,9 +21,6 @@ public class Member {
     private String password;
     private String nickName;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<PickUp> pickUpList = new ArrayList<>();
-
     @Enumerated(EnumType.STRING)
     private MemberSort memberSort;
 
@@ -34,13 +31,6 @@ public class Member {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "uploadFile_id")
     private ImageFile uploadFile;
-
-//    public void setPickUpList(List<PickUp> pickUpList) {
-//        this.pickUpList = pickUpList;
-//        for (PickUp pickUp : pickUpList) {
-//            pickUp.setMember(this);
-//        }
-//    }
 
 
     public void setLoginId(String loginId) {

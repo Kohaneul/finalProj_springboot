@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 식당 정보 테이블
@@ -22,14 +25,11 @@ public class Restaurant {
     @Column(name="restaurant_name")
     private String restaurantName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="pickup_id")
-    private PickUp pickUp;
-
-
     @Embedded
     private Address address;
 
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.PERSIST)
+    public List<Menu> menuList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
@@ -37,9 +37,7 @@ public class Restaurant {
     private Category category;
 
     private double score;
-
     private int minOrderPrice;
-
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
@@ -54,15 +52,9 @@ public class Restaurant {
     }
 
 
-    public void setPickUp(PickUp pickUp) {
-        this.pickUp = pickUp;
-    }
-
-
     public void setMinOrderPrice(int minOrderPrice) {
         this.minOrderPrice = minOrderPrice;
     }
-
 
 
     public void setScore(double score) {
@@ -75,7 +67,6 @@ public class Restaurant {
         restaurant.setCategory(category);
         restaurant.setMinOrderPrice(minOrderPrice);
         restaurant.setScore(score);
-
         return restaurant;
     }
 }

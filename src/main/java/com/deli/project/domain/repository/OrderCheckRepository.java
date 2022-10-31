@@ -36,12 +36,15 @@ public class OrderCheckRepository {
         return em.find(OrderCheck.class, id);
     }
 
+
+
     //주문상태, 특정 문자열을 포함하고 있는지 여부를 확인하여 반환
     public List<OrderCheck> findAll(OrderSearchDTO orderSearch){
         OrderStatus orderStatus = orderSearch.getOrderStatus();
         String loginId = orderSearch.getLoginId();
         return query.select(orderCheck).from(orderCheck).where(memberIdContains(loginId),equalOrderStatus(orderStatus)).fetch();
     }
+
 
     private BooleanExpression equalOrderStatus(OrderStatus orderStatus) {
         return orderCheck.orderStatus.eq(orderStatus);

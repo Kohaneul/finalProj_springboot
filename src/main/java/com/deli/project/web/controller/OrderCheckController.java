@@ -15,6 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static com.deli.project.domain.ConstEntity.*;
 
 /**
@@ -33,25 +37,32 @@ public class OrderCheckController {
     private final RestaurantService restaurantService;
     private final PickUpService pickUpService;
 
-    //메뉴 확인 전
     @GetMapping("/select")
-    public String orderCheck(@RequestParam Long menuId,HttpSession session, Model model){
-        Menu menu = menuRepository.findOne(menuId);
-        String placeName = pickUpService.findOne((Long) session.getAttribute(PICKUP_SESSION)).getPlaceName();
-        String categoryName = categoryService.findOne((Long) session.getAttribute(CATEGORY_SESSION)).getCategoryName();
-        Restaurant restaurant = restaurantService.findOne((Long) session.getAttribute(RESTAURANT_SESSION));
+    public String orderCheck(@RequestParam("menuId") String menuId,HttpSession session,Model model){
+        List<Long> menuIds = new ArrayList<>();
+        Arrays.stream(menuId.split("[,]")).forEach(i->menuIds.add(Long.valueOf(i)));
+        List<Menu> chooseMenuList = menuRepository.chooseMenus(menuIds);
+        Restaurant restaurant = restaurantService.findOne(Long.valueOf(session.getAttribute(RESTAURANT_SESSION).toString()));
         String restaurantName = restaurant.getRestaurantName();
-        String loginId = memberService.findOne((Long)session.getAttribute(USER_SESSION)).getLoginId();
-        OrderSaveForm saveForm = new OrderSaveForm(placeName,categoryName,restaurantName,restaurant.getAddress().getCity() +" "+ restaurant.getAddress().getState(),menuId,loginId);
+        String address = restaurant.getAddress().getCity() + " " + restaurant.getAddress().getState();
+        String categoryName = categoryService.findOne(Long.valueOf(session.getAttribute(CATEGORY_SESSION).toString())).getCategoryName();
+        PickUp pickUp = pickUpService.findOne(Long.valueOf(session.getAttribute(PICKUP_SESSION).toString()));
+        String pickUpPlace=pickUp.getPlaceName();
+        Member member = memberService.findOne(Long.valueOf(session.getAttribute(USER_SESSION).toString()));
+        String LoginId = member.getLoginId();
+        List<Menu> menus = menuRepository.chooseMenus(menuIds);
+        int totalPrice = menus.stream().mapToInt(Menu::getPrice).sum();
+        OrderSaveForm saveForm = new OrderSaveForm(pickUpPlace, categoryName, restaurantName, address, menuIds, LoginId,totalPrice);
         model.addAttribute("saveForm",saveForm);
-        model.addAttribute("menu",menu);
+        model.addAttribute("menus",menus);
         return "/order/OrderCheck";
     }
     @PostMapping("/select")
     public String orderCheck(@ModelAttribute(name = "saveForm") OrderSaveForm saveForm,HttpSession session, RedirectAttributes redirectAttributes){
-        Menu menu = menuRepository.findOne(saveForm.getMenuId());
-        OrderCheck orderCheck = OrderCheck.createOrder(saveForm.getRestaurantName(), saveForm.getLoginId(),menu);
+        List<Menu> menus = menuRepository.chooseMenus(saveForm.getChooseMenuIds());
+        OrderCheck orderCheck = OrderCheck.createOrder(saveForm.getRestaurantName(), saveForm.getLoginId(),menus);
         orderCheckRepository.save(orderCheck);
+        log.info("orderId={}",orderCheck.getId());
         Long orderId = orderCheck.getId();
         log.info("orderId={}",orderId);
         session.setAttribute(ORDER_CHECK_SESSION,orderId);

@@ -103,16 +103,6 @@ public class BoardController {
         }
     }
 
-//    private void boardTextedit(List<Board> boards) {
-//        for (Board board : boards) {
-//            if(board.getContent().length()>20){
-//                board.setContent(board.getContent().substring(0,20)+"....");
-//            }
-//            else{
-//                board.setContent(board.getContent()+"...");
-//            }
-//        }
-//    }
 
     @GetMapping("/board/{boardId}/view")
     public String boardView(@PathVariable Long boardId, Model model){

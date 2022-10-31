@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+
 /**
  * 주문내역 저장하는 FORM
  *
@@ -13,14 +16,14 @@ import lombok.Setter;
 
 @Getter @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class OrderSaveForm {
 
     private String pickUpPlace;
     private String categoryName;
     private String restaurantName;
     private String address;
-    private Long menuId;
+    private List<Long> chooseMenuIds;
     private String LoginId;
+    private int totalPrice;
 
 }
