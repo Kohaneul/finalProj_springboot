@@ -42,13 +42,13 @@ public class OrderCheckController {
         List<Long> menuIds = new ArrayList<>();
         Arrays.stream(menuId.split("[,]")).forEach(i->menuIds.add(Long.valueOf(i)));
         List<Menu> chooseMenuList = menuRepository.chooseMenus(menuIds);
-        Restaurant restaurant = restaurantService.findOne(Long.valueOf(session.getAttribute(RESTAURANT_SESSION).toString()));
+        Restaurant restaurant = restaurantService.findOne(SessionValue.getValue(session, RESTAURANT_SESSION));
         String restaurantName = restaurant.getRestaurantName();
         String address = restaurant.getAddress().getCity() + " " + restaurant.getAddress().getState();
-        String categoryName = categoryService.findOne(Long.valueOf(session.getAttribute(CATEGORY_SESSION).toString())).getCategoryName();
-        PickUp pickUp = pickUpService.findOne(Long.valueOf(session.getAttribute(PICKUP_SESSION).toString()));
+        String categoryName = categoryService.findOne(SessionValue.getValue(session, CATEGORY_SESSION)).getCategoryName();
+        PickUp pickUp = pickUpService.findOne(SessionValue.getValue(session, PICKUP_SESSION));
         String pickUpPlace=pickUp.getPlaceName();
-        Member member = memberService.findOne(Long.valueOf(session.getAttribute(USER_SESSION).toString()));
+        Member member = memberService.findOne(SessionValue.getValue(session, USER_SESSION));
         String LoginId = member.getLoginId();
         List<Menu> menus = menuRepository.chooseMenus(menuIds);
         int totalPrice = menus.stream().mapToInt(Menu::getPrice).sum();

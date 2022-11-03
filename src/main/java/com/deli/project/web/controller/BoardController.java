@@ -1,5 +1,6 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.BoardRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
@@ -44,16 +45,12 @@ public class BoardController {
     }
 
     private BoardForm setBoardForm(HttpSession session){
-        OrderCheck orderCheck = orderCheckRepository.findOne((Long) session.getAttribute(ORDER_CHECK_SESSION));
+        OrderCheck orderCheck = orderCheckRepository.findOne(SessionValue.getValue(session, ORDER_CHECK_SESSION));
         loginId = orderCheck.getLoginId();
-        Member member = memberService.findOne((Long) session.getAttribute(USER_SESSION));
-        log.info("member={}",member.getId());
-        PickUp pickUp = pickUpService.findOne((Long) session.getAttribute(PICKUP_SESSION));
-        log.info("pickUp={}",pickUp.getId());
-        Category category = categoryService.findOne((Long) session.getAttribute(CATEGORY_SESSION));
-        log.info("category={}",category.getId());
-        Restaurant restaurant = restaurantService.findOne((Long) session.getAttribute(RESTAURANT_SESSION));
-        log.info("restaurant={}",restaurant.getId());
+        Member member = memberService.findOne(SessionValue.getValue(session, USER_SESSION));
+        PickUp pickUp = pickUpService.findOne(SessionValue.getValue(session, PICKUP_SESSION));
+        Category category = categoryService.findOne(SessionValue.getValue(session, CATEGORY_SESSION));
+        Restaurant restaurant = restaurantService.findOne(SessionValue.getValue(session, RESTAURANT_SESSION));
         BoardForm boardForm = new BoardForm(orderCheck,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),null,null,restaurant.getMinOrderPrice(),null);
         return boardForm;
     }
@@ -82,9 +79,7 @@ public class BoardController {
     public String boardAll(@ModelAttribute("boardSearch")BoardSearchDto boardSearch, Model model){
         List<Board> boards = boardRepository.findAll(boardSearch);
         boardTextedit(boards);
-
         model.addAttribute("boards",boards);
-
         return "/board/BoardAll";
     }
 
@@ -92,9 +87,7 @@ public class BoardController {
         for (Board board : boards) {
             StringBuilder sb = new StringBuilder();
             String str = sb.append(board.getContent()).toString();
-            log.info("String str={}",str);
             if(str.length()>20){
-                log.info("String length={}",str.length());
                 board.setContent(sb.delete(20,str.length()).append("....").toString());
             }
             else{

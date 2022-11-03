@@ -31,11 +31,8 @@ public class ImageStore {
             return null;
         }
         String originalFileName = multipartFile.getOriginalFilename();
-        log.info("originalFileName ={}",originalFileName);
         String serverFileName = setServerName(originalFileName);
-        log.info("serverFileName ={}",serverFileName);
         multipartFile.transferTo(new File(fullPath(serverFileName)));
-        log.info("server ={}",fullPath(serverFileName));
         return new ImageFile(originalFileName,serverFileName);
         }
 

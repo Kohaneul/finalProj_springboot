@@ -44,8 +44,8 @@
                             <input type="hidden" th:field="*{LoginId}">
                             <input type="hidden" th:field="*{totalPrice}">
                         <div id="btnStyle">
-                            <input type="submit" id = "btn1" value="다음" onClick="onClick();"/>
-                            <input type="button" id = "btn2" value='이전' onClick="history.back();"/>
+                            <input type="submit" id = "btn1" value="다음" th:onClick="onClick();"/>
+                            <input type="button" id = "btn2" value='이전' th:onClick="history.back();"/>
                         </div>
                     </form>
 
