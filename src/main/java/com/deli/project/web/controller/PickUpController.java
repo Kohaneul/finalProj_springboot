@@ -36,7 +36,7 @@ public class PickUpController {
         return "/map/MapSearch";
     }
 
-    //회원 주소와 픽업장소의 거리를 계산하고 VIEW로 보여줌
+    //회원 주소와 픽업장소의 거리를 계산하고 VIEW 로 보여줌
     @GetMapping("/pickUpPlace")
     public String step2(@RequestParam("lat")double myLat, @RequestParam("lon")double myLon, Model model){
         //픽업장소의 경,위도와 Member의 경도, 위도를 계산하여 반경 1km 이내에 있는 곳 추출

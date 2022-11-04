@@ -13,7 +13,7 @@ import java.util.List;
 import static com.deli.project.domain.entity.QOrderCheck.orderCheck;
 /**
  * 회원 위치->픽업장소->카테고리->식당 의 순차적인 선택을 한 후
- * 글쓰기 전 선택 내역에 대한 최종 확인을 하는 함수
+ * 글쓰기 전 선택 내역에 대한 최종 확인
  *
  * */
 @Repository

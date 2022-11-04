@@ -28,8 +28,6 @@ import static com.deli.project.domain.ConstEntity.*;
 @RequiredArgsConstructor
 @RequestMapping("/board/select")
 public class RestaurantController {
-    private final MemberService memberService;
-    private final OrderCheckRepository orderCheckRepository;
     private final RestaurantService restaurantService;
     private final CategoryService categoryService;
     private final PickUpService pickUpService;
