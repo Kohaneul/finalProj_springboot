@@ -41,7 +41,6 @@ public class MemberController {
 
     private final ImageStore fileStore; //이미지파일 저장
 
-
     //회원가입
     @GetMapping("/new")
     public String join(@ModelAttribute("memberForm") MemberForm memberForm){

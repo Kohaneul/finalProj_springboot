@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * 메뉴 저장소
  * */
@@ -40,9 +42,7 @@ public class MenuRepository {
 
 
     public List<Menu> chooseMenus(List<Long> menuId){
-        List<Menu> list = new ArrayList<>();
-        menuId.stream().forEach(m->list.add(findOne(m)));
-        return list;
+       return menuId.stream().map(i->findOne(i)).collect(Collectors.toList());
     }
 
 

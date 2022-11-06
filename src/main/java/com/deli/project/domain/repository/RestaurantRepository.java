@@ -1,6 +1,5 @@
 package com.deli.project.domain.repository;
 
-import com.deli.project.domain.entity.QRestaurant;
 import com.deli.project.domain.entity.Restaurant;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

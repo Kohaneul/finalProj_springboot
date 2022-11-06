@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * 픽업 장소 관련 컨트롤러
 */
@@ -49,8 +51,7 @@ public class PickUpController {
     }
 
     private List<PickUp> pickUpAdd(double myLat, double myLon, List<CalculateDto> calculate,Long memberSession) {
-        List<PickUp> list = new ArrayList<>();
-        calculate.stream().forEach(c->list.add(pickUpService.findOne(c.getPickupId())));
+        List<PickUp> list = calculate.stream().map(c->pickUpService.findOne(c.getPickupId())).collect(Collectors.toList());
         list.add(myPlaceAdd(myLat, myLon, memberSession));
         return list;
     }

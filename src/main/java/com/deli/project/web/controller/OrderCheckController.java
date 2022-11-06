@@ -1,5 +1,4 @@
 package com.deli.project.web.controller;
-import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.MenuRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
@@ -9,15 +8,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.deli.project.domain.ConstEntity.*;
 
@@ -36,12 +34,9 @@ public class OrderCheckController {
     private final OrderCheckRepository orderCheckRepository;
     private final RestaurantService restaurantService;
     private final PickUpService pickUpService;
-
     @GetMapping("/select")
     public String orderCheck(@RequestParam("menuId") String menuId,HttpSession session,Model model){
-        List<Long> menuIds = new ArrayList<>();
-        Arrays.stream(menuId.split("[,]")).forEach(i->menuIds.add(Long.valueOf(i)));
-        List<Menu> chooseMenuList = menuRepository.chooseMenus(menuIds);
+        List<Long> menuIds = Arrays.stream(menuId.split("[,]")).map(i -> Long.valueOf(i)).collect(Collectors.toList());
         Restaurant restaurant = restaurantService.findOne(SessionValue.getValue(session, RESTAURANT_SESSION));
         String restaurantName = restaurant.getRestaurantName();
         String address = restaurant.getAddress().getCity() + " " + restaurant.getAddress().getState();

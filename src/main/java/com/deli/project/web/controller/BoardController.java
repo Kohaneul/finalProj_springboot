@@ -1,6 +1,5 @@
 package com.deli.project.web.controller;
 
-import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.BoardRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
@@ -8,7 +7,6 @@ import com.deli.project.domain.service.*;
 import com.deli.project.web.controller.form.BoardForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,6 +72,7 @@ public class BoardController {
         model.addAttribute("board",board);
         return "/board/BoardDetail";
     }
+
 
     @GetMapping("/boards")
     public String boardAll(@ModelAttribute("boardSearch")BoardSearchDto boardSearch, Model model){

@@ -16,9 +16,6 @@ public class ImageFile {
     @Column(name="uploadFile_id")
     private Long id;
 
-//    @OneToOne(mappedBy = "uploadFile",fetch = FetchType.LAZY)
-//    private Member member;
-
     private String originFileName;  //실제 파일이름
     private String serverFileName;  //서버에 저장되는 파일이름 => 중복을 우려하여 uuid로 지정
 
