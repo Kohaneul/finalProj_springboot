@@ -22,7 +22,8 @@ public class Board {
     @GeneratedValue
     @Column(name = "board_id")
     private Long id;
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private OrderCheck order;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -34,8 +35,9 @@ public class Board {
 
     private String content;
 
-    public void setComments(List<Comment> comments) {
-       this.comments = comments;
+    public void setComments(Comment comment) {
+        comment.setBoard(this);
+        comments.add(comment);
     }
 
     public void setTitle(String title) {
@@ -43,6 +45,7 @@ public class Board {
     }
 
     public void setOrder(OrderCheck order) {
+        order.setBoard(this);
         this.order = order;
     }
 

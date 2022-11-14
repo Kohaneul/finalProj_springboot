@@ -33,13 +33,14 @@ public class OrderCheck {
     private List<Menu> menuList = new ArrayList<>();
 
 
-    public void setMenuList(List<Menu> menuList) {
-        this.menuList = menuList;
+    public void setMenuList(Menu menu) {
+        menu.setOrderCheck(this);
+        this.menuList.add(menu);
     }
-
-    public void addMenu(Menu...menus) {
-        Arrays.stream(menus).forEach(m->menuList.add(m));
-    }
+//
+//    public void addMenu(Menu...menus) {
+//        Arrays.stream(menus).forEach(m->menuList.add(m));
+//    }
 
 
     @Enumerated(EnumType.STRING)
@@ -47,9 +48,13 @@ public class OrderCheck {
 
 
     public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+        this.orderStatus = OrderStatus.START;
     }
 
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 
     public void setLoginId(String loginId) {
         this.loginId = loginId;
@@ -59,12 +64,13 @@ public class OrderCheck {
         this.restaurantName = restaurantName;
     }
 
-    public static OrderCheck createOrder(String restaurantName , String loginId,List<Menu> menus){
+
+    public static OrderCheck createOrder(String restaurantName,String loginId,List<Menu> menus){
         OrderCheck order = new OrderCheck();
         order.setLoginId(loginId);
+        order.setOrderStatus(OrderStatus.WAITING);
         order.setRestaurantName(restaurantName);
-        order.setOrderStatus(OrderStatus.START);
-        order.setMenuList(menus);
+        menus.stream().forEach(i->order.setMenuList(i));
         return order;
     }
 }

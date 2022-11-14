@@ -37,19 +37,18 @@ public class BoardController {
 
     @GetMapping("/board/new/{orderId}")
     public String board(@PathVariable("orderId")Long orderId,HttpSession session, Model model){
-        BoardForm boardForm = setBoardForm(session);
+        log.info("orderId={}",orderId);
+        BoardForm boardForm = setBoardForm(orderId, session);
         model.addAttribute("boardForm",boardForm);
         return "/board/BoardForm";
     }
 
-    private BoardForm setBoardForm(HttpSession session){
-        OrderCheck orderCheck = orderCheckRepository.findOne(SessionValue.getValue(session, ORDER_CHECK_SESSION));
-        loginId = orderCheck.getLoginId();
+    private BoardForm setBoardForm(Long orderId,HttpSession session){
         Member member = memberService.findOne(SessionValue.getValue(session, USER_SESSION));
         PickUp pickUp = pickUpService.findOne(SessionValue.getValue(session, PICKUP_SESSION));
         Category category = categoryService.findOne(SessionValue.getValue(session, CATEGORY_SESSION));
         Restaurant restaurant = restaurantService.findOne(SessionValue.getValue(session, RESTAURANT_SESSION));
-        BoardForm boardForm = new BoardForm(orderCheck,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),null,null,restaurant.getMinOrderPrice(),null);
+        BoardForm boardForm = new BoardForm(orderId,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),null,null,restaurant.getMinOrderPrice(),null);
         return boardForm;
     }
 
@@ -59,7 +58,9 @@ public class BoardController {
         if(bindingResult.hasErrors()){
             return "/board/BoardForm";
         }
-        Board board = Board.createBoard(form.getOrder(),form.getTitle(),form.getContent());
+        OrderCheck orderCheck = orderCheckRepository.findOne(form.getOrderId());
+        loginId = orderCheck.getLoginId();
+        Board board = Board.createBoard(orderCheck,form.getTitle(),form.getContent());
         boardRepository.save(board);
         Long boardId = board.getId();
         redirectAttributes.addAttribute("boardId",boardId);
@@ -106,7 +107,6 @@ public class BoardController {
     @PostMapping("/board/{boardId}/view")
     public String boardView(@PathVariable Long boardId,@RequestParam("comment") String comment, Model model){
         Board board = boardRepository.findOne(boardId);
-        board.getComments().add(new Comment(loginId,comment,0));
         model.addAttribute("board",board);
         return "/board/BoardView";
 

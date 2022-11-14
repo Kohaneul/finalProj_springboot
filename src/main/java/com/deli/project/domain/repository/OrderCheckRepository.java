@@ -27,9 +27,10 @@ public class OrderCheckRepository {
         this.em = em;
         this.query = new JPAQueryFactory(em);
     }
+
     @Transactional
-    public void save(OrderCheck Order){
-        em.persist(Order);
+    public void save(OrderCheck order){
+        em.persist(order);
     }
 
     public OrderCheck findOne(Long id){

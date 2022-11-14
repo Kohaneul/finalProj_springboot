@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 public class BoardForm {
     @NotNull
-    private OrderCheck order;   //주문내역
+    private Long orderId;   //주문내역
     @NotEmpty
     private String nickName;    //작성자 닉네임
     @NotEmpty
@@ -43,8 +43,8 @@ public class BoardForm {
 
     private List<Comment> comment = new ArrayList<>();  //댓글
 
-    public BoardForm(OrderCheck order, String nickName, String pickUpName, String category, String restaurantName, int minOrderPrice,List<Comment> comments) {
-        this.order = order;
+    public BoardForm(Long orderId, String nickName, String pickUpName, String category, String restaurantName, int minOrderPrice,List<Comment> comments) {
+        this.orderId = orderId;
         this.nickName = nickName;
         this.pickUpName = pickUpName;
         this.category = category;

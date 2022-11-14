@@ -33,7 +33,7 @@ public class Comment {
     private double score;
 
     public void setBoard(Board board) {
-        board.getComments().add(this);
+        this.board = board;
     }
 
     public Comment (String memberLoginId, String content, double score){
