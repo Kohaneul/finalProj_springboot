@@ -44,7 +44,7 @@ public class BoardRepository{
     }
 
     public List<Board> findAll(){
-        return em.createQuery("select b from Board b",Board.class).getResultList();
+        return em.createQuery("select b from Board b fetch join b.order",Board.class).getResultList();
     }
     //게시글 조회 => 게시글 제목에 특정 숫자가 들어있는지 , 게시글 제목에 로그인 아이디가 포함되어있는지 여부에 따라서 조회
     public List<Board> findAll(BoardSearchDto boardSearchDto){

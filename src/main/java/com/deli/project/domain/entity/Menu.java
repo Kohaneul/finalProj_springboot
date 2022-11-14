@@ -29,7 +29,6 @@ public class Menu {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
-    @JsonIgnore
     private Restaurant restaurant;
 
 

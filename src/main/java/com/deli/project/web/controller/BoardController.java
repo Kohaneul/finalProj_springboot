@@ -1,5 +1,6 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.BoardRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
@@ -68,9 +69,13 @@ public class BoardController {
     }
 
     @GetMapping("/board/{boardId}")
-    public String boardCheck(@PathVariable Long boardId, Model model){
+    public String boardCheck(@PathVariable Long boardId, Model model,HttpSession session){
         Board board = boardRepository.findOne(boardId);
         model.addAttribute("board",board);
+        session.removeAttribute(CATEGORY_SESSION);
+        session.removeAttribute(RESTAURANT_SESSION);
+        session.removeAttribute(MENU_SESSION);
+        session.removeAttribute(ORDER_CHECK_SESSION);
         return "/board/BoardDetail";
     }
 

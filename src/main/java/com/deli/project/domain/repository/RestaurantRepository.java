@@ -38,6 +38,12 @@ public class RestaurantRepository {
         return em.createQuery("select c from Restaurant c order by c.score desc",Restaurant.class).getResultList();
     }
 
+    public List<Restaurant> findAll2(RestaurantDTO restaurantDto){
+        String address = restaurantDto.getAddress();
+        Long categoryId = restaurantDto.getCategoryId();
+        return em.createQuery("select r from Restaurant r join fetch r.category c",Restaurant.class).getResultList();
+    }
+
     public List<Restaurant> findAll(RestaurantDTO restaurantDto){
         String address = restaurantDto.getAddress();
         Long categoryId = restaurantDto.getCategoryId();

@@ -1,5 +1,7 @@
 package com.deli.project.domain.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,12 +30,12 @@ public class Restaurant {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant")
     public List<Menu> menuList = new ArrayList<>();
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
-    @JsonIgnore
     private Category category;
 
     private double score;

@@ -1,5 +1,6 @@
 package com.deli.project.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,10 +38,7 @@ public class OrderCheck {
         menu.setOrderCheck(this);
         this.menuList.add(menu);
     }
-//
-//    public void addMenu(Menu...menus) {
-//        Arrays.stream(menus).forEach(m->menuList.add(m));
-//    }
+
 
 
     @Enumerated(EnumType.STRING)

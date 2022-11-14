@@ -1,5 +1,6 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.MenuRepository;
 import com.deli.project.domain.repository.RestaurantDTO;
@@ -59,7 +60,7 @@ public class RestaurantController {
     //선택한 식당정보에 속하는 메뉴 정보를 보여줌
     @GetMapping("/{restaurantId}/menu")
     public String chooseMenu(HttpSession session,@PathVariable Long restaurantId,Model model){
-        session.setAttribute(RESTAURANT_SESSION, restaurantId);
+        sessionSave(session, RESTAURANT_SESSION,restaurantId);
         List<Menu> menuList = menuRepository.findMenuList(restaurantId);
         model.addAttribute("menuList",menuList);
         String restaurantName= restaurantService.findOne(restaurantId).getRestaurantName();
