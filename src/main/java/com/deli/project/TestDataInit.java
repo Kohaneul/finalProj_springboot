@@ -23,7 +23,7 @@ public class TestDataInit {
 
     @Autowired private MenuRepository menuRepository;
 
-    @EventListener(ApplicationReadyEvent.class)
+   // @EventListener(ApplicationReadyEvent.class)
     public void dataInit(){
         ImageFile uploadFile1 = new ImageFile("smile3.jpg","7dc3acd3-7db0-41ee-b564-0a7e9996a1e0.jpg");
         ImageFile uploadFile2 = new ImageFile("smile3.jpg","19dc57db-776d-4350-9c25-45847152644d.jpg");
