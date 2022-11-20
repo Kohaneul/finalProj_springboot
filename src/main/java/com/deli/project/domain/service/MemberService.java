@@ -48,6 +48,12 @@ public class MemberService {
         }
         return null;
     }
+
+    @Transactional
+    public void revisePassword(Long id, String password){
+        Member member = repository.findOne(id);
+        member.setPassword(password);
+    }
     @Transactional
     public void updateMember(Long id, MemberUpdateForm memberUpdateForm) throws IOException {
         Member  member = findOne(id);

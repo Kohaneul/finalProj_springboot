@@ -1,5 +1,6 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ex.NullParameterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * 예외, 에러 발생시 처리하는 컨트롤러
+ * 프로그램 내 예외, 에러 발생시 처리하는 컨트롤러
  * */
 @Slf4j
 @ControllerAdvice
@@ -37,13 +38,13 @@ public class MyErrorController implements ErrorController {
 
     //파라미터 값을 선택 안하게 되면 NumberFormatException이 발생하게 된다.
     //해당 예외가 발생하게 되면 처리해주는 Controller
-  @ExceptionHandler(NumberFormatException.class)
-  public void NumberFormatEx(HttpServletRequest request, HttpServletResponse response, NumberFormatException e) throws IOException {
-      //이전 페이지로 redirect
+  @ExceptionHandler(NullParameterException.class)
+  public void NullParamEx(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //이전 페이지로 redirect
         String referURL = request.getHeader("REFERER");
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-         referURL=referURL.substring(referURL.indexOf("b")-1);
+        referURL=referURL.substring(referURL.indexOf("b")-1);
         out.println("<script>alert('선택하지 않았습니다.'); location.href='"+referURL+"';</script>");
         out.flush();
   }
