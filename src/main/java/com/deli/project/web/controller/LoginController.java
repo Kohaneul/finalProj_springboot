@@ -77,7 +77,7 @@ public class LoginController {
         uuid = updateAdminUUID(member, session, uuid);  //멤버 분류 중 admin 세션이라면 구분을 위해 uuid 업데이트
 
         Long id = Long.valueOf(uuid.split("/")[1]);     //생성한 UUID에서 '/' 분류하여 USER_SESSION 저장
-
+        session.setAttribute(ConstEntity.LOGIN_ID,member.getLoginId());
         session.setAttribute(ConstEntity.USER_SESSION,id);
 
     }

@@ -24,7 +24,7 @@ public class OrderCheck {
     @GeneratedValue
     @Column(name="order_id")
     private Long id;
-    private String loginId;
+    private String nickName;
 
     @OneToOne(mappedBy = "order",fetch = FetchType.LAZY)
     private Board board;
@@ -54,8 +54,8 @@ public class OrderCheck {
         this.board = board;
     }
 
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public void setRestaurantName(String restaurantName) {
@@ -63,9 +63,9 @@ public class OrderCheck {
     }
 
 
-    public static OrderCheck createOrder(String restaurantName,String loginId,List<Menu> menus){
+    public static OrderCheck createOrder(String restaurantName,String nickName,List<Menu> menus){
         OrderCheck order = new OrderCheck();
-        order.setLoginId(loginId);
+        order.setNickName(nickName);
         order.setOrderStatus(OrderStatus.WAITING);
         order.setRestaurantName(restaurantName);
         menus.stream().forEach(i->order.setMenuList(i));

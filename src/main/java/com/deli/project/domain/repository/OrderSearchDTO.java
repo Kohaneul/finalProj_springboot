@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class OrderSearchDTO {
-    private String loginId;
+    private String nickName;
     private String restaurantName;
     private OrderStatus orderStatus;
 }

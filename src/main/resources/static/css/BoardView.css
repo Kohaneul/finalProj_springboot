@@ -33,14 +33,12 @@
 	background:black;
 	color:white;
 }
+
 #commentList{
-	z-index:1;
-	position: absolute;
-	margin-top:230px;;
-	margin-left:18%;
+	margin-left:-40%;
 }
 #commentList input{
-	width:330px;
+	width:250px;
 
 }
 #commentList a{

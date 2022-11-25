@@ -27,18 +27,18 @@ public class Board {
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private OrderCheck order;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yy/MM/dd HH:mm")
     private LocalDateTime localDateTime;
     private String title;
 
-    @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     private String content;
 
     public void setComments(Comment comment) {
-        comment.setBoard(this);
         comments.add(comment);
+        comment.setBoard(this);
     }
 
     public void setTitle(String title) {
@@ -67,5 +67,8 @@ public class Board {
         board.setLocalDateTime(LocalDateTime.now());
        return board;
     }
+
+
+
 
 }

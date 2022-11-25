@@ -56,9 +56,7 @@ public class OrderCheckController {
     public String orderCheck(@ModelAttribute(name = "saveForm") OrderSaveForm saveForm,HttpSession session, RedirectAttributes redirectAttributes){
         List<Menu> menus = menuRepository.chooseMenus(saveForm.getChooseMenuIds());
         OrderCheck orderCheck = OrderCheck.createOrder(saveForm.getRestaurantName(), saveForm.getLoginId(),menus);
-        System.out.println("*************orderCheck = " + orderCheck.getRestaurantName());
         orderCheckRepository.save(orderCheck);
-        log.info("orderId={}",orderCheck.getId());
         Long orderId = orderCheck.getId();
         session.setAttribute(ORDER_CHECK_SESSION,orderId);
         redirectAttributes.addAttribute("orderId",orderId);

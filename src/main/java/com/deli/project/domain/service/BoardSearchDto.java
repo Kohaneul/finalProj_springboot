@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardSearchDto {
-    private String loginId;
+    private String nickName;
     private String title;
 }

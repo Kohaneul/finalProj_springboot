@@ -6,6 +6,7 @@
 <body>
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
   <h3 id="h3Style">글쓰기 Page</h3>
   <form role="form" th:object="${boardForm}" method="post">
     <div th:if="${#fields.hasGlobalErrors()}">

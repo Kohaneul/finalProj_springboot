@@ -3,8 +3,8 @@ package com.deli.project.domain.repository;
 import com.deli.project.domain.entity.Board;
 import com.deli.project.domain.entity.Comment;
 import com.deli.project.domain.service.BoardSearchDto;
+import com.deli.project.web.controller.form.CommentSaveForm;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,22 +35,27 @@ public class BoardRepository{
     }
 
     @Transactional
-    public void save(Comment comment){
-        em.persist(comment);
+    public void saveComment(Long id, Comment comment){
+        Board board = findOne(id);
+        board.setComments(comment);
     }
+
+
 
     public Board findOne(Long id){
         return em.find(Board.class,id);
     }
 
+
     public List<Board> findAll(){
         return em.createQuery("select b from Board b fetch join b.order",Board.class).getResultList();
     }
+
     //게시글 조회 => 게시글 제목에 특정 숫자가 들어있는지 , 게시글 제목에 로그인 아이디가 포함되어있는지 여부에 따라서 조회
     public List<Board> findAll(BoardSearchDto boardSearchDto){
-        String loginId = boardSearchDto.getLoginId();
+        String nickName = boardSearchDto.getNickName();
         String title = boardSearchDto.getTitle();
-        return query.select(board).from(board).where(containsLoginId(loginId),containsTitle(title)).fetch();
+        return query.select(board).from(board).where(containsNickName(nickName),containsTitle(title)).fetch();
     }
 
     private BooleanBuilder containsTitle(String title) {
@@ -60,11 +65,11 @@ public class BoardRepository{
         return new BooleanBuilder(board.title.contains(title));
     }
 
-    private BooleanBuilder containsLoginId(String loginId) {
-        if(loginId==null){
+    private BooleanBuilder containsNickName(String nickName) {
+        if(nickName==null){
             return new BooleanBuilder();
         }
-        return new BooleanBuilder(board.order.loginId.eq(loginId));
+        return new BooleanBuilder(board.order.nickName.eq(nickName));
     }
 
 

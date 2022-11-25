@@ -8,48 +8,49 @@
     <div class="container">
         <div th:replace="fragments/bodyHeader :: bodyHeader"/>
         <h3 id="h3Style">글 정보</h3>
-
-        <div id="commentList">
-            <div th:if="${board.comments.size()>0}">
-                <table class="table table-striped">
-                    <tbody>
-                    <tr th:each="comment : ${board.comments}">
-                        <td th:text="${comment.memberLoginId}"></td>
-                        <td th:text="${comment.content}"></td>
-                        <td th:text="${comment.localDateTime}"></td>
-                        <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')}" href="#" th:href="@{/comment/{loginId}/edit (id=${comment.loginId})}" class="btn btn-primary" role="button">댓글 수정</a></td>
-                    </tr>
-                    <form role="form"  method="post">
-                        <input type="text" placeholder="댓글을 입력하세요" name = "comment">
-                        <input type="submit" value="댓글 올리기">
-                    </form>
-                    </tbody>
-                </table>
-            </div>
-            <div th:if="${board.comments.size()<1}">
-                <form role="form"  method="post">
-                <input type="text" placeholder="댓글을 입력하세요" name = "comment">
-                <input type="submit" value="댓글 올리기">
-                </form>
-            </div>
-        </div>
-
-        <div th:object = "${board}">
             <div id="boardForm">
                 <div>
-                    <ul id="id">글번호 : <span  th:text="*{id}"></span></ul>
+                    <ul id="id">글번호 : <span  th:text="${board.id}"></span></ul>
                 </div>
                 <div>
-                    <ul id="loginId">닉네임 : <span  th:text="*{order.loginId}"></span></ul>
+                    <ul id="loginId">닉네임 : <span  th:text="${board.order.nickName}"></span></ul>
                 </div>
                 <div>
-                    <ul id="title">제목 : <span  th:text="*{title}" ></span></ul>
+                    <ul id="title">제목 : <span  th:text="${board.title}" ></span></ul>
                 </div>
                 <div>
-                    <ul id="content">내용 : <span  th:text="*{content}"></span></ul>
+                    <ul id="content">내용 : <span  th:text="${board.content}"></span></ul>
                 </div>
-            </div>
-        </div>
+                <div th:if="${board.comments.size()>0}">
+                    <div id="commentList"> 댓글
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr th:each="comment : ${board.comments}">
+                                <td th:text="${comment.memberLoginId}"></td>
+                                <td th:text="${comment.content}"></td>
+                                <td th:text="${comment.localDateTime}"></td>
+                                <td><a th:if="${session.SESSION_ID.toString().contains('ADMIN')}" href="#" th:href="@{/comment/{loginId}/edit (id=${comment.loginId})}" class="btn btn-primary" role="button">댓글 수정</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="comment">
+                <form role="form" th:object=${commentForm} method="post">
+                     <input type="hidden" value="${board.id}">
+                    <input type="hidden" value="${board.loginId}">
+                    <input type="text" placeholder="댓글을 입력하세요" th:field="*{content}">
+                     <input type="submit" value="댓글 올리기">
+                </form>
+                </div>
+                <!--                    <div th:if="${board.comments.size()<1}">-->
+<!--                        <form role="form"  method="post">-->
+<!--                            <input type="text" placeholder="댓글을 입력하세요" name = "comment">-->
+<!--                            <input type="submit" value="댓글 올리기">-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+
     <script th:inline="javascript">
          /*<![CDATA[*/
 
@@ -57,14 +58,12 @@
   			alert("리스트로 돌아갑니다.");
   			 location.href = "/board/all";
  		}
-
-
  		/*]]>*/
 </script>
+            </div>
         <script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
         <div th:replace="fragments/footer :: footer" />
-
-
     </div>
+
 </body>
 </html>

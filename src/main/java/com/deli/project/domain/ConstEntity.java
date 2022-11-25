@@ -22,6 +22,8 @@ public abstract class ConstEntity {
     public final static String CATEGORY_SESSION = "CATEGORY_ID";
     public final static String RESTAURANT_SESSION = "RESTAURANT_ID";
     public final static String MENU_SESSION = "MENU_ID";
+
+    public final static String LOGIN_ID = "LOGIN_ID";
     public final static String ORDER_CHECK_SESSION = "ORDER_CHECK_ID";
 
 

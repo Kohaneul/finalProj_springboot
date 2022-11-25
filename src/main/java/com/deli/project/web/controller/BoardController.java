@@ -1,11 +1,11 @@
 package com.deli.project.web.controller;
 
-import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.BoardRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
 import com.deli.project.domain.service.*;
-import com.deli.project.web.controller.form.BoardForm;
+import com.deli.project.web.controller.form.BoardSaveForm;
+import com.deli.project.web.controller.form.CommentSaveForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -34,35 +34,35 @@ public class BoardController {
     private final CategoryService categoryService;
     private final RestaurantService restaurantService;
     private final PickUpService pickUpService;
-    private String loginId;
 
     @GetMapping("/board/new/{orderId}")
     public String board(@PathVariable("orderId")Long orderId,HttpSession session, Model model){
-        log.info("orderId={}",orderId);
-        BoardForm boardForm = setBoardForm(orderId, session);
+        BoardSaveForm boardForm = setBoardForm(orderId, session);
         model.addAttribute("boardForm",boardForm);
         return "/board/BoardForm";
     }
 
-    private BoardForm setBoardForm(Long orderId,HttpSession session){
+    private BoardSaveForm setBoardForm(Long orderId, HttpSession session){
         Member member = memberService.findOne(SessionValue.getValue(session, USER_SESSION));
         PickUp pickUp = pickUpService.findOne(SessionValue.getValue(session, PICKUP_SESSION));
         Category category = categoryService.findOne(SessionValue.getValue(session, CATEGORY_SESSION));
         Restaurant restaurant = restaurantService.findOne(SessionValue.getValue(session, RESTAURANT_SESSION));
-        BoardForm boardForm = new BoardForm(orderId,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),null,null,restaurant.getMinOrderPrice(),null);
+        BoardSaveForm boardForm = new BoardSaveForm(orderId,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),restaurant.getMinOrderPrice());
         return boardForm;
     }
 
 
     @PostMapping("/board/new/{orderId}")
-    public String board2(@Valid @ModelAttribute("boardForm")BoardForm form, BindingResult bindingResult,RedirectAttributes redirectAttributes){
+    public String board2(@Valid @ModelAttribute("boardForm") BoardSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             return "/board/BoardForm";
         }
         OrderCheck orderCheck = orderCheckRepository.findOne(form.getOrderId());
-        loginId = orderCheck.getLoginId();
+        log.info("content={}",form.getContent());
+        log.info("title={}",form.getTitle());
         Board board = Board.createBoard(orderCheck,form.getTitle(),form.getContent());
         boardRepository.save(board);
+        log.info("저장 완료");
         Long boardId = board.getId();
         redirectAttributes.addAttribute("boardId",boardId);
         return "redirect:/board/{boardId}";
@@ -101,20 +101,23 @@ public class BoardController {
         }
     }
 
-
+    //글 상세 보기 ( +댓글까지)
     @GetMapping("/board/{boardId}/view")
-    public String boardView(@PathVariable Long boardId, Model model){
+    public String saveComment(@PathVariable Long boardId, Model model){
         Board board = boardRepository.findOne(boardId);
         model.addAttribute("board",board);
+        model.addAttribute("commentForm",new CommentSaveForm());
         return "/board/BoardView";
     }
 
+    //댓글 등록
     @PostMapping("/board/{boardId}/view")
-    public String boardView(@PathVariable Long boardId,@RequestParam("comment") String comment, Model model){
+    public String saveComment(@PathVariable Long boardId,@ModelAttribute("commentForm")CommentSaveForm commentForm, RedirectAttributes redirectAttributes){
         Board board = boardRepository.findOne(boardId);
-        model.addAttribute("board",board);
-        return "/board/BoardView";
-
+        Comment comment = new Comment(board.getOrder().getNickName(),board,commentForm.getContent());
+        boardRepository.saveComment(boardId,comment);
+        redirectAttributes.addAttribute("boardId",boardId);
+        return "redirect:/board/{boardId}/view";
     }
 
 

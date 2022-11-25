@@ -1,7 +1,5 @@
 package com.deli.project.web.controller.form;
 
-import com.deli.project.domain.entity.Comment;
-import com.deli.project.domain.entity.OrderCheck;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +17,8 @@ import java.util.List;
  * */
 
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class BoardForm {
+public class BoardSaveForm {
     @NotNull
     private Long orderId;   //주문내역
     @NotEmpty
@@ -41,15 +38,13 @@ public class BoardForm {
     @NotNull
     private int minOrderPrice;  //최소주문금액
 
-    private List<Comment> comment = new ArrayList<>();  //댓글
 
-    public BoardForm(Long orderId, String nickName, String pickUpName, String category, String restaurantName, int minOrderPrice,List<Comment> comments) {
+    public BoardSaveForm(Long orderId, String nickName, String pickUpName, String category, String restaurantName, int minOrderPrice) {
         this.orderId = orderId;
         this.nickName = nickName;
         this.pickUpName = pickUpName;
         this.category = category;
         this.restaurantName = restaurantName;
         this.minOrderPrice = minOrderPrice;
-        this.comment = comments;
     }
 }

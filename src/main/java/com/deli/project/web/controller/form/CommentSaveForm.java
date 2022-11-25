@@ -17,28 +17,22 @@ import java.time.LocalDateTime;
  * */
 
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class CommentForm {
+public class CommentSaveForm {
+
+    private Long commentId; //댓글 pk번호
 
     @NotEmpty
-    private String loginId; //작성자 아이디
-
-    @NotEmpty
-    @Length(min = 5,max = 500)
     private String content; //내용
 
-    @NotNull
-    private Long boardId;  //게시글 pk번호
 
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "MM/dd HH:mm")
     private LocalDateTime localDateTime;    //작성시간
 
-    public CommentForm(String loginId, String content,Long boardId, String restaurantName) {
-        this.loginId = loginId;
+
+    public CommentSaveForm(String content) {
         this.content = content;
-        this.boardId = boardId;
         this.localDateTime = LocalDateTime.now();
     }
 }
