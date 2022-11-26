@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -33,13 +34,12 @@ public class Comment {
 
     private String content;
 
-    @DateTimeFormat(pattern = "yy/MM/dd HH:mm")
-    private LocalDateTime localDateTime;
+    private String localDateTime;
 
     public Comment (String memberLoginId, Board board, String content){
         this.memberLoginId = memberLoginId;
         this.board = board;
         this.content = content;
-        this.localDateTime = LocalDateTime.now();
+        this.localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss"));
     }
 }

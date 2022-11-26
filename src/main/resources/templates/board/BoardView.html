@@ -22,9 +22,13 @@
                     <ul id="content">내용 : <span  th:text="${board.content}"></span></ul>
                 </div>
                 <div th:if="${board.comments.size()>0}">
-                    <div id="commentList"> 댓글
+                    <div id="commentList">
                         <table class="table table-striped">
                             <tbody>
+                            댓글 LIST
+                            <td>닉네임</td>
+                            <td>내용</td>
+                            <td>시간</td>
                             <tr th:each="comment : ${board.comments}">
                                 <td th:text="${comment.memberLoginId}"></td>
                                 <td th:text="${comment.content}"></td>
@@ -40,17 +44,9 @@
                      <input type="hidden" value="${board.id}">
                     <input type="hidden" value="${board.loginId}">
                     <input type="text" placeholder="댓글을 입력하세요" th:field="*{content}">
-                     <input type="submit" value="댓글 올리기">
+                    <button type="submit">댓글 올리기</button>
                 </form>
                 </div>
-                <!--                    <div th:if="${board.comments.size()<1}">-->
-<!--                        <form role="form"  method="post">-->
-<!--                            <input type="text" placeholder="댓글을 입력하세요" name = "comment">-->
-<!--                            <input type="submit" value="댓글 올리기">-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
-
     <script th:inline="javascript">
          /*<![CDATA[*/
 

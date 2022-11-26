@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,7 @@ public class Board {
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private OrderCheck order;
-    @DateTimeFormat(pattern = "yy/MM/dd HH:mm")
-    private LocalDateTime localDateTime;
+    private String localDateTime;
     private String title;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
@@ -55,7 +55,7 @@ public class Board {
     }
 
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
+    public void setLocalDateTime(String localDateTime) {
         this.localDateTime = localDateTime;
     }
 
@@ -64,7 +64,7 @@ public class Board {
         board.setOrder(order);
         board.setTitle(title);
         board.setContent(content);
-        board.setLocalDateTime(LocalDateTime.now());
+        board.setLocalDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss")));
        return board;
     }
 

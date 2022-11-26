@@ -28,7 +28,7 @@ public class PickUpController {
     private final MemberService memberService;
     private final PickUpService pickUpService;
 
-    private Long userSession = 0L;
+    private Long userSession;
 
     @GetMapping("/myPosition")
     public String step1(@SessionAttribute(name= ConstEntity.USER_SESSION) Long memberSession,Model model){

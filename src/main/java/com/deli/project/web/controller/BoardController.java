@@ -1,5 +1,6 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.BoardRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
@@ -112,9 +113,9 @@ public class BoardController {
 
     //댓글 등록
     @PostMapping("/board/{boardId}/view")
-    public String saveComment(@PathVariable Long boardId,@ModelAttribute("commentForm")CommentSaveForm commentForm, RedirectAttributes redirectAttributes){
+    public String saveComment(@PathVariable Long boardId, @ModelAttribute("commentForm")CommentSaveForm commentForm, @SessionAttribute(LOGIN_ID)String loginId, RedirectAttributes redirectAttributes){
         Board board = boardRepository.findOne(boardId);
-        Comment comment = new Comment(board.getOrder().getNickName(),board,commentForm.getContent());
+        Comment comment = new Comment(loginId,board,commentForm.getContent());
         boardRepository.saveComment(boardId,comment);
         redirectAttributes.addAttribute("boardId",boardId);
         return "redirect:/board/{boardId}/view";
