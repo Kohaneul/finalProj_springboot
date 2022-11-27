@@ -42,10 +42,11 @@ public class OrderCheckController {
         PickUp pickUp = pickUpService.findOne(SessionValue.getValue(session, PICKUP_SESSION));
         String pickUpPlace=pickUp.getPlaceName();
         Member member = memberService.findOne(SessionValue.getValue(session, USER_SESSION));
-        String LoginId = member.getLoginId();
+        String loginId = member.getLoginId();
+        String nickName = member.getNickName();
         List<Menu> menus = menuRepository.chooseMenus(menuIds);
         int totalPrice = menus.stream().mapToInt(Menu::getPrice).sum();
-        OrderSaveForm saveForm = new OrderSaveForm(pickUpPlace, categoryName, restaurantName, address, menuIds, LoginId,totalPrice);
+        OrderSaveForm saveForm = new OrderSaveForm(pickUpPlace, categoryName, restaurantName, address, menuIds, loginId,nickName,totalPrice);
         model.addAttribute("saveForm",saveForm);
         model.addAttribute("menus",menus);
         return "/order/OrderCheck";
@@ -53,7 +54,7 @@ public class OrderCheckController {
     @PostMapping("/select")
     public String orderCheck(@ModelAttribute(name = "saveForm") OrderSaveForm saveForm,HttpSession session, RedirectAttributes redirectAttributes){
         List<Menu> menus = menuRepository.chooseMenus(saveForm.getChooseMenuIds());
-        OrderCheck orderCheck = OrderCheck.createOrder(saveForm.getRestaurantName(), saveForm.getLoginId(),menus);
+        OrderCheck orderCheck = OrderCheck.createOrder(saveForm.getRestaurantName(), saveForm.getLoginId(), saveForm.getNickName(),menus);
         orderCheckRepository.save(orderCheck);
         Long orderId = orderCheck.getId();
         session.setAttribute(ORDER_CHECK_SESSION,orderId);

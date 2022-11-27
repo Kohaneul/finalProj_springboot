@@ -24,6 +24,8 @@ public class BoardSaveForm {
     @NotEmpty
     private String nickName;    //작성자 닉네임
     @NotEmpty
+    private String loginId;    //작성자 아이디
+    @NotEmpty
     private String pickUpName;  //픽업장소
     @NotEmpty
     private String category;    //음식 카테고리
@@ -39,8 +41,9 @@ public class BoardSaveForm {
     private int minOrderPrice;  //최소주문금액
 
 
-    public BoardSaveForm(Long orderId, String nickName, String pickUpName, String category, String restaurantName, int minOrderPrice) {
+    public BoardSaveForm(Long orderId,String loginId, String nickName, String pickUpName, String category, String restaurantName, int minOrderPrice) {
         this.orderId = orderId;
+        this.loginId = loginId;
         this.nickName = nickName;
         this.pickUpName = pickUpName;
         this.category = category;

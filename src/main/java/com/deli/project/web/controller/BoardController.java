@@ -7,6 +7,7 @@ import com.deli.project.domain.repository.OrderCheckRepository;
 import com.deli.project.domain.service.*;
 import com.deli.project.web.controller.form.BoardSaveForm;
 import com.deli.project.web.controller.form.CommentSaveForm;
+import com.deli.project.web.controller.form.CommentUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -48,7 +49,7 @@ public class BoardController {
         PickUp pickUp = pickUpService.findOne(SessionValue.getValue(session, PICKUP_SESSION));
         Category category = categoryService.findOne(SessionValue.getValue(session, CATEGORY_SESSION));
         Restaurant restaurant = restaurantService.findOne(SessionValue.getValue(session, RESTAURANT_SESSION));
-        BoardSaveForm boardForm = new BoardSaveForm(orderId,member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),restaurant.getMinOrderPrice());
+        BoardSaveForm boardForm = new BoardSaveForm(orderId,member.getLoginId(),member.getNickName(),pickUp.getPlaceName(),category.getCategoryName(),restaurant.getRestaurantName(),restaurant.getMinOrderPrice());
         return boardForm;
     }
 
@@ -59,8 +60,6 @@ public class BoardController {
             return "/board/BoardForm";
         }
         OrderCheck orderCheck = orderCheckRepository.findOne(form.getOrderId());
-        log.info("content={}",form.getContent());
-        log.info("title={}",form.getTitle());
         Board board = Board.createBoard(orderCheck,form.getTitle(),form.getContent());
         boardRepository.save(board);
         log.info("저장 완료");
@@ -74,7 +73,7 @@ public class BoardController {
         Board board = boardRepository.findOne(boardId);
         model.addAttribute("board",board);
         session.removeAttribute(CATEGORY_SESSION);
-        session.removeAttribute(RESTAURANT_SESSION);
+//        session.removeAttribute(RESTAURANT_SESSION);
         session.removeAttribute(MENU_SESSION);
         session.removeAttribute(ORDER_CHECK_SESSION);
         return "/board/BoardDetail";
@@ -117,6 +116,31 @@ public class BoardController {
         Board board = boardRepository.findOne(boardId);
         Comment comment = new Comment(loginId,board,commentForm.getContent());
         boardRepository.saveComment(boardId,comment);
+        redirectAttributes.addAttribute("boardId",boardId);
+        return "redirect:/board/{boardId}/view";
+    }
+
+    //댓글 수정하기
+    @GetMapping("/board/comment/{boardId}/edit/{commentId}")
+    public String updateComment(@PathVariable Long boardId,@PathVariable Long commentId,Model model){
+        Board board = boardRepository.findOne(boardId);
+        Comment comment = boardRepository.findBoardInComment(boardId, commentId);
+        CommentUpdateForm commentForm = new CommentUpdateForm(commentId,comment.getContent());
+        model.addAttribute("board",board);
+        model.addAttribute("commentForm",commentForm);
+        return "/board/Board_Comment";
+    }
+    @PostMapping("/board/comment/{boardId}/edit/{commentId}")
+    public String updateComment(@PathVariable Long boardId,@PathVariable Long commentId,@ModelAttribute("commentForm")CommentUpdateForm commentForm, RedirectAttributes redirectAttributes){
+        boardRepository.updateComment(commentId,commentForm);
+        redirectAttributes.addAttribute("boardId",boardId);
+        return "redirect:/board/{boardId}/view";
+    }
+
+    //댓글 지우기
+    @GetMapping("/board/comment/{boardId}/delete/{commentId}")
+    public String updateComment(@PathVariable Long boardId,@PathVariable Long commentId, RedirectAttributes redirectAttributes){
+        boardRepository.deleteComment(commentId);
         redirectAttributes.addAttribute("boardId",boardId);
         return "redirect:/board/{boardId}/view";
     }

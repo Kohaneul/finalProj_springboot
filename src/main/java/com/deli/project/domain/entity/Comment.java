@@ -32,14 +32,23 @@ public class Comment {
         this.board = board;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+        this.localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss"));
+    }
+
     private String content;
 
     private String localDateTime;
+
+
+
 
     public Comment (String memberLoginId, Board board, String content){
         this.memberLoginId = memberLoginId;
         this.board = board;
         this.content = content;
         this.localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss"));
+
     }
 }

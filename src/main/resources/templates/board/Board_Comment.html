@@ -26,31 +26,27 @@
                         <table class="table table-striped">
                             <tbody>
                             댓글 LIST
-                            <td class="nickNameTd">닉네임</td>
-                            <td class="contentTd">내용</td>
-                            <td class="localDateTimeTd">시간</td>
-                            <td class="buttonTd"></td>
+                            <td>닉네임</td>
+                            <td>내용</td>
+                            <td>시간</td>
+<!--                            <td></td>-->
                             <tr th:each="comment : ${board.comments}">
-                                <td class="nickNameTd" th:text="${comment.memberLoginId}"></td>
-                                <td class="contentTd" th:text="${comment.content}"></td>
-                                <td id="localDateTimeTd2" th:text="${comment.localDateTime}"></td>
-                                <td class="buttonTd"><a th:if="${session.SESSION_ID.toString().contains('admin')} or ${#strings.equals(session.LOGIN_ID.toString(),comment.memberLoginId)}"
-                                       href="#" th:href="@{/board/comment/{boardId}/edit/{commentId} (boardId=${board.id} , commentId=${comment.id})}" class="btn btn-primary" role="button">수정</a>
-                                <a th:if="${#strings.equals(session.LOGIN_ID.toString(),comment.memberLoginId)}"
-                                       href="#" th:href="@{/board/comment/{boardId}/delete/{commentId} (boardId=${board.id} , commentId=${comment.id})}" class="btn btn-primary" role="button">삭제</a>
-                                <a th:if="${#strings.equals(session.LOGIN_ID.toString(),board.order.loginId)}"
-                                   href="#" th:href="@{/board/join/{boardId} (boardId=${board.id})}" class="btn btn-primary" role="button">참여</a></td>
-                            </tr>
+                                <td th:text="${comment.memberLoginId}"></td>
+                                <td th:text="${comment.content}"></td>
+                                <td th:text="${comment.localDateTime}"></td>
+<!--                                <td><a th:if="${session.SESSION_ID.toString().contains('admin')} or ${#strings.equals(session.LOGIN_ID.toString(),comment.memberLoginId)}"-->
+<!--                                       href="#" th:href="@{/comment/{boardId}/edit/{commentId} (boardId=${board.id} , commentId=${comment.id})}" class="btn btn-primary" role="button">확인</a></td>-->
+<!--                            </tr>-->
                             </tbody>
                         </table>
+
                     </div>
                 </div>
                 <div id="comment">
                 <form role="form" th:object=${commentForm} method="post">
-                     <input type="hidden" value="${board.id}">
-                    <input type="hidden" value="${board.loginId}">
-                    <input type="text" placeholder="댓글을 입력하세요" th:field="*{content}">
-                    <button type="submit">댓글 올리기</button>
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <input type="text" name="content" th:field="*{content}">
+                    <button type="submit">확인</button>
                 </form>
                 </div>
     <script th:inline="javascript">

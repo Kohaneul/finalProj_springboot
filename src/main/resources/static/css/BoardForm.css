@@ -3,14 +3,14 @@ max-width: 1000px;
 
 }
 form{
- margin-top:70px;
+ margin-top:5%;
 }
 #h3Style{
     margin-left:56%;
     }
 
 #bottomSpace{
- padding-bottom:220px;
+ padding-bottom:19%;
 }
 .fieldError {
 border-color: #dc3545;
@@ -35,11 +35,11 @@ color: #dc3545;
 }
 .btn-primary{
  margin-left:29%;
- margin-top:11%;
+ margin-top:7.5%;
  position: absolute;
 
 }
 #content{
- height:200px;
+ height:150px;
 }
 

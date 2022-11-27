@@ -9,7 +9,30 @@
     margin-left:30%;
     margin-bottom:7%;
 }
+.nickNameTd{
+    width: 13%;
+}
 
+.buttonTd{
+	width:16%;
+
+}
+.buttonTd a{
+	display: inline;
+	padding:inherit;
+}
+
+.contentTd{
+    width: 45%;
+}
+
+.localDateTimeTd{
+    width: 12%;
+}
+
+#localDateTimeTd2{
+    font-size:11px;
+}
 #h3Style{
     margin-top:-120px;
     margin-left:56%;

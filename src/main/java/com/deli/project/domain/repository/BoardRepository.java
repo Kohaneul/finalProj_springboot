@@ -3,9 +3,10 @@ package com.deli.project.domain.repository;
 import com.deli.project.domain.entity.Board;
 import com.deli.project.domain.entity.Comment;
 import com.deli.project.domain.service.BoardSearchDto;
-import com.deli.project.web.controller.form.CommentSaveForm;
+import com.deli.project.web.controller.form.CommentUpdateForm;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import static com.deli.project.domain.entity.QBoard.board;
  * 게시글 저장소
  * */
 @Repository
+@Slf4j
 @Transactional(readOnly = true)
 public class BoardRepository{
 
@@ -40,7 +42,26 @@ public class BoardRepository{
         board.setComments(comment);
     }
 
+    public Comment findComment(Long commentId){
+        return em.find(Comment.class,commentId);
+    }
 
+    public Comment findBoardInComment(Long boardId, Long commentId){
+        Board board = findOne(boardId);
+        Comment comment = board.getComments().stream().filter(c -> c.equals(findComment(commentId))).findFirst().orElse(null);
+        return comment;
+    }
+    @Transactional
+    public void updateComment(Long commentId, CommentUpdateForm commentUpdateForm){
+        Comment comment = findComment(commentId);
+        comment.setContent(commentUpdateForm.getContent());
+    }
+
+    @Transactional
+    public void deleteComment(Long commentId){
+        Comment comment = findComment(commentId);
+        em.remove(comment);
+    }
 
     public Board findOne(Long id){
         return em.find(Board.class,id);

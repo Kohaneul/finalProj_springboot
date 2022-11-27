@@ -16,7 +16,7 @@
       <label th:for="loginId">주문번호</label>
       <input type="text" th:field="*{orderId}" class="form-control" readonly>
     </div>
-
+      <input type="hidden" th:field="*{loginId}">
     <div class="form-group">
       <label th:for="nickName">닉네임</label>
       <input type="text" th:field="*{nickName}" class="form-control"readonly>

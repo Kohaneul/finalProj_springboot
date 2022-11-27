@@ -23,7 +23,8 @@ public class OrderSaveForm {
     private String restaurantName;
     private String address;
     private List<Long> chooseMenuIds;
-    private String LoginId;
+    private String loginId;
+    private String nickName;
     private int totalPrice;
 
 }
