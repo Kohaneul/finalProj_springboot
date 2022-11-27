@@ -10,7 +10,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 게시판 테이블
@@ -32,8 +34,16 @@ public class Board {
     private String localDateTime;
     private String title;
 
+    private int likeCount;
+
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
+
+    public void setCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
 
     private String content;
 

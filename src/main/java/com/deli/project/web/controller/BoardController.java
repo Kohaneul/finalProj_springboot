@@ -128,7 +128,7 @@ public class BoardController {
         CommentUpdateForm commentForm = new CommentUpdateForm(commentId,comment.getContent());
         model.addAttribute("board",board);
         model.addAttribute("commentForm",commentForm);
-        return "/board/Board_Comment";
+        return "/board/comment/Board_Comment";
     }
     @PostMapping("/board/comment/{boardId}/edit/{commentId}")
     public String updateComment(@PathVariable Long boardId,@PathVariable Long commentId,@ModelAttribute("commentForm")CommentUpdateForm commentForm, RedirectAttributes redirectAttributes){
@@ -142,6 +142,14 @@ public class BoardController {
     public String updateComment(@PathVariable Long boardId,@PathVariable Long commentId, RedirectAttributes redirectAttributes){
         boardRepository.deleteComment(commentId);
         redirectAttributes.addAttribute("boardId",boardId);
+        return "redirect:/board/{boardId}/view";
+    }
+
+    //좋아요 카운트
+    @GetMapping("/board/like/{boardId}")
+    public String likeBoard(@PathVariable Long boardId,@SessionAttribute(name = LOGIN_ID)String loginId){
+
+        boardRepository.likeCount(boardId);
         return "redirect:/board/{boardId}/view";
     }
 

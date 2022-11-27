@@ -21,6 +21,12 @@
                 <div>
                     <ul id="content">내용 : <span  th:text="${board.content}"></span></ul>
                 </div>
+                <div id="imagePart">
+                    <a  th:href="@{/board/like/{boardId} (boardId=${board.id})}">
+                    <img src="https://static.vecteezy.com/system/resources/previews/005/644/880/original/red-heart-in-pixel-art-style-8-bit-icon-valentine-s-day-symbol-free-vector.jpg">
+                    </a>
+                    <div id = "likeCount">찜하기 : <span th:text="${board.likeCount}"></span></div>
+                </div>
                 <div th:if="${board.comments.size()>0}">
                     <div id="commentList">
                         <table class="table table-striped">

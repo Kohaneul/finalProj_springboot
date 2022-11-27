@@ -14,7 +14,6 @@
             <thead>
             <tr th:each="menu : ${menuList}">
                 <td><input type="checkbox" name = "menuId" th:value="${menu.id}" /></td>
-<!--                <td><input type="checkbox" name = "menuId" th:value="${menu.id}" th:onclick="checks(this)" /></td>-->
                 <td th:text="${menu.name}"></td> :
                 <td th:text="${menu.price}"></td><br>
             </tr>

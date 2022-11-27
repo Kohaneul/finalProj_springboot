@@ -58,6 +58,14 @@ public class BoardRepository{
     }
 
     @Transactional
+    public void likeCount(Long boardId){
+        Board board = findOne(boardId);
+        int count = board.getLikeCount()+1;
+        board.setCount(count);
+        log.info("*******board count={}",board.getLikeCount());
+    }
+
+    @Transactional
     public void deleteComment(Long commentId){
         Comment comment = findComment(commentId);
         em.remove(comment);
