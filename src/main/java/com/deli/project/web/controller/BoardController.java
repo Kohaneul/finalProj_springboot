@@ -1,10 +1,10 @@
 package com.deli.project.web.controller;
 
-import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.BoardRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
 import com.deli.project.domain.service.*;
+import com.deli.project.web.controller.form.BoardLikeForm;
 import com.deli.project.web.controller.form.BoardSaveForm;
 import com.deli.project.web.controller.form.CommentSaveForm;
 import com.deli.project.web.controller.form.CommentUpdateForm;
@@ -18,7 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.deli.project.domain.ConstEntity.*;
 /**
@@ -36,6 +38,7 @@ public class BoardController {
     private final CategoryService categoryService;
     private final RestaurantService restaurantService;
     private final PickUpService pickUpService;
+    private Map<String,Integer> boardMap = new HashMap<>();
 
     @GetMapping("/board/new/{orderId}")
     public String board(@PathVariable("orderId")Long orderId,HttpSession session, Model model){
@@ -148,8 +151,8 @@ public class BoardController {
     //좋아요 카운트
     @GetMapping("/board/like/{boardId}")
     public String likeBoard(@PathVariable Long boardId,@SessionAttribute(name = LOGIN_ID)String loginId){
-
-        boardRepository.likeCount(boardId);
+        BoardLikeForm boardLikeCount = new BoardLikeForm(boardId,loginId);
+        boardRepository.likeCount(boardLikeCount,boardMap);
         return "redirect:/board/{boardId}/view";
     }
 

@@ -3,6 +3,7 @@ package com.deli.project.domain.repository;
 import com.deli.project.domain.entity.Board;
 import com.deli.project.domain.entity.Comment;
 import com.deli.project.domain.service.BoardSearchDto;
+import com.deli.project.web.controller.form.BoardLikeForm;
 import com.deli.project.web.controller.form.CommentUpdateForm;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Map;
 
 import static com.deli.project.domain.entity.QBoard.board;
 
@@ -58,11 +60,18 @@ public class BoardRepository{
     }
 
     @Transactional
-    public void likeCount(Long boardId){
-        Board board = findOne(boardId);
-        int count = board.getLikeCount()+1;
-        board.setCount(count);
-        log.info("*******board count={}",board.getLikeCount());
+    public void likeCount(BoardLikeForm boardLikeForm, Map<String,Integer> likeMap){
+        String str = boardLikeForm.getCommentLoginId()+"&"+boardLikeForm.getBoardId();
+        Board board = findOne(boardLikeForm.getBoardId());
+        String loginId = board.getOrder().getLoginId();
+        if(loginId.equals(boardLikeForm.getCommentLoginId())||likeMap.get(str)!=null){
+            return;
+        }
+        else{
+            int likeCount = board.getLikeCount();
+            board.setCount(likeCount+1);
+            likeMap.put(str,0);
+        }
     }
 
     @Transactional
