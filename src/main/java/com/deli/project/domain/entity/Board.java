@@ -27,12 +27,12 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
-
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private OrderCheck order;
     private String localDateTime;
     private String title;
+    private String loginId;
 
     private int likeCount;
 
@@ -65,14 +65,18 @@ public class Board {
         this.content = content;
     }
 
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 
     public void setLocalDateTime(String localDateTime) {
         this.localDateTime = localDateTime;
     }
 
-    public static Board createBoard(OrderCheck order, String title, String content){
+    public static Board createBoard(OrderCheck order, String loginId,String title, String content){
        Board board = new Board();
         board.setOrder(order);
+        board.setLoginId(loginId);
         board.setTitle(title);
         board.setContent(content);
         board.setLocalDateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss")));

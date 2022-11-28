@@ -2,10 +2,12 @@ package com.deli.project.domain.repository;
 
 import com.deli.project.domain.entity.Board;
 import com.deli.project.domain.entity.Comment;
+import com.deli.project.domain.entity.QOrderCheck;
 import com.deli.project.domain.service.BoardSearchDto;
 import com.deli.project.web.controller.form.BoardLikeForm;
 import com.deli.project.web.controller.form.CommentUpdateForm;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -91,23 +93,23 @@ public class BoardRepository{
 
     //게시글 조회 => 게시글 제목에 특정 숫자가 들어있는지 , 게시글 제목에 로그인 아이디가 포함되어있는지 여부에 따라서 조회
     public List<Board> findAll(BoardSearchDto boardSearchDto){
-        String nickName = boardSearchDto.getNickName();
+        String loginId = boardSearchDto.getLoginId();
         String title = boardSearchDto.getTitle();
-        return query.select(board).from(board).where(containsNickName(nickName),containsTitle(title)).fetch();
+        return query.select(board).from(board).where(containsLoginId(loginId),containsTitle(title)).fetch();
     }
 
-    private BooleanBuilder containsTitle(String title) {
-        if(title==null){
-        return new BooleanBuilder();
+    private BooleanExpression containsTitle(String title) {
+        if(title!=null){
+            return board.title.contains(title);
         }
-        return new BooleanBuilder(board.title.contains(title));
+        return null;
     }
 
-    private BooleanBuilder containsNickName(String nickName) {
-        if(nickName==null){
-            return new BooleanBuilder();
+    private BooleanExpression containsLoginId(String loginId) {
+        if(loginId!=null){
+            return board.loginId.contains(loginId);
         }
-        return new BooleanBuilder(board.order.nickName.eq(nickName));
+        return null;
     }
 
 

@@ -1,5 +1,6 @@
 package com.deli.project.web.controller;
 
+import com.deli.project.domain.ConstEntity;
 import com.deli.project.domain.entity.*;
 import com.deli.project.domain.repository.BoardRepository;
 import com.deli.project.domain.repository.OrderCheckRepository;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.deli.project.domain.ConstEntity.*;
+
 /**
  * 게시글 작성
  *
@@ -63,9 +65,8 @@ public class BoardController {
             return "/board/BoardForm";
         }
         OrderCheck orderCheck = orderCheckRepository.findOne(form.getOrderId());
-        Board board = Board.createBoard(orderCheck,form.getTitle(),form.getContent());
+        Board board = Board.createBoard(orderCheck,form.getLoginId(),form.getTitle(),form.getContent());
         boardRepository.save(board);
-        log.info("저장 완료");
         Long boardId = board.getId();
         redirectAttributes.addAttribute("boardId",boardId);
         return "redirect:/board/{boardId}";
@@ -86,7 +87,7 @@ public class BoardController {
     @GetMapping("/boards")
     public String boardAll(@ModelAttribute("boardSearch")BoardSearchDto boardSearch, Model model){
         List<Board> boards = boardRepository.findAll(boardSearch);
-        boardTextedit(boards);
+//        boardTextedit(boards);
         model.addAttribute("boards",boards);
         return "/board/BoardAll";
     }
@@ -106,12 +107,27 @@ public class BoardController {
 
     //글 상세 보기 ( +댓글까지)
     @GetMapping("/board/{boardId}/view")
-    public String saveComment(@PathVariable Long boardId, Model model){
+    public String saveComment(@PathVariable Long boardId, Model model, @SessionAttribute(PICKUP_SESSION)Long pickUpId){
         Board board = boardRepository.findOne(boardId);
+        PickUp pickUp = pickUpService.findOne(pickUpId);
+        String pickUpName = pickUp.getPlaceName() + "("+pickUp.getAddress()+")";
         model.addAttribute("board",board);
+        model.addAttribute("pickUpName",pickUpName);
         model.addAttribute("commentForm",new CommentSaveForm());
         return "/board/BoardView";
     }
+
+    @GetMapping("/board/{boardId}/view/menu")
+    public String viewMenu(@PathVariable Long boardId, Model model, @SessionAttribute(RESTAURANT_SESSION)Long restaurantId){
+        Restaurant restaurant = restaurantService.findOne(restaurantId);
+        List<Menu> menuList = restaurant.getMenuList();
+        String restaurantName = restaurant.getRestaurantName();
+        model.addAttribute("boardId",boardId);
+        model.addAttribute("restaurantName",restaurantName);
+        model.addAttribute("menuList",menuList);
+        return "/board/menu/MenuView";
+    }
+
 
     //댓글 등록
     @PostMapping("/board/{boardId}/view")

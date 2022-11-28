@@ -10,10 +10,19 @@
         <h3 id="h3Style">글 정보</h3>
             <div id="boardForm">
                 <div>
-                    <ul id="id">글번호 : <span  th:text="${board.id}"></span></ul>
+                    <ul id="id">글번호 : <span id="boardId" value="${board.id}" th:text="${board.id}"></span></ul>
                 </div>
                 <div>
                     <ul id="loginId">닉네임 : <span  th:text="${board.order.nickName}"></span></ul>
+                </div>
+                <div>
+                    <ul id="restaurantName">식당명 : <span><span  th:text="${board.order.restaurantName}"></span>
+                     <button type="button" class="btn btn-primary" th:onclick= "onClick()" >메뉴보기</button>
+
+                    </span></ul>
+                </div>
+                <div>
+                    <ul id="pickupPlace">픽업장소 : <span  th:text="${pickUpName}" ></span></ul>
                 </div>
                 <div>
                     <ul id="title">제목 : <span  th:text="${board.title}" ></span></ul>
@@ -56,19 +65,25 @@
                      <input type="hidden" value="${board.id}">
                     <input type="hidden" value="${board.loginId}">
                     <input type="text" placeholder="댓글을 입력하세요" th:field="*{content}">
-                    <button type="submit">댓글 올리기</button>
+                    <button type="submit" class="btn btn-primary" >댓글 올리기</button>
                 </form>
                 </div>
-    <script th:inline="javascript">
-         /*<![CDATA[*/
 
-  		function onClick(){
-  			alert("리스트로 돌아갑니다.");
-  			 location.href = "/board/all";
- 		}
- 		/*]]>*/
-</script>
+                <div id="borderStyle"></div>
             </div>
+
+        <script th:inline="javascript">
+            function onClick(){
+            let boardId= [[${board.id}]]
+  			let popupWidth = 500;
+  			let popupHeight = 600;
+  			let left = Math.ceil((window.screen.width-popupWidth)/2);
+  			let top = Math.ceil((window.screen.height-popupHeight)/2);
+ 		    openWin = window.open("/board/"+boardId+"/view/menu","childForm","width="+popupWidth+",height="+popupHeight+",left="+left+",top="+top+"resizable=no")
+ 		    }
+
+        </script>
+
         <script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
         <div th:replace="fragments/footer :: footer" />
     </div>

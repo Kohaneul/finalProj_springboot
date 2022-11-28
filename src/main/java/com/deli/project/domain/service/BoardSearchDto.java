@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class BoardSearchDto {
-    private String nickName;
+    private String loginId;
     private String title;
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/MenuSelect.css}"/>
+<title>메뉴고르기</title>
+
+<body>
+<div class="container">
+
+    <h3 id="h4Style">메뉴 보기</h3>
+
+    <div id = "Ctitle"> [  <span th:text="${restaurantName}"></span> ] 메뉴판 </div>
+    <div id="CForm">
+        <form name="childForm" target="popupName">
+            <thead>
+            <tr th:each="menu : ${menuList}">
+                <td th:text="${menu.name}"></td> :
+                <td th:text="${menu.price}"></td><br>
+            </tr>
+            </tbody>
+            </table>
+            <button type="button" id = "btn1" th:onclick="onClose()"> 닫기</button>
+        </form>
+    </div>
+</div>
+
+
+<script th:inline="javascript">
+
+        function onClose(){
+        let boardId= [[${boardId}]]
+        open("/board/"+boardId+"/view");
+        self.close();
+    }
+
+</script>
+<script type="text/javascript" th:src="@{/js/buttonHover.js}"></script>
+
+</body>
+</html>
